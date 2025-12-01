@@ -1,0 +1,9 @@
+2025-11-15 20:58:32,880 - INFO - Pipeline Mode => PROTOTYPE | DOWNLOAD=False, SPLIT=False, UPLOAD=False, TRAIN=True
+2025-11-15 20:58:32,880 - INFO - Starting model training.
+2025-11-15 20:58:32,880 - INFO - Starting model training.
+2025-11-15 20:58:32,880 - INFO - Using device: cpu
+2025-11-15 21:12:16,614 - INFO - Epoch 1: Train 9.41%, Val 19.44%
+2025-11-15 21:12:16,703 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251115_205828/dress_type_model_epoch_1_acc_19.44.pth
+2025-11-15 21:12:18,360 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251115_205828/dress_type_model_epoch_1_acc_19.44.pth
+2025-11-15 21:12:18,361 - INFO - Training complete! Best Val Acc: 0.00%
+2025-11-15 21:12:55,703 - INFO - All selected pipeline stages complete. Execution finished.

@@ -1,0 +1,50 @@
+2025-11-21 08:12:41,432 - INFO - Pipeline Mode => PROTOTYPE | DOWNLOAD=True, SPLIT=True, UPLOAD=True, TRAIN=True
+2025-11-21 08:12:41,433 - INFO - Starting dataset download.
+2025-11-21 08:12:41,433 - INFO - Downloading dataset from s3://dm-project-pattern-model/dataset/
+2025-11-21 08:55:20,015 - ERROR - Failed to download dataset/myntradataset/images/20986.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,030 - ERROR - Failed to download dataset/myntradataset/images/20988.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,045 - ERROR - Failed to download dataset/myntradataset/images/2099.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,058 - ERROR - Failed to download dataset/myntradataset/images/20990.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,073 - ERROR - Failed to download dataset/myntradataset/images/20994.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,087 - ERROR - Failed to download dataset/myntradataset/images/20996.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,099 - ERROR - Failed to download dataset/myntradataset/images/20998.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,113 - ERROR - Failed to download dataset/myntradataset/images/2100.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,126 - ERROR - Failed to download dataset/myntradataset/images/21000.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,142 - ERROR - Failed to download dataset/myntradataset/images/21001.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,155 - ERROR - Failed to download dataset/myntradataset/images/21006.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,170 - ERROR - Failed to download dataset/myntradataset/images/21008.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,186 - ERROR - Failed to download dataset/myntradataset/images/2101.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,203 - ERROR - Failed to download dataset/myntradataset/images/21012.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,221 - ERROR - Failed to download dataset/myntradataset/images/21013.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,238 - ERROR - Failed to download dataset/myntradataset/images/21014.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,255 - ERROR - Failed to download dataset/myntradataset/images/21015.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,276 - ERROR - Failed to download dataset/myntradataset/images/21016.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,293 - ERROR - Failed to download dataset/myntradataset/images/21017.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,308 - ERROR - Failed to download dataset/myntradataset/images/21018.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,323 - ERROR - Failed to download dataset/myntradataset/images/21019.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,338 - ERROR - Failed to download dataset/myntradataset/images/2102.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,356 - ERROR - Failed to download dataset/myntradataset/images/21020.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,373 - ERROR - Failed to download dataset/myntradataset/images/21021.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,389 - ERROR - Failed to download dataset/myntradataset/images/21022.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,407 - ERROR - Failed to download dataset/myntradataset/images/21023.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,427 - ERROR - Failed to download dataset/myntradataset/images/21024.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,443 - ERROR - Failed to download dataset/myntradataset/images/21026.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,457 - ERROR - Failed to download dataset/myntradataset/images/2103.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,473 - ERROR - Failed to download dataset/myntradataset/images/21030.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,491 - ERROR - Failed to download dataset/myntradataset/images/21034.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,505 - ERROR - Failed to download dataset/myntradataset/images/21038.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,520 - ERROR - Failed to download dataset/myntradataset/images/2104.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 08:55:20,533 - ERROR - Failed to download dataset/myntradataset/images/21042.jpg: An error occurred (404) when calling the HeadObject operation: Not Found
+2025-11-21 09:28:52,908 - INFO - Dataset download complete! Total files downloaded: 79271
+2025-11-21 09:28:52,909 - INFO - Starting dataset split.
+2025-11-21 09:28:52,909 - INFO - Starting split_data
+2025-11-21 09:29:13,022 - INFO - Valid images found: 44441
+2025-11-21 09:29:13,217 - INFO - Saved train: 32000 -> /home/ec2-user/dm-project/dress_pattern_color_model/dataset_splitted/train
+2025-11-21 09:29:13,217 - INFO - Saved val: 8000 -> /home/ec2-user/dm-project/dress_pattern_color_model/dataset_splitted/val
+2025-11-21 09:29:13,279 - INFO - Uploading split dataset to S3.
+2025-11-21 09:29:13,279 - INFO - Uploading from /home/ec2-user/dm-project/dress_pattern_color_model/dataset_splitted to s3://dm-project-pattern-model/dataset_splitted/dataset_splitted_20251121_081237/ ...
+2025-11-21 09:29:13,445 - INFO - Upload complete at s3://dm-project-pattern-model/dataset_splitted/dataset_splitted_20251121_081237/
+2025-11-21 09:29:13,445 - INFO - Starting model training.
+2025-11-21 09:29:13,445 - INFO - Starting CSV-based training run (ResNet50).
+2025-11-21 09:29:13,445 - INFO - Using device: cpu
+2025-11-21 09:29:13,445 - INFO - Reading train CSV: /home/ec2-user/dm-project/dress_pattern_color_model/dataset_splitted/train

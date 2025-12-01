@@ -1,0 +1,17 @@
+2025-11-15 16:54:37,838 - INFO - Pipeline Mode → PROTOTYPE | DOWNLOAD=True, SPLIT=True, UPLOAD=True, TRAIN=True
+2025-11-15 16:54:37,839 - INFO - Starting dataset download.
+2025-11-15 16:54:37,839 - INFO - Downloading dataset from s3://data-management-dataset-2/prototype-dataset/
+2025-11-15 16:58:44,939 - INFO - Dataset download complete! Total files downloaded: 4378
+2025-11-15 16:58:44,939 - INFO - Starting dataset split.
+2025-11-15 16:58:44,939 - INFO - Splitting dataset.
+2025-11-15 16:58:45,449 - INFO - Dataset split complete!
+2025-11-15 16:58:45,449 - INFO - Uploading split dataset to S3.
+2025-11-15 16:58:45,449 - INFO - Uploading from /home/ec2-user/dm-project/prototype_model/prototype_dataset_splitted/prototype_dataset_splitted_20251115_165433 to s3://data-management-dataset-2/prototype_dataset_splitted/prototype_dataset_splitted_20251115_165433/ ...
+2025-11-15 17:01:38,430 - INFO - Upload complete at s3://data-management-dataset-2/prototype_dataset_splitted/prototype_dataset_splitted_20251115_165433/
+2025-11-15 17:01:38,430 - INFO - Starting model training.
+2025-11-15 17:01:38,430 - INFO - Starting model training.
+2025-11-15 17:01:38,431 - INFO - Using device: cpu
+2025-11-15 17:16:53,166 - INFO - Epoch 1: Train 9.26%, Val 20.09%
+2025-11-15 17:16:53,254 - INFO - Saved model → /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251115_165433/dress_type_model_epoch_1_acc_20.09.pth
+2025-11-15 17:16:54,787 - INFO - Uploaded to S3 → s3://data-management-dataset-2/prototype_trained_models/resnet50_20251115_165433/dress_type_model_epoch_1_acc_20.09.pth
+2025-11-15 17:16:54,787 - INFO - Training complete! Best Val Acc: 0.00%

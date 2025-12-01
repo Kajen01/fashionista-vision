@@ -1,0 +1,112 @@
+2025-11-16 16:19:26,654 - INFO - Pipeline Mode => MAIN | DOWNLOAD=True, SPLIT=True, UPLOAD=True, TRAIN=True
+2025-11-16 16:19:26,655 - INFO - Starting dataset download.
+2025-11-16 16:19:26,655 - INFO - Downloading dataset from s3://data-management-dataset-1/img-dress_type/
+2025-11-16 21:23:22,344 - INFO - Dataset download complete! Total files downloaded: 289216
+2025-11-16 21:23:22,345 - INFO - Starting dataset split.
+2025-11-16 21:23:22,345 - INFO - Splitting dataset.
+2025-11-16 21:24:30,733 - INFO - Dataset split complete!
+2025-11-16 21:24:30,733 - INFO - Uploading split dataset to S3.
+2025-11-16 21:24:30,733 - INFO - Uploading from /home/ec2-user/dm-project/main_model/main_dataset_splitted to s3://data-management-dataset-1/dataset_splitted/dataset_splitted_20251116_161922/ ...
+2025-11-17 00:43:09,627 - INFO - Upload complete at s3://data-management-dataset-1/dataset_splitted/dataset_splitted_20251116_161922/
+2025-11-17 00:43:09,627 - INFO - Starting model training.
+2025-11-17 00:43:09,627 - INFO - Starting model training.
+2025-11-17 00:43:09,627 - INFO - Using device: cpu
+2025-11-17 00:43:09,655 - INFO - Renamed folder: Boucl&eacute;_&_Faux_Leather_Shorts => Bouclé_&_Faux_Leather_Shorts
+2025-11-17 00:43:09,655 - INFO - Renamed folder: Boucl&eacute;_Knit_Cardigan => Bouclé_Knit_Cardigan
+2025-11-17 00:43:09,660 - INFO - Renamed folder: Boxy_Ombr&eacute;_Tee => Boxy_Ombré_Tee
+2025-11-17 00:43:09,676 - INFO - Renamed folder: Charming_Boucl&eacute;_Dress => Charming_Bouclé_Dress
+2025-11-17 00:43:09,691 - INFO - Renamed folder: Collarless_A-Line_Boucl&eacute;_Coat => Collarless_A-Line_Bouclé_Coat
+2025-11-17 00:43:09,691 - INFO - Renamed folder: Collarless_Boucl&eacute;_Coat => Collarless_Bouclé_Coat
+2025-11-17 00:43:09,695 - INFO - Renamed folder: Colorblocked_Toujours_la_V&ocirc;tre_Tank => Colorblocked_Toujours_la_Vôtre_Tank
+2025-11-17 00:43:09,698 - INFO - Renamed folder: Cr&egrave;me_De_La_Cr&egrave;me_Muscle_Tee => Crème_De_La_Crème_Muscle_Tee
+2025-11-17 00:43:09,711 - INFO - Renamed folder: Cuddled_Up_Boucl&eacute;_Cardigan => Cuddled_Up_Bouclé_Cardigan
+2025-11-17 00:43:09,718 - INFO - Renamed folder: Damask_Matelass&eacute;_Skater_Skirt => Damask_Matelassé_Skater_Skirt
+2025-11-17 00:43:09,725 - INFO - Renamed folder: Distressed_Open-Knit_Ombr&eacute;_Sweater => Distressed_Open-Knit_Ombré_Sweater
+2025-11-17 00:43:09,731 - INFO - Renamed folder: Eagle_Graphic_Macram&eacute;_Tank => Eagle_Graphic_Macramé_Tank
+2025-11-17 00:43:09,747 - INFO - Renamed folder: Fianc&eacute;_Graphic_Tee => Fiancé_Graphic_Tee
+2025-11-17 00:43:09,766 - INFO - Renamed folder: Fringed_Macram&eacute;_Shift_Dress => Fringed_Macramé_Shift_Dress
+2025-11-17 00:43:09,767 - INFO - Renamed folder: Fringed_Rose_Devor&eacute;_Kimono => Fringed_Rose_Devoré_Kimono
+2025-11-17 00:43:09,769 - INFO - Renamed folder: Geo_Matelass&eacute;_Dress => Geo_Matelassé_Dress
+2025-11-17 00:43:09,770 - INFO - Renamed folder: Glitter_Lam&eacute;_Cami_Dress => Glitter_Lamé_Cami_Dress
+2025-11-17 00:43:09,788 - INFO - Renamed folder: Kurt_Cobain&trade;_Muscle_Tee => Kurt_Cobain™_Muscle_Tee
+2025-11-17 00:43:09,809 - INFO - Renamed folder: Macram&eacute;-Back_LA_Tank => Macramé-Back_LA_Tank
+2025-11-17 00:43:09,810 - INFO - Renamed folder: Macram&eacute;-Back_Tank => Macramé-Back_Tank
+2025-11-17 00:43:09,811 - INFO - Renamed folder: Marled_Boucl&eacute;_Moto_Jacket => Marled_Bouclé_Moto_Jacket
+2025-11-17 00:43:09,813 - INFO - Renamed folder: Marled_Knit_Ombr&eacute;_Sweater => Marled_Knit_Ombré_Sweater
+2025-11-17 00:43:09,814 - INFO - Renamed folder: Marled_Ombr&eacute;_Sweater => Marled_Ombré_Sweater
+2025-11-17 00:43:09,817 - INFO - Renamed folder: Matelass&eacute;_Fit_&_Flare_Dress => Matelassé_Fit_&_Flare_Dress
+2025-11-17 00:43:09,817 - INFO - Renamed folder: Matelass&eacute;_Pencil_Skirt => Matelassé_Pencil_Skirt
+2025-11-17 00:43:09,817 - INFO - Renamed folder: Matelass&eacute;_Rose_Skater_Dress => Matelassé_Rose_Skater_Dress
+2025-11-17 00:43:09,817 - INFO - Renamed folder: Matelass&eacute;_Skater_Dress => Matelassé_Skater_Dress
+2025-11-17 00:43:09,817 - INFO - Renamed folder: Matelass&eacute;_Stripe_Panel_Skirt => Matelassé_Stripe_Panel_Skirt
+2025-11-17 00:43:09,818 - INFO - Renamed folder: Mateless&eacute;_Origami_Skirt => Matelessé_Origami_Skirt
+2025-11-17 00:43:09,829 - INFO - Renamed folder: Ombr&eacute;_Contrast_Workout_Shorts => Ombré_Contrast_Workout_Shorts
+2025-11-17 00:43:09,829 - INFO - Renamed folder: Ombr&eacute;_Contrast_Workout_Tank => Ombré_Contrast_Workout_Tank
+2025-11-17 00:43:09,830 - INFO - Renamed folder: Ombr&eacute;_Dolman_Button-Down_Blouse => Ombré_Dolman_Button-Down_Blouse
+2025-11-17 00:43:09,830 - INFO - Renamed folder: Ombr&eacute;_Heart_Muscle_Tee => Ombré_Heart_Muscle_Tee
+2025-11-17 00:43:09,830 - INFO - Renamed folder: Ombr&eacute;_High-Slit_Tank => Ombré_High-Slit_Tank
+2025-11-17 00:43:09,830 - INFO - Renamed folder: Ombr&eacute;_Tank => Ombré_Tank
+2025-11-17 00:43:09,835 - INFO - Renamed folder: Oversized_Boucl&eacute;_Moto_Jacket => Oversized_Bouclé_Moto_Jacket
+2025-11-17 00:43:09,843 - INFO - Renamed folder: Piqu&eacute;_Bodycon_Dress => Piqué_Bodycon_Dress
+2025-11-17 00:43:09,844 - INFO - Renamed folder: Piqu&eacute;_Knit_Paneled_Sweatshorts => Piqué_Knit_Paneled_Sweatshorts
+2025-11-17 00:43:09,844 - INFO - Renamed folder: Piqu&eacute;_Knit_Sweatpants => Piqué_Knit_Sweatpants
+2025-11-17 00:43:09,846 - INFO - Renamed folder: Pleated_Chevron_Matelass&eacute;_Skirt => Pleated_Chevron_Matelassé_Skirt
+2025-11-17 00:43:09,847 - INFO - Renamed folder: Pleated_Floral_Matelass&eacute;_Dress => Pleated_Floral_Matelassé_Dress
+2025-11-17 00:43:09,848 - INFO - Renamed folder: Pleated_Ornate_Matelass&eacute;_Dress => Pleated_Ornate_Matelassé_Dress
+2025-11-17 00:43:09,852 - INFO - Renamed folder: Pom_Pom-Trim_Macram&eacute;_Sweater => Pom_Pom-Trim_Macramé_Sweater
+2025-11-17 00:43:09,888 - INFO - Renamed folder: Strapless_Matelass&eacute;_Skater_Dress => Strapless_Matelassé_Skater_Dress
+2025-11-17 00:43:09,911 - INFO - Renamed folder: Tie-Dye_Macram&eacute;_Maxi_Dress => Tie-Dye_Macramé_Maxi_Dress
+2025-11-17 00:43:09,926 - INFO - Renamed folder: Two-Tone_Boucl&eacute;_Coat => Two-Tone_Bouclé_Coat
+2025-11-17 00:43:09,929 - INFO - Renamed folder: V-Notched_Piqu&eacute;_Skater_Dress => V-Notched_Piqué_Skater_Dress
+2025-11-17 00:43:09,930 - INFO - Renamed folder: Varsity-Striped_Piqu&eacute;_Track_Jacket => Varsity-Striped_Piqué_Track_Jacket
+2025-11-17 00:43:09,960 - INFO - Renamed folder: Boucl&eacute;_&_Faux_Leather_Shorts => Bouclé_&_Faux_Leather_Shorts
+2025-11-17 00:43:09,960 - INFO - Renamed folder: Boucl&eacute;_Knit_Cardigan => Bouclé_Knit_Cardigan
+2025-11-17 00:43:09,962 - INFO - Renamed folder: Boxy_Ombr&eacute;_Tee => Boxy_Ombré_Tee
+2025-11-17 00:43:09,969 - INFO - Renamed folder: Charming_Boucl&eacute;_Dress => Charming_Bouclé_Dress
+2025-11-17 00:43:09,977 - INFO - Renamed folder: Collarless_A-Line_Boucl&eacute;_Coat => Collarless_A-Line_Bouclé_Coat
+2025-11-17 00:43:09,977 - INFO - Renamed folder: Collarless_Boucl&eacute;_Coat => Collarless_Bouclé_Coat
+2025-11-17 00:43:09,979 - INFO - Renamed folder: Colorblocked_Toujours_la_V&ocirc;tre_Tank => Colorblocked_Toujours_la_Vôtre_Tank
+2025-11-17 00:43:09,981 - INFO - Renamed folder: Cr&egrave;me_De_La_Cr&egrave;me_Muscle_Tee => Crème_De_La_Crème_Muscle_Tee
+2025-11-17 00:43:09,987 - INFO - Renamed folder: Cuddled_Up_Boucl&eacute;_Cardigan => Cuddled_Up_Bouclé_Cardigan
+2025-11-17 00:43:09,990 - INFO - Renamed folder: Damask_Matelass&eacute;_Skater_Skirt => Damask_Matelassé_Skater_Skirt
+2025-11-17 00:43:09,994 - INFO - Renamed folder: Distressed_Open-Knit_Ombr&eacute;_Sweater => Distressed_Open-Knit_Ombré_Sweater
+2025-11-17 00:43:09,999 - INFO - Renamed folder: Eagle_Graphic_Macram&eacute;_Tank => Eagle_Graphic_Macramé_Tank
+2025-11-17 00:43:10,008 - INFO - Renamed folder: Fianc&eacute;_Graphic_Tee => Fiancé_Graphic_Tee
+2025-11-17 00:43:10,017 - INFO - Renamed folder: Fringed_Macram&eacute;_Shift_Dress => Fringed_Macramé_Shift_Dress
+2025-11-17 00:43:10,017 - INFO - Renamed folder: Fringed_Rose_Devor&eacute;_Kimono => Fringed_Rose_Devoré_Kimono
+2025-11-17 00:43:10,019 - INFO - Renamed folder: Geo_Matelass&eacute;_Dress => Geo_Matelassé_Dress
+2025-11-17 00:43:10,020 - INFO - Renamed folder: Glitter_Lam&eacute;_Cami_Dress => Glitter_Lamé_Cami_Dress
+2025-11-17 00:43:10,031 - INFO - Renamed folder: Kurt_Cobain&trade;_Muscle_Tee => Kurt_Cobain™_Muscle_Tee
+2025-11-17 00:43:10,042 - INFO - Renamed folder: Macram&eacute;-Back_LA_Tank => Macramé-Back_LA_Tank
+2025-11-17 00:43:10,043 - INFO - Renamed folder: Macram&eacute;-Back_Tank => Macramé-Back_Tank
+2025-11-17 00:43:10,043 - INFO - Renamed folder: Marled_Boucl&eacute;_Moto_Jacket => Marled_Bouclé_Moto_Jacket
+2025-11-17 00:43:10,045 - INFO - Renamed folder: Marled_Knit_Ombr&eacute;_Sweater => Marled_Knit_Ombré_Sweater
+2025-11-17 00:43:10,046 - INFO - Renamed folder: Marled_Ombr&eacute;_Sweater => Marled_Ombré_Sweater
+2025-11-17 00:43:10,047 - INFO - Renamed folder: Matelass&eacute;_Fit_&_Flare_Dress => Matelassé_Fit_&_Flare_Dress
+2025-11-17 00:43:10,047 - INFO - Renamed folder: Matelass&eacute;_Pencil_Skirt => Matelassé_Pencil_Skirt
+2025-11-17 00:43:10,047 - INFO - Renamed folder: Matelass&eacute;_Rose_Skater_Dress => Matelassé_Rose_Skater_Dress
+2025-11-17 00:43:10,047 - INFO - Renamed folder: Matelass&eacute;_Skater_Dress => Matelassé_Skater_Dress
+2025-11-17 00:43:10,048 - INFO - Renamed folder: Matelass&eacute;_Stripe_Panel_Skirt => Matelassé_Stripe_Panel_Skirt
+2025-11-17 00:43:10,048 - INFO - Renamed folder: Mateless&eacute;_Origami_Skirt => Matelessé_Origami_Skirt
+2025-11-17 00:43:10,056 - INFO - Renamed folder: Ombr&eacute;_Contrast_Workout_Shorts => Ombré_Contrast_Workout_Shorts
+2025-11-17 00:43:10,056 - INFO - Renamed folder: Ombr&eacute;_Contrast_Workout_Tank => Ombré_Contrast_Workout_Tank
+2025-11-17 00:43:10,057 - INFO - Renamed folder: Ombr&eacute;_Dolman_Button-Down_Blouse => Ombré_Dolman_Button-Down_Blouse
+2025-11-17 00:43:10,057 - INFO - Renamed folder: Ombr&eacute;_Heart_Muscle_Tee => Ombré_Heart_Muscle_Tee
+2025-11-17 00:43:10,057 - INFO - Renamed folder: Ombr&eacute;_High-Slit_Tank => Ombré_High-Slit_Tank
+2025-11-17 00:43:10,057 - INFO - Renamed folder: Ombr&eacute;_Tank => Ombré_Tank
+2025-11-17 00:43:10,060 - INFO - Renamed folder: Oversized_Boucl&eacute;_Moto_Jacket => Oversized_Bouclé_Moto_Jacket
+2025-11-17 00:43:10,062 - INFO - Renamed folder: Piqu&eacute;_Bodycon_Dress => Piqué_Bodycon_Dress
+2025-11-17 00:43:10,062 - INFO - Renamed folder: Piqu&eacute;_Knit_Paneled_Sweatshorts => Piqué_Knit_Paneled_Sweatshorts
+2025-11-17 00:43:10,062 - INFO - Renamed folder: Piqu&eacute;_Knit_Sweatpants => Piqué_Knit_Sweatpants
+2025-11-17 00:43:10,063 - INFO - Renamed folder: Pleated_Chevron_Matelass&eacute;_Skirt => Pleated_Chevron_Matelassé_Skirt
+2025-11-17 00:43:10,064 - INFO - Renamed folder: Pleated_Floral_Matelass&eacute;_Dress => Pleated_Floral_Matelassé_Dress
+2025-11-17 00:43:10,064 - INFO - Renamed folder: Pleated_Ornate_Matelass&eacute;_Dress => Pleated_Ornate_Matelassé_Dress
+2025-11-17 00:43:10,065 - INFO - Renamed folder: Pom_Pom-Trim_Macram&eacute;_Sweater => Pom_Pom-Trim_Macramé_Sweater
+2025-11-17 00:43:10,075 - INFO - Renamed folder: Strapless_Matelass&eacute;_Skater_Dress => Strapless_Matelassé_Skater_Dress
+2025-11-17 00:43:10,081 - INFO - Renamed folder: Tie-Dye_Macram&eacute;_Maxi_Dress => Tie-Dye_Macramé_Maxi_Dress
+2025-11-17 00:43:10,084 - INFO - Renamed folder: Two-Tone_Boucl&eacute;_Coat => Two-Tone_Bouclé_Coat
+2025-11-17 00:43:10,085 - INFO - Renamed folder: V-Notched_Piqu&eacute;_Skater_Dress => V-Notched_Piqué_Skater_Dress
+2025-11-17 00:43:10,085 - INFO - Renamed folder: Varsity-Striped_Piqu&eacute;_Track_Jacket => Varsity-Striped_Piqué_Track_Jacket
+2025-11-17 17:16:33,392 - INFO - Epoch 1: Train 4.16%, Val 7.77%
+2025-11-17 17:16:33,524 - INFO - Saved model => /home/ec2-user/dm-project/main_model/main_trained_models/resnet50_20251116_161922/dress_type_model_epoch_1_acc_7.77.pth
+2025-11-17 17:16:35,805 - INFO - Uploaded to S3 => s3://data-management-dataset-1/trained_models/resnet50_20251116_161922/dress_type_model_epoch_1_acc_7.77.pth

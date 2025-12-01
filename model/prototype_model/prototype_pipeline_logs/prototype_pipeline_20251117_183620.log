@@ -1,0 +1,135 @@
+2025-11-17 18:36:32,041 - INFO - Pipeline Mode => PROTOTYPE | DOWNLOAD=False, SPLIT=False, UPLOAD=False, TRAIN=True
+2025-11-17 18:36:32,041 - INFO - Starting model training.
+2025-11-17 18:36:32,041 - INFO - Starting model training.
+2025-11-17 18:36:32,041 - INFO - Using device: cpu
+2025-11-17 18:36:32,720 - INFO - No previous checkpoint found => Starting fresh!
+2025-11-17 18:53:48,655 - INFO - Epoch 1: Train 3.32%, Val 11.38%
+2025-11-17 18:53:48,732 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_1_acc_11.38.pth
+2025-11-17 18:53:49,641 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_1_acc_11.38.pth
+2025-11-17 18:53:49,641 - INFO - New BEST MODEL found at epoch 1 with Acc 11.38%
+2025-11-17 19:09:30,486 - INFO - Epoch 2: Train 14.95%, Val 30.47%
+2025-11-17 19:09:30,549 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_2_acc_30.47.pth
+2025-11-17 19:09:31,437 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_2_acc_30.47.pth
+2025-11-17 19:09:31,437 - INFO - New BEST MODEL found at epoch 2 with Acc 30.47%
+2025-11-17 19:21:15,547 - INFO - Epoch 3: Train 28.53%, Val 41.37%
+2025-11-17 19:21:15,622 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_3_acc_41.37.pth
+2025-11-17 19:21:16,575 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_3_acc_41.37.pth
+2025-11-17 19:21:16,575 - INFO - New BEST MODEL found at epoch 3 with Acc 41.37%
+2025-11-17 19:34:40,898 - INFO - Epoch 4: Train 37.96%, Val 48.53%
+2025-11-17 19:34:40,960 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_4_acc_48.53.pth
+2025-11-17 19:34:41,729 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_4_acc_48.53.pth
+2025-11-17 19:34:41,729 - INFO - New BEST MODEL found at epoch 4 with Acc 48.53%
+2025-11-17 19:47:42,670 - INFO - Epoch 5: Train 46.57%, Val 57.04%
+2025-11-17 19:47:42,732 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_5_acc_57.04.pth
+2025-11-17 19:47:43,536 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_5_acc_57.04.pth
+2025-11-17 19:47:43,536 - INFO - New BEST MODEL found at epoch 5 with Acc 57.04%
+2025-11-17 20:00:01,628 - INFO - Epoch 6: Train 53.27%, Val 62.13%
+2025-11-17 20:00:01,845 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_6_acc_62.13.pth
+2025-11-17 20:00:03,045 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_6_acc_62.13.pth
+2025-11-17 20:00:03,045 - INFO - New BEST MODEL found at epoch 6 with Acc 62.13%
+2025-11-17 20:12:58,294 - INFO - Epoch 7: Train 58.31%, Val 67.22%
+2025-11-17 20:12:58,370 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_7_acc_67.22.pth
+2025-11-17 20:12:59,296 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_7_acc_67.22.pth
+2025-11-17 20:12:59,296 - INFO - New BEST MODEL found at epoch 7 with Acc 67.22%
+2025-11-17 20:26:22,714 - INFO - Epoch 8: Train 62.41%, Val 71.28%
+2025-11-17 20:26:22,795 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_8_acc_71.28.pth
+2025-11-17 20:26:23,855 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_8_acc_71.28.pth
+2025-11-17 20:26:23,855 - INFO - New BEST MODEL found at epoch 8 with Acc 71.28%
+2025-11-17 20:40:58,984 - INFO - Epoch 9: Train 65.96%, Val 74.78%
+2025-11-17 20:40:59,050 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_9_acc_74.78.pth
+2025-11-17 20:40:59,953 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_9_acc_74.78.pth
+2025-11-17 20:40:59,953 - INFO - New BEST MODEL found at epoch 9 with Acc 74.78%
+2025-11-17 20:54:31,695 - INFO - Epoch 10: Train 69.18%, Val 78.12%
+2025-11-17 20:54:31,758 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_10_acc_78.12.pth
+2025-11-17 20:54:32,621 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_10_acc_78.12.pth
+2025-11-17 20:54:32,621 - INFO - New BEST MODEL found at epoch 10 with Acc 78.12%
+2025-11-17 21:08:40,636 - INFO - Epoch 11: Train 72.76%, Val 82.02%
+2025-11-17 21:08:40,709 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_11_acc_82.02.pth
+2025-11-17 21:08:41,607 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_11_acc_82.02.pth
+2025-11-17 21:08:41,608 - INFO - New BEST MODEL found at epoch 11 with Acc 82.02%
+2025-11-17 21:22:29,622 - INFO - Epoch 12: Train 74.86%, Val 84.09%
+2025-11-17 21:22:29,697 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_12_acc_84.09.pth
+2025-11-17 21:22:30,606 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_12_acc_84.09.pth
+2025-11-17 21:22:30,606 - INFO - New BEST MODEL found at epoch 12 with Acc 84.09%
+2025-11-17 21:36:19,071 - INFO - Epoch 13: Train 76.95%, Val 86.48%
+2025-11-17 21:36:19,146 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_13_acc_86.48.pth
+2025-11-17 21:36:19,973 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_13_acc_86.48.pth
+2025-11-17 21:36:19,974 - INFO - New BEST MODEL found at epoch 13 with Acc 86.48%
+2025-11-17 21:49:14,048 - INFO - Epoch 14: Train 79.97%, Val 88.70%
+2025-11-17 21:49:14,125 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_14_acc_88.70.pth
+2025-11-17 21:49:15,064 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_14_acc_88.70.pth
+2025-11-17 21:49:15,064 - INFO - New BEST MODEL found at epoch 14 with Acc 88.70%
+2025-11-17 22:02:50,723 - INFO - Epoch 15: Train 82.53%, Val 91.25%
+2025-11-17 22:02:50,790 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_15_acc_91.25.pth
+2025-11-17 22:02:51,670 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_15_acc_91.25.pth
+2025-11-17 22:02:51,670 - INFO - New BEST MODEL found at epoch 15 with Acc 91.25%
+2025-11-17 22:16:07,177 - INFO - Epoch 16: Train 83.56%, Val 92.60%
+2025-11-17 22:16:07,239 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_16_acc_92.60.pth
+2025-11-17 22:16:08,100 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_16_acc_92.60.pth
+2025-11-17 22:16:08,101 - INFO - New BEST MODEL found at epoch 16 with Acc 92.60%
+2025-11-17 22:29:40,150 - INFO - Epoch 17: Train 85.97%, Val 94.19%
+2025-11-17 22:29:40,293 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_17_acc_94.19.pth
+2025-11-17 22:29:41,395 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_17_acc_94.19.pth
+2025-11-17 22:29:41,395 - INFO - New BEST MODEL found at epoch 17 with Acc 94.19%
+2025-11-17 22:43:02,843 - INFO - Epoch 18: Train 88.19%, Val 96.18%
+2025-11-17 22:43:02,906 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_18_acc_96.18.pth
+2025-11-17 22:43:03,794 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_18_acc_96.18.pth
+2025-11-17 22:43:03,794 - INFO - New BEST MODEL found at epoch 18 with Acc 96.18%
+2025-11-17 22:55:25,227 - INFO - Epoch 19: Train 89.24%, Val 96.74%
+2025-11-17 22:55:25,287 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_19_acc_96.74.pth
+2025-11-17 22:55:26,089 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_19_acc_96.74.pth
+2025-11-17 22:55:26,091 - INFO - New BEST MODEL found at epoch 19 with Acc 96.74%
+2025-11-17 23:06:29,244 - INFO - Epoch 20: Train 90.25%, Val 97.93%
+2025-11-17 23:06:29,312 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_20_acc_97.93.pth
+2025-11-17 23:06:30,067 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_20_acc_97.93.pth
+2025-11-17 23:06:30,067 - INFO - New BEST MODEL found at epoch 20 with Acc 97.93%
+2025-11-17 23:18:02,867 - INFO - Epoch 21: Train 92.03%, Val 98.33%
+2025-11-17 23:18:02,930 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_21_acc_98.33.pth
+2025-11-17 23:18:03,766 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_21_acc_98.33.pth
+2025-11-17 23:18:03,766 - INFO - New BEST MODEL found at epoch 21 with Acc 98.33%
+2025-11-17 23:28:38,398 - INFO - Epoch 22: Train 92.56%, Val 98.81%
+2025-11-17 23:28:38,494 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_22_acc_98.81.pth
+2025-11-17 23:28:39,264 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_22_acc_98.81.pth
+2025-11-17 23:28:39,264 - INFO - New BEST MODEL found at epoch 22 with Acc 98.81%
+2025-11-17 23:39:37,458 - INFO - Epoch 23: Train 94.35%, Val 99.12%
+2025-11-17 23:39:37,526 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_23_acc_99.12.pth
+2025-11-17 23:39:38,373 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_23_acc_99.12.pth
+2025-11-17 23:39:38,373 - INFO - New BEST MODEL found at epoch 23 with Acc 99.12%
+2025-11-17 23:50:40,059 - INFO - Epoch 24: Train 94.94%, Val 99.36%
+2025-11-17 23:50:40,124 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_24_acc_99.36.pth
+2025-11-17 23:50:40,904 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_24_acc_99.36.pth
+2025-11-17 23:50:40,904 - INFO - New BEST MODEL found at epoch 24 with Acc 99.36%
+2025-11-18 00:01:25,063 - INFO - Epoch 25: Train 95.47%, Val 99.76%
+2025-11-18 00:01:25,125 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_25_acc_99.76.pth
+2025-11-18 00:01:25,920 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_25_acc_99.76.pth
+2025-11-18 00:01:25,920 - INFO - New BEST MODEL found at epoch 25 with Acc 99.76%
+2025-11-18 00:13:20,255 - INFO - Epoch 26: Train 95.67%, Val 99.84%
+2025-11-18 00:13:20,325 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_26_acc_99.84.pth
+2025-11-18 00:13:21,467 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_26_acc_99.84.pth
+2025-11-18 00:13:21,467 - INFO - New BEST MODEL found at epoch 26 with Acc 99.84%
+2025-11-18 00:28:49,388 - INFO - Epoch 27: Train 96.98%, Val 99.84%
+2025-11-18 00:28:49,453 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_27_acc_99.84.pth
+2025-11-18 00:28:50,371 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_27_acc_99.84.pth
+2025-11-18 00:42:47,091 - INFO - Epoch 28: Train 96.84%, Val 99.92%
+2025-11-18 00:42:47,163 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_28_acc_99.92.pth
+2025-11-18 00:42:47,983 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_28_acc_99.92.pth
+2025-11-18 00:42:47,983 - INFO - New BEST MODEL found at epoch 28 with Acc 99.92%
+2025-11-18 00:58:39,402 - INFO - Epoch 29: Train 97.16%, Val 99.92%
+2025-11-18 00:58:39,474 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_29_acc_99.92.pth
+2025-11-18 00:58:40,291 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_29_acc_99.92.pth
+2025-11-18 01:13:19,848 - INFO - Epoch 30: Train 97.39%, Val 99.92%
+2025-11-18 01:13:19,915 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_30_acc_99.92.pth
+2025-11-18 01:13:20,787 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_30_acc_99.92.pth
+2025-11-18 01:28:54,230 - INFO - Epoch 31: Train 97.94%, Val 99.92%
+2025-11-18 01:28:54,300 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_31_acc_99.92.pth
+2025-11-18 01:28:55,021 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_31_acc_99.92.pth
+2025-11-18 01:43:12,646 - INFO - Epoch 32: Train 97.83%, Val 99.84%
+2025-11-18 01:43:12,711 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_32_acc_99.84.pth
+2025-11-18 01:43:13,577 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/dress_type_model_epoch_32_acc_99.84.pth
+2025-11-18 01:43:13,740 - INFO - Saved LAST CHECKPOINT => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251116_162404/last_checkpoint.pth
+2025-11-18 01:43:16,042 - INFO - Uploaded LAST CHECKPOINT => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/last_checkpoint.pth
+2025-11-18 01:43:16,070 - INFO - Copied best epoch file to BEST_MODEL => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/resnet50_20251116_162404/best_model.pth
+2025-11-18 01:43:17,074 - INFO - Uploaded BEST MODEL => s3://data-management-dataset-2/prototype_trained_models/resnet50_20251117_183620/best_model.pth
+2025-11-18 01:43:17,075 - INFO - Training complete! Best Val Acc: 99.92%
+2025-11-18 01:45:24,439 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_pipeline_logs/prototype_pipeline_20251117_183620.log
+2025-11-18 01:45:24,440 - INFO - All selected pipeline stages complete. Execution finished.
