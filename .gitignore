@@ -1,0 +1,10 @@
+__pycache__
+.venv
+*.pyc
+
+backend
+frontend
+model
+model-extra-1
+model-extra-2
+test_images_folder
