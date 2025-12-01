@@ -1,0 +1,13 @@
+### FOR DRESS PATTERN COLOR MODEL ###
+# Dataset and Splitted Dataset
+dataset
+dataset_splitted
+
+# Trained Models without the Best Model
+trained_models/dress_pattern_color_model_20251121_115718
+
+trained_models/dress_pattern_color_model_20251121_135612/best_model_27.pth
+trained_models/dress_pattern_color_model_20251121_135612/best_model_30.pth
+trained_models/dress_pattern_color_model_20251121_135612/best_model_31.pth
+
+# Trained Graphs without the Best Model Graphs

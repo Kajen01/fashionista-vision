@@ -1,0 +1,12 @@
+### FOR MAIN MODEL ###
+# Dataset and Splitted Dataset
+main_dataset
+main_dataset_splitted
+
+# Trained Models without the Best Model
+# Model: resnet50
+main_trained_models/resnet50_20251116_161922
+main_trained_models/resnet50-20251018_111132
+
+# Trained Graphs without the Best Model Graphs
+

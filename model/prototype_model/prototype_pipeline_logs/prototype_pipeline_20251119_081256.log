@@ -1,0 +1,63 @@
+2025-11-19 08:13:00,157 - INFO - Pipeline Mode => PROTOTYPE | DOWNLOAD=False, SPLIT=False, UPLOAD=False, TRAIN=True
+2025-11-19 08:13:00,157 - INFO - Starting model training.
+2025-11-19 08:13:00,157 - INFO - Starting model training.
+2025-11-19 08:13:00,157 - INFO - Using device: cpu
+2025-11-19 08:13:00,536 - INFO - Resuming training from directory => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251118_121426
+2025-11-19 08:13:00,891 - INFO - Auto-resume enabled => Resuming from epoch: 48 with best accuracy: 100.0
+2025-11-19 08:29:45,257 - INFO - Epoch 49: Train 98.99%, Val 99.92%
+2025-11-19 08:29:45,342 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_49_acc_99.92.pth
+2025-11-19 08:29:46,557 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_49_acc_99.92.pth
+2025-11-19 08:47:51,023 - INFO - Epoch 50: Train 98.79%, Val 99.92%
+2025-11-19 08:47:51,088 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_50_acc_99.92.pth
+2025-11-19 08:47:51,935 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_50_acc_99.92.pth
+2025-11-19 09:00:30,817 - INFO - Epoch 51: Train 99.38%, Val 99.92%
+2025-11-19 09:00:30,884 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_51_acc_99.92.pth
+2025-11-19 09:00:31,726 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_51_acc_99.92.pth
+2025-11-19 09:17:29,968 - INFO - Epoch 52: Train 99.43%, Val 99.92%
+2025-11-19 09:17:30,039 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_52_acc_99.92.pth
+2025-11-19 09:17:30,840 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_52_acc_99.92.pth
+2025-11-19 09:31:52,842 - INFO - Epoch 53: Train 99.52%, Val 99.92%
+2025-11-19 09:31:52,905 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_53_acc_99.92.pth
+2025-11-19 09:31:53,747 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_53_acc_99.92.pth
+2025-11-19 09:45:16,040 - INFO - Epoch 54: Train 99.52%, Val 99.92%
+2025-11-19 09:45:16,112 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_54_acc_99.92.pth
+2025-11-19 09:45:16,933 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_54_acc_99.92.pth
+2025-11-19 10:03:47,690 - INFO - Epoch 55: Train 99.40%, Val 99.92%
+2025-11-19 10:03:47,754 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_55_acc_99.92.pth
+2025-11-19 10:03:48,593 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_55_acc_99.92.pth
+2025-11-19 10:17:15,854 - INFO - Epoch 56: Train 99.52%, Val 100.00%
+2025-11-19 10:17:15,919 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_56_acc_100.00.pth
+2025-11-19 10:17:16,767 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_56_acc_100.00.pth
+2025-11-19 10:17:16,768 - INFO - New BEST MODEL found at epoch 56 with Acc 100.00%
+2025-11-19 10:32:20,187 - INFO - Epoch 57: Train 99.29%, Val 99.92%
+2025-11-19 10:32:20,282 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_57_acc_99.92.pth
+2025-11-19 10:32:21,507 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_57_acc_99.92.pth
+2025-11-19 10:49:51,934 - INFO - Epoch 58: Train 99.52%, Val 99.92%
+2025-11-19 10:49:51,997 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_58_acc_99.92.pth
+2025-11-19 10:49:52,915 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_58_acc_99.92.pth
+2025-11-19 11:02:39,363 - INFO - Epoch 59: Train 99.34%, Val 99.92%
+2025-11-19 11:02:39,435 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_59_acc_99.92.pth
+2025-11-19 11:02:40,535 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_59_acc_99.92.pth
+2025-11-19 11:18:43,439 - INFO - Epoch 60: Train 99.57%, Val 99.92%
+2025-11-19 11:18:43,508 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_60_acc_99.92.pth
+2025-11-19 11:18:44,362 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_60_acc_99.92.pth
+2025-11-19 11:32:40,023 - INFO - Epoch 61: Train 99.47%, Val 99.92%
+2025-11-19 11:32:40,103 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_61_acc_99.92.pth
+2025-11-19 11:32:41,018 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_61_acc_99.92.pth
+2025-11-19 11:49:06,563 - INFO - Epoch 62: Train 99.31%, Val 100.00%
+2025-11-19 11:49:06,626 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_62_acc_100.00.pth
+2025-11-19 11:49:07,448 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_62_acc_100.00.pth
+2025-11-19 11:49:07,449 - INFO - New BEST MODEL found at epoch 62 with Acc 100.00%
+2025-11-19 12:02:26,108 - INFO - Epoch 63: Train 99.36%, Val 99.92%
+2025-11-19 12:02:26,178 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_63_acc_99.92.pth
+2025-11-19 12:02:26,955 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_63_acc_99.92.pth
+2025-11-19 12:17:31,389 - INFO - Epoch 64: Train 99.61%, Val 99.92%
+2025-11-19 12:17:31,453 - INFO - Saved model => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_64_acc_99.92.pth
+2025-11-19 12:17:32,239 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_64_acc_99.92.pth
+2025-11-19 12:17:32,410 - INFO - Saved LAST CHECKPOINT epoch: 63 => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/last_checkpoint.pth
+2025-11-19 12:17:34,892 - INFO - Uploaded LAST CHECKPOINT => s3://data-management-dataset-2/prototype_trained_models/efficientnet_b3_20251119_081256/last_checkpoint.pth
+2025-11-19 12:17:34,917 - INFO - Copied best epoch file to BEST_MODEL /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/dress_type_model_epoch_62_acc_100.00.pth => /home/ec2-user/dm-project/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/best_model.pth
+2025-11-19 12:17:35,810 - INFO - Uploaded BEST MODEL => s3://data-management-dataset-2/prototype_trained_models/efficientnet_b3_20251119_081256/best_model.pth
+2025-11-19 12:17:35,812 - INFO - Training complete! Best Val Acc: 100.00%
+2025-11-19 12:19:56,260 - INFO - Uploaded to S3 => s3://data-management-dataset-2/prototype_pipeline_logs/prototype_pipeline_20251119_081256.log
+2025-11-19 12:19:56,260 - INFO - All selected pipeline stages complete. Execution finished.

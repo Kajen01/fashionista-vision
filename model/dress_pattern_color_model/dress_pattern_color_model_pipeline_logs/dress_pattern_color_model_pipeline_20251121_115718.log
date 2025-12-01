@@ -1,0 +1,6 @@
+2025-11-21 11:57:22,476 - INFO - Pipeline Mode => DRESS_PATTERN_COLOR_MODEL | DOWNLOAD=False, SPLIT=False, UPLOAD=False, TRAIN=True
+2025-11-21 11:57:22,476 - INFO - Starting model training.
+2025-11-21 11:57:22,476 - INFO - Starting multi-head CSV training.
+2025-11-21 11:57:22,476 - INFO - Using device: cpu
+2025-11-21 13:34:28,142 - INFO - Epoch 1/32: gender Train Acc=81.15% Val Acc=88.70% | articleType Train Acc=61.02% Val Acc=78.61% | baseColour Train Acc=52.21% Val Acc=63.54% | Total Loss: 1.3469
+2025-11-21 13:34:28,499 - WARNING - S3 upload failed: Unable to locate credentials

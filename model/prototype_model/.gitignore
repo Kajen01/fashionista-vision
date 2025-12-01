@@ -1,0 +1,21 @@
+### FOR PROTOTYPE MODEL ###
+# Dataset and Splitted Dataset
+prototype_dataset
+prototype_dataset_splitted
+
+# Trained Models without the Best Model
+# Model: efficientnet_b3
+prototype_trained_models/efficientnet_b3_20251117_183620
+prototype_trained_models/efficientnet_b3_20251118_121426
+
+prototype_trained_models/efficientnet_b3_20251119_081256/last_checkpoint.pth
+
+# Model: resnet50
+prototype_trained_models/resnet50_20251116_081819
+prototype_trained_models/resnet50_20251116_162404
+prototype_trained_models/resnet50_20251119_132951
+
+prototype_trained_models/resnet50_20251120_045757/last_checkpoint.pth
+
+# Trained Graphs without the Best Model Graphs
+

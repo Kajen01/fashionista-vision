@@ -1,0 +1,39 @@
+2025-11-21 13:56:15,990 - INFO - Pipeline Mode => DRESS_PATTERN_COLOR_MODEL | DOWNLOAD=False, SPLIT=False, UPLOAD=False, TRAIN=True
+2025-11-21 13:56:15,990 - INFO - Starting model training.
+2025-11-21 13:56:15,990 - INFO - Starting multi-head CSV training.
+2025-11-21 13:56:15,990 - INFO - Using device: cpu
+2025-11-21 15:25:33,481 - INFO - Epoch 1/32: gender Train Acc=81.73% Val Acc=89.14% | articleType Train Acc=60.84% Val Acc=78.47% | baseColour Train Acc=52.08% Val Acc=64.06% | Total Loss: 1.3426
+2025-11-21 16:58:35,797 - INFO - Epoch 2/32: gender Train Acc=89.68% Val Acc=90.58% | articleType Train Acc=81.53% Val Acc=83.49% | baseColour Train Acc=66.69% Val Acc=67.38% | Total Loss: 0.6975
+2025-11-21 18:26:53,689 - INFO - Epoch 3/32: gender Train Acc=91.90% Val Acc=91.44% | articleType Train Acc=85.52% Val Acc=85.62% | baseColour Train Acc=69.81% Val Acc=68.84% | Total Loss: 0.5671
+2025-11-21 19:59:32,997 - INFO - Epoch 4/32: gender Train Acc=93.27% Val Acc=92.31% | articleType Train Acc=88.18% Val Acc=86.85% | baseColour Train Acc=72.85% Val Acc=69.88% | Total Loss: 0.4855
+2025-11-21 21:29:09,562 - INFO - Epoch 5/32: gender Train Acc=94.34% Val Acc=92.62% | articleType Train Acc=90.19% Val Acc=87.25% | baseColour Train Acc=75.11% Val Acc=70.10% | Total Loss: 0.4218
+2025-11-21 22:54:06,035 - INFO - Epoch 6/32: gender Train Acc=95.36% Val Acc=92.64% | articleType Train Acc=91.49% Val Acc=87.03% | baseColour Train Acc=77.56% Val Acc=69.74% | Total Loss: 0.3694
+2025-11-22 00:14:37,815 - INFO - Epoch 7/32: gender Train Acc=96.24% Val Acc=92.74% | articleType Train Acc=92.96% Val Acc=87.75% | baseColour Train Acc=79.80% Val Acc=70.46% | Total Loss: 0.3204
+2025-11-22 01:42:08,811 - INFO - Epoch 8/32: gender Train Acc=96.88% Val Acc=92.34% | articleType Train Acc=93.94% Val Acc=87.88% | baseColour Train Acc=82.24% Val Acc=69.72% | Total Loss: 0.2781
+2025-11-22 03:07:47,143 - INFO - Epoch 9/32: gender Train Acc=97.37% Val Acc=92.92% | articleType Train Acc=95.06% Val Acc=88.09% | baseColour Train Acc=84.82% Val Acc=70.41% | Total Loss: 0.2379
+2025-11-22 04:32:18,796 - INFO - Epoch 10/32: gender Train Acc=97.92% Val Acc=92.85% | articleType Train Acc=95.90% Val Acc=87.99% | baseColour Train Acc=86.94% Val Acc=69.28% | Total Loss: 0.2014
+2025-11-22 05:58:49,130 - INFO - Epoch 11/32: gender Train Acc=98.28% Val Acc=92.92% | articleType Train Acc=96.54% Val Acc=87.89% | baseColour Train Acc=89.27% Val Acc=68.86% | Total Loss: 0.1715
+2025-11-22 07:22:31,877 - INFO - Epoch 12/32: gender Train Acc=98.57% Val Acc=92.31% | articleType Train Acc=97.19% Val Acc=88.15% | baseColour Train Acc=90.71% Val Acc=69.12% | Total Loss: 0.1476
+2025-11-22 08:45:13,434 - INFO - Epoch 13/32: gender Train Acc=98.69% Val Acc=93.16% | articleType Train Acc=97.73% Val Acc=88.19% | baseColour Train Acc=92.15% Val Acc=68.97% | Total Loss: 0.1248
+2025-11-22 10:09:40,418 - INFO - Epoch 14/32: gender Train Acc=98.96% Val Acc=92.88% | articleType Train Acc=98.17% Val Acc=88.39% | baseColour Train Acc=93.42% Val Acc=68.12% | Total Loss: 0.1057
+2025-11-22 11:33:00,890 - INFO - Epoch 15/32: gender Train Acc=99.04% Val Acc=92.97% | articleType Train Acc=98.36% Val Acc=88.09% | baseColour Train Acc=94.43% Val Acc=68.66% | Total Loss: 0.0915
+2025-11-22 13:03:45,039 - INFO - Epoch 16/32: gender Train Acc=99.13% Val Acc=93.31% | articleType Train Acc=98.54% Val Acc=88.20% | baseColour Train Acc=95.31% Val Acc=69.10% | Total Loss: 0.0805
+2025-11-22 14:32:03,644 - INFO - Epoch 17/32: gender Train Acc=99.30% Val Acc=93.30% | articleType Train Acc=98.78% Val Acc=88.44% | baseColour Train Acc=96.04% Val Acc=67.91% | Total Loss: 0.0708
+2025-11-22 16:02:54,865 - INFO - Epoch 18/32: gender Train Acc=99.22% Val Acc=93.01% | articleType Train Acc=98.97% Val Acc=88.21% | baseColour Train Acc=96.12% Val Acc=68.54% | Total Loss: 0.0652
+2025-11-22 17:31:58,335 - INFO - Epoch 19/32: gender Train Acc=99.30% Val Acc=93.04% | articleType Train Acc=99.17% Val Acc=88.64% | baseColour Train Acc=96.41% Val Acc=68.11% | Total Loss: 0.0589
+2025-11-22 19:00:14,425 - INFO - Epoch 20/32: gender Train Acc=99.34% Val Acc=93.10% | articleType Train Acc=99.23% Val Acc=88.53% | baseColour Train Acc=96.94% Val Acc=67.75% | Total Loss: 0.0533
+2025-11-22 20:31:38,522 - INFO - Epoch 21/32: gender Train Acc=99.43% Val Acc=93.36% | articleType Train Acc=99.27% Val Acc=88.74% | baseColour Train Acc=96.85% Val Acc=68.42% | Total Loss: 0.0519
+2025-11-22 22:03:35,244 - INFO - Epoch 22/32: gender Train Acc=99.48% Val Acc=93.01% | articleType Train Acc=99.35% Val Acc=88.29% | baseColour Train Acc=97.32% Val Acc=68.00% | Total Loss: 0.0449
+2025-11-22 23:28:42,394 - INFO - Epoch 23/32: gender Train Acc=99.53% Val Acc=93.05% | articleType Train Acc=99.38% Val Acc=88.66% | baseColour Train Acc=97.68% Val Acc=68.31% | Total Loss: 0.0402
+2025-11-23 01:01:22,799 - INFO - Epoch 24/32: gender Train Acc=99.51% Val Acc=92.86% | articleType Train Acc=99.41% Val Acc=88.08% | baseColour Train Acc=97.65% Val Acc=67.65% | Total Loss: 0.0397
+2025-11-23 02:31:18,872 - INFO - Epoch 25/32: gender Train Acc=99.49% Val Acc=93.05% | articleType Train Acc=99.44% Val Acc=88.29% | baseColour Train Acc=97.92% Val Acc=67.88% | Total Loss: 0.0370
+2025-11-23 03:59:12,196 - INFO - Epoch 26/32: gender Train Acc=99.50% Val Acc=92.90% | articleType Train Acc=99.53% Val Acc=88.33% | baseColour Train Acc=97.98% Val Acc=68.24% | Total Loss: 0.0355
+2025-11-23 05:29:50,385 - INFO - Epoch 27/32: gender Train Acc=99.59% Val Acc=93.33% | articleType Train Acc=99.42% Val Acc=88.05% | baseColour Train Acc=97.78% Val Acc=68.09% | Total Loss: 0.0366
+2025-11-23 07:01:53,381 - INFO - Epoch 28/32: gender Train Acc=99.57% Val Acc=93.03% | articleType Train Acc=99.47% Val Acc=88.39% | baseColour Train Acc=98.03% Val Acc=67.99% | Total Loss: 0.0335
+2025-11-23 08:30:49,987 - INFO - Epoch 29/32: gender Train Acc=99.63% Val Acc=93.08% | articleType Train Acc=99.46% Val Acc=88.54% | baseColour Train Acc=98.18% Val Acc=67.42% | Total Loss: 0.0313
+2025-11-23 10:13:18,492 - INFO - Epoch 30/32: gender Train Acc=99.66% Val Acc=93.14% | articleType Train Acc=99.52% Val Acc=88.15% | baseColour Train Acc=98.18% Val Acc=67.74% | Total Loss: 0.0306
+2025-11-23 11:45:57,178 - INFO - Epoch 31/32: gender Train Acc=99.67% Val Acc=93.31% | articleType Train Acc=99.62% Val Acc=88.67% | baseColour Train Acc=98.19% Val Acc=67.79% | Total Loss: 0.0289
+2025-11-23 13:20:51,002 - INFO - Epoch 32/32: gender Train Acc=99.74% Val Acc=93.15% | articleType Train Acc=99.66% Val Acc=88.19% | baseColour Train Acc=98.21% Val Acc=68.06% | Total Loss: 0.0271
+2025-11-23 13:26:24,696 - WARNING - Graph generation failed: setting an array element with a sequence. The requested array has an inhomogeneous shape after 2 dimensions. The detected shape was (3, 64) + inhomogeneous part.
+2025-11-23 13:26:24,836 - INFO - Uploaded to S3 => s3://dm-project-pattern-model/pipeline_logs/dress_pattern_color_model_pipeline_20251121_135612.log
+2025-11-23 13:26:24,836 - INFO - All selected pipeline stages complete. Execution finished.
