@@ -17,7 +17,7 @@ import uvicorn
 BEST_MODEL_RESNET = "./model/prototype_model/prototype_trained_models/resnet50_20251120_045757/best_model.pth"
 BEST_MODEL_EFFNET = "./model/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/best_model.pth"
 
-MULTI_MODEL_PATH = "./model/dress_pattern_color_model/trained_models/dress_pattern_color_model_20251121_135612/best_model_32.pth"
+MULTI_MODEL_PATH = "./model/dress_pattern_color_model/trained_models/dress_pattern_color_model_20251203_153404/best_model_10.pth"
 
 CLASSES_PATH = "./classes.txt"
 STYLES_CSV = "./model/dress_pattern_color_model/dataset/styles.csv"

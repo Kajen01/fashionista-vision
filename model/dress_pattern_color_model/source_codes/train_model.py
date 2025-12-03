@@ -40,6 +40,12 @@ def safe_open_image(path):
         logger.warning(f"Failed to open image {path}: {e}")
         return None
 
+def rewrite_path_for_modal(img_path):
+    # ORIGINAL path in CSV: /home/ec2-user/.../dataset/images/123.jpg
+    # NEW modal mounted path: /root/modal/data/images/123.jpg
+    img_name = os.path.basename(img_path)
+    return f"/mnt/vol/dataset/images/{img_name}"
+
 def read_csv_labels(csv_path, image_key="image_path", label_keys=None):
     if label_keys is None:
         label_keys = ["gender", "articleType", "baseColour"]
@@ -56,6 +62,7 @@ def read_csv_labels(csv_path, image_key="image_path", label_keys=None):
             img = row[image_key].strip()
             labels = [row[k].strip() for k in label_keys]
             if img:
+                img = rewrite_path_for_modal(img)   # <-- ADD THIS
                 rows.append((img, labels))
     return rows
 
