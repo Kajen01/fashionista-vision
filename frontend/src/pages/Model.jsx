@@ -11,7 +11,10 @@ const Model = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const uploadRef = useRef(null);
-  const [recommendedProducts, setRecommendedProducts] = useState([]);
+  const [recommendedProducts, setRecommendedProducts] = useState({
+    highlyRecommendedProducts: [],
+    otherRecommendedProducts: []
+  });
   const { filterBySearchMongodb } = useProductsModel();
   const [predictedLabel, setPredictedLabel] = useState("");
   const [confidence, setConfidence] = useState(null);
@@ -30,6 +33,8 @@ const Model = () => {
         body: formData,
       });
 
+      let rawProducts = [];
+
       if (response.ok) {
         const data = await response.json();
         console.log('Prediction Result (JSON):', data);
@@ -46,14 +51,35 @@ const Model = () => {
           setPredictedLabel(cleanedName);
           setConfidence(bestModel.confidence);
 
-          const filtered = filterBySearchMongodb(cleanedName);
-          setRecommendedProducts(filtered);
+          rawProducts = filterBySearchMongodb(cleanedName);
         }
 
-        // Save multi model predictions separately
+        // setRecommendedProducts based on the multi model predictions
         if (data.multi_model) {
           console.log("MULTI MODEL ATTRIBUTES:", data.multi_model);
           setMultiAttrs(data.multi_model)
+
+          const highlyRecommendedProducts = [];
+          const otherRecommendedProducts = [];
+
+          rawProducts.forEach((product) => {
+            if (
+              product.gender === data.multi_model.gender &&
+              product.availableColors?.[0] === data.multi_model.baseColour
+            ) {
+              highlyRecommendedProducts.push(product);
+            } else {
+              otherRecommendedProducts.push(product);
+            }
+          });
+
+          setRecommendedProducts({
+            highlyRecommendedProducts,
+            otherRecommendedProducts
+          });
+
+          console.log("HIGHLY RECOMMENDED PRODUCTS: ", highlyRecommendedProducts.length);
+          console.log("OTHER RECOMMENDED PRODUCTS: ", otherRecommendedProducts.length);
         }
 
         setShowResults(true);
@@ -334,7 +360,10 @@ const Model = () => {
             {/* Results Section */}
             {showResults && (
               <div className="flex flex-col items-center mt-6">
-                <ResultsSection recommendedProducts={recommendedProducts}/>
+                <ResultsSection
+                  highlyRecommendedProducts={recommendedProducts.highlyRecommendedProducts}
+                  otherRecommendedProducts={recommendedProducts.otherRecommendedProducts}
+                />
 
                 <button
                   onClick={resetUpload}

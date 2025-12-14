@@ -11,9 +11,9 @@ const productSchema = new mongoose.Schema(
 
     description: { type: String, required: true },
 
-    price: { type: Number, required: true }, // e.g., 6500
+    price: { type: Number, required: true },
 
-    discount: { type: Number, required: true }, // 10–20%
+    discount: { type: Number, required: true },
 
     image: {
       type: imageSchema, // ONE image per document
@@ -22,13 +22,17 @@ const productSchema = new mongoose.Schema(
     
     availableSizes: {
       type: [String],
-      default: ["Free Size", "XS", "S", "M", "L", "XL"]
+      default: ["Free Size", "XS", "S", "M", "L", "XL"],
+      required: true
     },
 
     availableColors: {
       type: [String],
-      default: ["Black", "White", "Navy", "Beige"]
+      default: ["Black", "White", "Navy", "Beige"],
+      required: true
     },
+
+    gender: { type: String, enum: ["Girls", "Boys", "Men", "Women", "Unisex"], required: true },
 
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
@@ -38,6 +42,8 @@ const productSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+productSchema.index({ name: 1, "image.filename": 1 }, { unique: true });
 
 const Product = mongoose.model("Product", productSchema);
 export default Product;
