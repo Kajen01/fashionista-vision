@@ -1,12 +1,13 @@
-# #################### #
-#  FASHIONISTA-VISION  #
-# #################### #
+# ############################### #
+#  FASHIONISTA-VISION MID-REVIEW  #
+# ############################### #
 
 # GitGub Link,
     https://github.com/Kajen01/fashionista-vision
 
 # AWS Link,
-    >>> prof.kajen01@ Account
+    >>> Account: prof.kajen01@
+    >>> Account: googllee69googllee@
     >>> IAM: datamanagementproject
     >>> Region: eu-north-1
 
