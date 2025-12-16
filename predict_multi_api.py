@@ -14,8 +14,25 @@ import uvicorn
 # --------------------------------------------------------------
 # PATHS
 # --------------------------------------------------------------
+
+"""
+TRAIN_MODEL_TYPE = "resnet50"
+1. resnet50_20251120_045757/best_model.pth => 99.92%
+2. resnet50_20251119_132951/best_model.pth => 99.84%
+3. resnet50_20251116_162404/dress_type_model_epoch_32_acc_99.84.pth => 99.84%
+4. resnet50_20251116_081819/dress_type_model_epoch_24_acc_69.23.pth => 69.23%
+
+TRAIN_MODEL_TYPE = "efficientnet_b3"
+1. efficientnet_b3_20251119_081256/best_model.pth => 99.92%
+2. efficientnet_b3_20251118_121426/best_model.pth => 99.92%
+3. efficientnet_b3_20251117_183620/best_model.pth => 99.84%
+"""
+
 BEST_MODEL_RESNET = "./model/prototype_model/prototype_trained_models/resnet50_20251120_045757/best_model.pth"
 BEST_MODEL_EFFNET = "./model/prototype_model/prototype_trained_models/efficientnet_b3_20251119_081256/best_model.pth"
+
+# BEST_MODEL_RESNET = "./model/prototype_model/prototype_trained_models/resnet50_20251116_081819/dress_type_model_epoch_24_acc_69.23.pth"
+# BEST_MODEL_EFFNET = "./model/prototype_model/prototype_trained_models/efficientnet_b3_20251117_183620/best_model.pth"
 
 MULTI_MODEL_PATH = "./model/dress_pattern_color_model/trained_models/dress_pattern_color_model_20251121_135612/best_model_32.pth"
 
