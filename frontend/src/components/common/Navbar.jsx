@@ -12,6 +12,7 @@ const Navbar = () => {
     { path: '/', label: 'Home', page: 'home' },
     { path: '/model', label: 'Model', page: 'model' },
     { path: '/try-on', label: 'Try-On', page: 'try-on' },
+    { path: '/virtual-room', label: '3D Room', page: 'virtual-room' },
     { path: '/about', label: 'About', page: 'about' },
   ];
 
@@ -34,11 +35,10 @@ const Navbar = () => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`nav-link px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                    location.pathname === item.path
+                  className={`nav-link px-3 py-2 text-sm font-medium transition-colors duration-200 ${location.pathname === item.path
                       ? 'text-rose-600 border-b-2 border-rose-600'
                       : 'text-gray-600 hover:text-rose-600'
-                  }`}
+                    }`}
                 >
                   {item.label}
                 </Link>
@@ -80,11 +80,10 @@ const Navbar = () => {
                 key={item.path}
                 to={item.path}
                 onClick={() => setIsMenuOpen(false)}
-                className={`block px-3 py-2 text-base font-medium transition-colors ${
-                  location.pathname === item.path
+                className={`block px-3 py-2 text-base font-medium transition-colors ${location.pathname === item.path
                     ? 'text-rose-600 bg-rose-50'
                     : 'text-gray-600 hover:text-rose-600 hover:bg-gray-50'
-                }`}
+                  }`}
               >
                 {item.label}
               </Link>
