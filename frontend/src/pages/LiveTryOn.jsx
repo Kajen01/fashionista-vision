@@ -5,9 +5,38 @@ import { Camera } from '@mediapipe/camera_utils';
 import { drawConnectors, drawLandmarks } from '@mediapipe/drawing_utils';
 
 const GARMENTS = [
-    { id: 'dress1', name: 'Floral Summer Dress', image: '/assets/garments/dress1.png', scale: 2.2, offset: { x: 0, y: 0.1 } },
-    { id: 'dress2', name: 'Evening Gown', image: '/assets/garments/dress2.png', scale: 2.5, offset: { x: 0, y: 0.2 } },
-    { id: 'dress3', name: 'Casual Tunic', image: '/assets/garments/dress3.png', scale: 2.0, offset: { x: 0, y: 0.05 } },
+    {
+        id: 'dress1',
+        name: 'Silk Evening Dress',
+        image: '/assets/garments/dress1.png',
+        scale: 1.4,
+        offset: { x: 0, y: 0.1 },
+        fit: 'relaxed'
+    },
+    {
+        id: 'dress2',
+        name: 'Floral Summer Set',
+        image: '/assets/garments/dress2.png',
+        scale: 1.3,
+        offset: { x: 0, y: 0.15 },
+        fit: 'relaxed'
+    },
+    {
+        id: 'dress3_1',
+        name: 'Casual Ensemble',
+        image: '/assets/garments/dress3-1.png',
+        scale: 1.2,
+        offset: { x: 0, y: 0.12 },
+        fit: 'relaxed'
+    },
+    {
+        id: 'tshirt_jpg',
+        name: 'Premium T-shirt (JPG)',
+        image: '/assets/garments/dress3.jpg',
+        scale: 1.1,
+        offset: { x: 0, y: 0.05 },
+        fit: 'tight'
+    }
 ];
 
 const LiveTryOn = () => {
@@ -49,55 +78,80 @@ const LiveTryOn = () => {
         if (!img || !landmarks) return;
 
         // Landmarks: 11 (L shoulder), 12 (R shoulder), 23 (L hip), 24 (R hip)
-        const ls = landmarks[11];
-        const rs = landmarks[12];
+        const ls = landmarks[11]; // Left
+        const rs = landmarks[12]; // Right
         const lh = landmarks[23];
         const rh = landmarks[24];
 
-        // Increased tolerance for visibility
         if (!ls || !rs || ls.visibility < 0.2 || rs.visibility < 0.2) return;
 
-        // Calculate center point between shoulders
-        const centerX = (ls.x + rs.x) / 2 * ctx.canvas.width;
-        const centerY = (ls.y + rs.y) / 2 * ctx.canvas.height;
+        // 1. Calculate Center and Orientation
+        // Midpoint of shoulders
+        const midX = (ls.x + rs.x) / 2;
+        const midY = (ls.y + rs.y) / 2;
 
-        // Calculate width based on shoulder distance
+        // 2. Perspective (Yaw) Detection
+        // MediaPipe landmarks are returned from the camera's perspective.
+        // In a mirrored view, 'Left' shoulder is on the RIGHT side of the image.
+        // dz > 0 means the left shoulder is closer to the camera.
+        const dz = ls.z - rs.z;
+        const dx = ls.x - rs.x;
+        const yawAngle = Math.atan2(dz, Math.abs(dx)); // Use abs to keep base width stable
+
+        // 3. Compensation
+        const perspectiveFactor = 1 / Math.max(0.6, Math.abs(Math.cos(yawAngle)));
+
+        // 4. Dimensions
         const shoulderWidth = Math.sqrt(
             Math.pow(rs.x - ls.x, 2) + Math.pow(rs.y - ls.y, 2)
         ) * ctx.canvas.width;
 
-        // Calculate hip width for a bit of warping emulation
-        const hipWidth = lh && rh ? Math.sqrt(
-            Math.pow(rh.x - lh.x, 2) + Math.pow(rh.y - lh.y, 2)
-        ) * ctx.canvas.width : shoulderWidth;
-
-        // Calculate torso height (shoulders to hips)
+        // Torso Height (for offset calculation)
         const torsoHeight = lh && rh ? Math.sqrt(
-            Math.pow(((lh.x + rh.x) / 2) - ((ls.x + rs.x) / 2), 2) +
-            Math.pow(((lh.y + rh.y) / 2) - ((ls.y + rs.y) / 2), 2)
-        ) * ctx.canvas.height : shoulderWidth * 1.5;
+            Math.pow(((lh.x + rh.x) / 2) - midX, 2) +
+            Math.pow(((lh.y + rh.y) / 2) - midY, 2)
+        ) * ctx.canvas.height : shoulderWidth * 1.2;
 
-        // Rotation angle between shoulders
-        const angle = Math.atan2(rs.y - ls.y, rs.x - ls.x);
+        // 5. Rotation (Roll) & Normalization
+        // IMPORTANT: Invert Y for screen coordinates if rotation is inverted.
+        let dx_roll = rs.x - ls.x;
+        let dy_roll = rs.y - ls.y;
+        let rollAngle = Math.atan2(dy_roll, dx_roll);
 
-        // Basic "Perfect Fit" adjustment
-        const widthFactor = Math.max(1, hipWidth / (shoulderWidth * 1.5 || 1));
-        const garmentWidth = Math.max(50, shoulderWidth * garment.scale * widthFactor);
+        // Safety check: Ensure the garment is never upside down (180deg flip)
+        if (Math.abs(rollAngle) > Math.PI / 2) {
+            rollAngle = rollAngle > 0 ? rollAngle - Math.PI : rollAngle + Math.PI;
+        }
+
+        // Double-safety: cap extreme tilts
+        if (Math.abs(rollAngle) > 0.8) rollAngle = 0;
+
+        // 6. Final Fit & Anchoring
+        const baseWidth = shoulderWidth * garment.scale * (garment.fit === 'tight' ? 1.05 : 1.3);
+        const garmentWidth = baseWidth * perspectiveFactor;
         const garmentHeight = garmentWidth * (img.height / img.width);
 
         ctx.save();
-        ctx.translate(centerX, centerY + (torsoHeight * garment.offset.y));
-        ctx.rotate(angle);
+        // Translation: Move target lower to avoid the face
+        // torsoHeight is the distance from shoulder-mid to hip-mid
+        const verticalShift = torsoHeight * (garment.offset.y || 0.15); // Default to 15% down
 
-        // Add subtle shadow for depth
-        ctx.shadowColor = 'rgba(0,0,0,0.5)';
+        ctx.translate(midX * ctx.canvas.width, midY * ctx.canvas.height + verticalShift);
+        ctx.rotate(rollAngle);
+
+        // 7. Subtle 3D skew
+        const skew = Math.sin(yawAngle) * 0.1;
+        ctx.transform(1, skew, 0, 1, 0, 0);
+
+        ctx.shadowColor = 'rgba(0,0,0,0.3)';
         ctx.shadowBlur = 20;
-        ctx.shadowOffsetY = 10;
 
+        // Draw centering horizontally
+        // Offset slightly up to make it sit 'on' the shoulders
         ctx.drawImage(
             img,
             -garmentWidth / 2,
-            0,
+            -garmentHeight * 0.1, // Sit a bit higher than the anchor to cover the neck
             garmentWidth,
             garmentHeight
         );
@@ -139,7 +193,6 @@ const LiveTryOn = () => {
                     if (!canvasElement) return;
                     const canvasCtx = canvasElement.getContext('2d');
 
-                    // Ensure canvas matches internal resolution
                     if (canvasElement.width !== 1280 || canvasElement.height !== 720) {
                         canvasElement.width = 1280;
                         canvasElement.height = 720;
@@ -147,12 +200,6 @@ const LiveTryOn = () => {
 
                     canvasCtx.save();
                     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-
-                    // Visible diagnostic heartbeat (Top Left)
-                    canvasCtx.fillStyle = '#00FF00'; // Neon Green
-                    canvasCtx.fillRect(20, 20, 30, 30);
-                    canvasCtx.strokeStyle = 'white';
-                    canvasCtx.strokeRect(20, 20, 30, 30);
 
                     if (results.poseLandmarks) {
                         if (!isModelLoaded) setIsModelLoaded(true);
@@ -165,15 +212,13 @@ const LiveTryOn = () => {
 
                         if (showDebugRef.current) {
                             // High-visibility manual skeleton
-                            canvasCtx.lineWidth = 6;
-                            canvasCtx.strokeStyle = '#00FFFF'; // Cyan
-                            canvasCtx.lineJoin = 'round';
-                            canvasCtx.lineCap = 'round';
+                            canvasCtx.lineWidth = 4;
+                            canvasCtx.strokeStyle = '#00FFFF';
 
                             const connect = (i, j) => {
                                 const p1 = landmarks[i];
                                 const p2 = landmarks[j];
-                                if (p1 && p2 && p1.visibility > 0.3 && p2.visibility > 0.3) {
+                                if (p1 && p2 && p1.visibility > 0.4 && p2.visibility > 0.4) {
                                     canvasCtx.beginPath();
                                     canvasCtx.moveTo(p1.x * 1280, p1.y * 720);
                                     canvasCtx.lineTo(p2.x * 1280, p2.y * 720);
@@ -181,24 +226,8 @@ const LiveTryOn = () => {
                                 }
                             };
 
-                            // Main connections
                             connect(11, 12); connect(23, 24); connect(11, 23); connect(12, 24);
                             connect(11, 13); connect(13, 15); connect(12, 14); connect(14, 16);
-                            connect(23, 25); connect(25, 27); connect(24, 26); connect(26, 28);
-
-                            // Large anchor points
-                            canvasCtx.fillStyle = '#FF00FF'; // Magenta
-                            [11, 12, 23, 24].forEach(idx => {
-                                const p = landmarks[idx];
-                                if (p && p.visibility > 0.3) {
-                                    canvasCtx.beginPath();
-                                    canvasCtx.arc(p.x * 1280, p.y * 720, 10, 0, 2 * Math.PI);
-                                    canvasCtx.fill();
-                                    canvasCtx.strokeStyle = 'white';
-                                    canvasCtx.lineWidth = 2;
-                                    canvasCtx.stroke();
-                                }
-                            });
                         }
                     }
 
@@ -211,9 +240,7 @@ const LiveTryOn = () => {
                             if (!isCancelled && videoRef.current && videoRef.current.readyState >= 2 && poseInstance) {
                                 try {
                                     await poseInstance.send({ image: videoRef.current });
-                                } catch (e) {
-                                    // Silent drop
-                                }
+                                } catch (e) { }
                             }
                         },
                         width: 1280,
@@ -223,9 +250,9 @@ const LiveTryOn = () => {
                     if (!isCancelled) setIsLoading(false);
                 }
             } catch (err) {
-                console.error("AI Initialization Failure:", err);
+                console.error("AI Init Error:", err);
                 if (!isCancelled) {
-                    setError(`AI System Failure: ${err.message || 'Check camera'}`);
+                    setError(`AI Error: ${err.message}`);
                     setIsLoading(false);
                 }
             }
