@@ -8,6 +8,7 @@ import Footer from './components/common/Footer';
 import Home from './pages/Home';
 import Model from './pages/Model';
 import TryOn from './pages/TryOn';
+import TrialRoom from './pages/TrialRoom';
 import About from './pages/About';
 import CartSidebar from './components/common/CartSidebar'
 import { Elements } from '@stripe/react-stripe-js';
@@ -28,6 +29,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/model" element={<Model />} />
               <Route path="/try-on" element={<TryOn />} />
+              <Route path="/trial-room" element={<TrialRoom />} />
               <Route path="/about" element={<About />} />
             </Routes>
             </Elements>

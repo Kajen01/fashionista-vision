@@ -9,6 +9,7 @@ import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
+import trialRoomRoutes from "./routes/trialRoomRoutes.js";
 import connectDB from "./config/db.js"
 
 const app = express();
@@ -37,12 +38,14 @@ const __dirname = path.dirname(__filename);
 // // Serve the folder at /uploads
 // app.use("/uploads", express.static(IMAGE_BASE_PATH));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads/trialroom", express.static(path.join(__dirname, "uploads/trialroom")));
 
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/checkout", paymentRoutes);
+app.use("/api/trialroom", trialRoomRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
