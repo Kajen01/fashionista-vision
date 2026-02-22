@@ -1,0 +1,46 @@
+[
+    {
+        "id": "dress1",
+        "name": "Silk Evening Dress",
+        "image": "/assets/garments/dress1.png",
+        "scale": 1.4,
+        "offset": {
+            "x": 0,
+            "y": 0.15
+        },
+        "fit": "relaxed"
+    },
+    {
+        "id": "dress2",
+        "name": "Floral Summer Set",
+        "image": "/assets/garments/dress2.png",
+        "scale": 1.3,
+        "offset": {
+            "x": 0,
+            "y": 0.2
+        },
+        "fit": "relaxed"
+    },
+    {
+        "id": "dress3_1",
+        "name": "Casual Ensemble",
+        "image": "/assets/garments/dress3-1.png",
+        "scale": 1.2,
+        "offset": {
+            "x": 0,
+            "y": 0.12
+        },
+        "fit": "relaxed"
+    },
+    {
+        "id": "tshirt_jpg",
+        "name": "Premium T-shirt (JPG)",
+        "image": "/assets/garments/dress3.jpg",
+        "scale": 1.1,
+        "offset": {
+            "x": 0,
+            "y": 0.05
+        },
+        "fit": "tight"
+    }
+]
