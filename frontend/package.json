@@ -4,6 +4,9 @@
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
+    "@mediapipe/camera_utils": "^0.3.1675466862",
+    "@mediapipe/drawing_utils": "^0.3.1675466124",
+    "@mediapipe/pose": "^0.5.1675469404",
     "@stripe/react-stripe-js": "^5.4.0",
     "@stripe/stripe-js": "^8.5.2",
     "axios": "^1.13.2",
