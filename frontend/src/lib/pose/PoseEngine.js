@@ -2,21 +2,22 @@ import { Pose } from '@mediapipe/pose';
 
 /**
  * Singleton Pose Engine to prevent redundant WASM initializations
+ * Attached to window to survive React Fast Refresh (HMR).
  */
-let instance = null;
-
 class PoseEngine {
     constructor() {
-        if (instance) return instance;
+        if (window.__PoseEngineInstance) return window.__PoseEngineInstance;
 
         this.pose = new Pose({
-            locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404/${file}`
+            locateFile: (file) => {
+                return `https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404/${file}`;
+            }
         });
 
         this.pose.setOptions({
             modelComplexity: 1,
             smoothLandmarks: true,
-            enableSegmentation: false,
+            enableSegmentation: true, // Output human mask alongside landmarks
             minDetectionConfidence: 0.5,
             minTrackingConfidence: 0.5
         });
@@ -26,11 +27,15 @@ class PoseEngine {
             if (this.onResultsCallback) this.onResultsCallback(results);
         });
 
-        instance = this;
+        // Trigger initialization immediately and cache the promise to prevent duplicate concurrent loads
+        this.initializationPromise = this.pose.initialize();
+
+        window.__PoseEngineInstance = this;
     }
 
     async send(image) {
         try {
+            await this.initializationPromise; // Wait for the single initialization to finish
             await this.pose.send({ image });
         } catch (e) {
             console.error("PoseEngine Inference Error:", e);
@@ -44,7 +49,7 @@ class PoseEngine {
     close() {
         // We typically keep the singleton alive, but provide cleanup
         if (this.pose) this.pose.close();
-        instance = null;
+        window.__PoseEngineInstance = null;
     }
 }
 
