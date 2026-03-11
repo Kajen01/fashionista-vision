@@ -1,6 +1,15 @@
 /**
- * EMA (Exponential Moving Average) Smoothing for landmarks and transforms
+ * poseMath.js — Torso quad extraction + confidence-based fallback
+ *
+ * Landmarks used:
+ *   11 = left shoulder, 12 = right shoulder
+ *   13 = left elbow, 14 = right elbow
+ *   15 = left wrist, 16 = right wrist
+ *   23 = left hip, 24 = right hip
  */
+
+// ── helpers ──────────────────────────────────────────────────────────
+
 export const smoothValue = (prev, curr, factor = 0.3) => {
     if (prev === null || prev === undefined) return curr;
     return prev * (1 - factor) + curr * factor;
@@ -12,61 +21,133 @@ export const smoothLandmarks = (prevLandmarks, currLandmarks, factor = 0.5) => {
         x: smoothValue(prevLandmarks[i]?.x, lm.x, factor),
         y: smoothValue(prevLandmarks[i]?.y, lm.y, factor),
         z: smoothValue(prevLandmarks[i]?.z, lm.z, factor),
-        visibility: lm.visibility
+        visibility: lm.visibility,
     }));
 };
 
+export const distance = (a, b) =>
+    Math.hypot((b.x ?? 0) - (a.x ?? 0), (b.y ?? 0) - (a.y ?? 0));
+
+export const midpoint = (a, b) => ({
+    x: ((a.x ?? 0) + (b.x ?? 0)) / 2,
+    y: ((a.y ?? 0) + (b.y ?? 0)) / 2,
+});
+
+/** Convert a normalised landmark to pixel coords */
+export const toPixel = (lm, w, h) => ({
+    x: lm.x * w,
+    y: lm.y * h,
+    visibility: lm.visibility ?? 0,
+});
+
+// ── confidence check ────────────────────────────────────────────────
+
+const MIN_SHOULDER_VIS = 0.25;
+const MIN_HIP_VIS = 0.20;
+
 /**
- * 3D-Aware Fitting Math
+ * Returns 'torso' | 'shoulders' | null
+ *   torso     — shoulders + hips are reliable → full quad
+ *   shoulders — only shoulders are reliable   → affine fallback
+ *   null      — pose too weak → hide garment
  */
-export const computeTransform = (landmarks, garment, canvasWidth, canvasHeight) => {
-    const ls = landmarks[11]; // Left Shoulder
-    const rs = landmarks[12]; // Right Shoulder
-    const lh = landmarks[23]; // Left Hip
-    const rh = landmarks[24]; // Right Hip
+export const getPoseConfidence = (landmarks) => {
+    if (!landmarks) return null;
 
-    if (!ls || !rs || ls.visibility < 0.2 || rs.visibility < 0.2) return null;
+    const ls = landmarks[11];
+    const rs = landmarks[12];
+    const lh = landmarks[23];
+    const rh = landmarks[24];
 
-    // 1. Center & Orientation
-    const midX = (ls.x + rs.x) / 2;
-    const midY = (ls.y + rs.y) / 2;
+    const shouldersOk =
+        ls && rs &&
+        (ls.visibility ?? 0) >= MIN_SHOULDER_VIS &&
+        (rs.visibility ?? 0) >= MIN_SHOULDER_VIS;
 
-    // 2. Yaw (Perspective) Proxy
-    const dz = ls.z - rs.z;
-    const dx = ls.x - rs.x;
-    const yawAngle = Math.atan2(dz, Math.abs(dx));
-    const perspectiveFactor = 1 / Math.max(0.6, Math.abs(Math.cos(yawAngle)));
+    if (!shouldersOk) return null;
 
-    // 3. Roll (Rotation)
-    let dx_roll = rs.x - ls.x;
-    let dy_roll = rs.y - ls.y;
-    let rollAngle = Math.atan2(dy_roll, dx_roll);
+    const hipsOk =
+        lh && rh &&
+        (lh.visibility ?? 0) >= MIN_HIP_VIS &&
+        (rh.visibility ?? 0) >= MIN_HIP_VIS;
 
-    // Normalize to keep upright
-    if (Math.abs(rollAngle) > Math.PI / 2) {
-        rollAngle = rollAngle > 0 ? rollAngle - Math.PI : rollAngle + Math.PI;
+    return hipsOk ? 'torso' : 'shoulders';
+};
+
+// ── torso quad ──────────────────────────────────────────────────────
+
+/**
+ * Build a 4-point destination quad from shoulders + hips.
+ *
+ * @param {Object[]} landmarks  smoothed, pixel-space landmarks
+ * @param {Object}   controls   { scale, waistScale, xOffset, yOffset }
+ * @param {string}   category   'dress' | 'top' | 'jacket'
+ * @returns {{ upperLeft, upperRight, lowerLeft, lowerRight,
+ *             shoulderWidth, hipWidth, torsoHeight, angle } | null}
+ */
+export const computeTorsoQuad = (landmarks, controls = {}, category = 'dress') => {
+    const confidence = getPoseConfidence(landmarks);
+    if (!confidence) return null;
+
+    const ls = landmarks[11];
+    const rs = landmarks[12];
+
+    const scale = controls.scale ?? 1.0;
+    const waistScale = controls.waistScale ?? 1.0;
+    const xOff = controls.xOffset ?? 0;
+    const yOff = controls.yOffset ?? 0;
+
+    const shoulderCenter = midpoint(ls, rs);
+    const shoulderWidth = distance(ls, rs);
+    const angle = Math.atan2(rs.y - ls.y, rs.x - ls.x);
+
+    // ── full torso path ──
+    if (confidence === 'torso') {
+        const lh = landmarks[23];
+        const rh = landmarks[24];
+        const hipCenter = midpoint(lh, rh);
+        const hipWidth = distance(lh, rh);
+        const torsoHeight = Math.max(60, distance(shoulderCenter, hipCenter));
+
+        const shoulderExpand = shoulderWidth * 0.14 * scale;
+        const hipExpand = hipWidth * 0.10 * waistScale * scale;
+        const topLift = torsoHeight * 0.08 * scale;
+
+        const dressMultiplier =
+            category === 'top' ? 1.20 :
+                category === 'jacket' ? 1.45 : 2.10;
+
+        const lowerExtension =
+            category === 'top' ? 0 : torsoHeight * Math.max(0.9, dressMultiplier - 1.0);
+        const skirtFlare =
+            category === 'top' ? 0 : hipWidth * 0.08;
+
+        return {
+            upperLeft: { x: ls.x - shoulderExpand + xOff, y: ls.y - topLift + yOff },
+            upperRight: { x: rs.x + shoulderExpand + xOff, y: rs.y - topLift + yOff },
+            lowerLeft: { x: lh.x - hipExpand - skirtFlare + xOff, y: lh.y + lowerExtension + yOff },
+            lowerRight: { x: rh.x + hipExpand + skirtFlare + xOff, y: rh.y + lowerExtension + yOff },
+            shoulderWidth,
+            hipWidth,
+            torsoHeight,
+            angle,
+            mode: 'torso',
+        };
     }
-    if (Math.abs(rollAngle) > 0.8) rollAngle = 0;
 
-    // 4. Scale Detection
-    const shoulderWidth = Math.sqrt(Math.pow(rs.x - ls.x, 2) + Math.pow(rs.y - ls.y, 2)) * canvasWidth;
-
-    // Torso Height for vertical anchoring
-    const torsoHeight = lh && rh ? Math.sqrt(
-        Math.pow(((lh.x + rh.x) / 2) - midX, 2) +
-        Math.pow(((lh.y + rh.y) / 2) - midY, 2)
-    ) * canvasHeight : shoulderWidth * 1.5;
-
-    // 5. Final Dimensions
-    const baseWidth = shoulderWidth * garment.scale * (garment.fit === 'tight' ? 1.05 : 1.3);
-    const garmentWidth = baseWidth * perspectiveFactor;
+    // ── shoulder-only fallback ──
+    const estimatedTorso = shoulderWidth * 1.5;
+    const halfW = shoulderWidth * 0.60 * scale;
 
     return {
-        x: midX * canvasWidth,
-        y: midY * canvasHeight + (torsoHeight * (garment.offset.y || 0.15)),
-        width: garmentWidth,
-        rotation: rollAngle,
-        yawSkew: Math.sin(yawAngle) * 0.1,
-        perspectiveFactor
+        upperLeft: { x: shoulderCenter.x - halfW + xOff, y: shoulderCenter.y - estimatedTorso * 0.08 + yOff },
+        upperRight: { x: shoulderCenter.x + halfW + xOff, y: shoulderCenter.y - estimatedTorso * 0.08 + yOff },
+        lowerLeft: { x: shoulderCenter.x - halfW * waistScale + xOff, y: shoulderCenter.y + estimatedTorso + yOff },
+        lowerRight: { x: shoulderCenter.x + halfW * waistScale + xOff, y: shoulderCenter.y + estimatedTorso + yOff },
+        shoulderWidth,
+        hipWidth: shoulderWidth * 0.95,
+        torsoHeight: estimatedTorso,
+        angle,
+        mode: 'shoulders',
     };
 };

@@ -3,44 +3,100 @@
         "id": "dress1",
         "name": "Silk Evening Dress",
         "image": "/assets/garments/dress1.png",
-        "scale": 1.4,
-        "offset": {
-            "x": 0,
-            "y": 0.15
-        },
-        "fit": "relaxed"
+        "category": "dress",
+        "heightMultiplier": 2.15,
+        "anchors": {
+            "left_shoulder": [
+                0.24,
+                0.08
+            ],
+            "right_shoulder": [
+                0.76,
+                0.08
+            ],
+            "left_hip": [
+                0.30,
+                0.58
+            ],
+            "right_hip": [
+                0.70,
+                0.58
+            ]
+        }
     },
     {
         "id": "dress2",
         "name": "Floral Summer Set",
         "image": "/assets/garments/dress2.png",
-        "scale": 1.3,
-        "offset": {
-            "x": 0,
-            "y": 0.2
-        },
-        "fit": "relaxed"
+        "category": "dress",
+        "heightMultiplier": 2.10,
+        "anchors": {
+            "left_shoulder": [
+                0.24,
+                0.08
+            ],
+            "right_shoulder": [
+                0.76,
+                0.08
+            ],
+            "left_hip": [
+                0.30,
+                0.58
+            ],
+            "right_hip": [
+                0.70,
+                0.58
+            ]
+        }
     },
     {
         "id": "dress3_1",
         "name": "Casual Ensemble",
         "image": "/assets/garments/dress3-1.png",
-        "scale": 1.2,
-        "offset": {
-            "x": 0,
-            "y": 0.12
-        },
-        "fit": "relaxed"
+        "category": "dress",
+        "heightMultiplier": 2.0,
+        "anchors": {
+            "left_shoulder": [
+                0.24,
+                0.08
+            ],
+            "right_shoulder": [
+                0.76,
+                0.08
+            ],
+            "left_hip": [
+                0.30,
+                0.55
+            ],
+            "right_hip": [
+                0.70,
+                0.55
+            ]
+        }
     },
     {
         "id": "tshirt_jpg",
         "name": "Premium T-shirt (JPG)",
         "image": "/assets/garments/dress3.jpg",
-        "scale": 1.1,
-        "offset": {
-            "x": 0,
-            "y": 0.05
-        },
-        "fit": "tight"
+        "category": "top",
+        "heightMultiplier": 1.25,
+        "anchors": {
+            "left_shoulder": [
+                0.24,
+                0.10
+            ],
+            "right_shoulder": [
+                0.76,
+                0.10
+            ],
+            "left_hip": [
+                0.30,
+                0.62
+            ],
+            "right_hip": [
+                0.70,
+                0.62
+            ]
+        }
     }
 ]

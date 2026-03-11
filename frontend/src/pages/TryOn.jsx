@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { toast } from 'react-hot-toast';
-import { Sparkles, Upload, Ruler } from 'lucide-react';
+import { Sparkles, Ruler, Camera } from 'lucide-react';
+
 import ModelSelector from '../components/try-on/ModelSelector';
 import VirtualFittingRoom from '../components/try-on/VirtualFittingRoom';
 import ClothingSelector from '../components/try-on/ClothingSelector';
@@ -23,81 +24,80 @@ const TryOn = () => {
     toast.success(`${clothing.name} selected for try-on`);
   };
 
+  /** Store both the File object (for backend FormData) and a preview URL */
   const handlePhotoUpload = (event) => {
-    const file = event.target.files[0];
+    const file = event.target.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setUploadedPhoto(e.target.result);
-      toast.success('Photo uploaded successfully!');
-    };
-    reader.readAsDataURL(file);
+    const previewUrl = URL.createObjectURL(file);
+    setUploadedPhoto({ file, preview: previewUrl, name: file.name });
+    toast.success('Photo uploaded successfully');
   };
 
   return (
     <div className="pt-16">
-      {/* Hero Section */}
+      {/* ── hero ───────────────────────────────────────────── */}
       <section className="hero-bg pt-16 pb-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl font-display font-bold text-gray-900 mb-6"
+            className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-6"
           >
             Virtual Try-On Studio
           </motion.h1>
+
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-xl text-gray-600 font-accent mb-8 leading-relaxed"
+            transition={{ delay: 0.15 }}
+            className="text-lg md:text-xl text-gray-600 font-accent mb-8 leading-relaxed max-w-3xl mx-auto"
           >
-            Experience the future of online shopping with our advanced virtual fitting room.
-            See how clothes look on you before making a purchase.
+            Upload a photo for static fitting, or switch to live
+            camera mode to preview dresses attached to your body in
+            real time.
           </motion.p>
+
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="flex items-center justify-center space-x-4 text-sm text-gray-500"
+            transition={{ delay: 0.25 }}
+            className="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-600"
           >
-            <div className="flex items-center">
-              <Sparkles className="w-5 h-5 mr-2 text-green-500" />
-              <span>Real-time Fitting</span>
+            <div className="flex items-center bg-white/70 px-4 py-2 rounded-full shadow-sm">
+              <Camera className="w-4 h-4 mr-2 text-emerald-500" />
+              <span>Live Camera Try-On</span>
             </div>
-            <div className="flex items-center">
-              <Ruler className="w-5 h-5 mr-2 text-green-500" />
-              <span>Size Recommendations</span>
+            <div className="flex items-center bg-white/70 px-4 py-2 rounded-full shadow-sm">
+              <Sparkles className="w-4 h-4 mr-2 text-emerald-500" />
+              <span>Pose-Aware Dress Placement</span>
             </div>
-            <div className="flex items-center">
-              <Sparkles className="w-5 h-5 mr-2 text-green-500" />
-              <span>Save & Share</span>
+            <div className="flex items-center bg-white/70 px-4 py-2 rounded-full shadow-sm">
+              <Ruler className="w-4 h-4 mr-2 text-emerald-500" />
+              <span>Scale + Offset Controls</span>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Virtual Try-On Interface */}
-      <section className="py-16">
+      {/* ── main grid: 4-column layout ────────────────────── */}
+      <section className="py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Model Selection */}
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
             <ModelSelector
               selectedModel={selectedModel}
               onModelSelect={handleModelSelect}
               onPhotoUpload={handlePhotoUpload}
-              uploadedPhoto={uploadedPhoto}
+              uploadedPhoto={uploadedPhoto?.preview || null}
             />
 
-            {/* Virtual Fitting Room */}
             <VirtualFittingRoom
               selectedModel={selectedModel}
               selectedClothing={selectedClothing}
               uploadedPhoto={uploadedPhoto}
+              onOpenSizeGuide={() => setShowSizeGuide(true)}
             />
 
-            {/* Clothing Selection */}
             <ClothingSelector
               onClothingSelect={handleClothingSelect}
               selectedClothing={selectedClothing}
@@ -106,7 +106,6 @@ const TryOn = () => {
         </div>
       </section>
 
-      {/* Size Guide Modal */}
       <SizeGuideModal
         isOpen={showSizeGuide}
         onClose={() => setShowSizeGuide(false)}

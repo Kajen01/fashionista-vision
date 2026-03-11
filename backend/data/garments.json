@@ -1,32 +1,102 @@
 [
     {
         "id": "dress1",
-        "name": "Floral Maxi Dress",
-        "thumbnail": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=200&h=200&fit=crop",
-        "pngUrl": "/assets/garments/dress1.png",
-        "meta": {
-            "widthFactor": 1.15,
-            "anchor": "top_center"
+        "name": "Silk Evening Dress",
+        "image": "/assets/garments/dress1.png",
+        "category": "dress",
+        "heightMultiplier": 2.15,
+        "anchors": {
+            "left_shoulder": [
+                0.24,
+                0.08
+            ],
+            "right_shoulder": [
+                0.76,
+                0.08
+            ],
+            "left_hip": [
+                0.30,
+                0.58
+            ],
+            "right_hip": [
+                0.70,
+                0.58
+            ]
         }
     },
     {
         "id": "dress2",
-        "name": "Summer Sundress",
-        "thumbnail": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=200&h=200&fit=crop",
-        "pngUrl": "/assets/garments/dress2.png",
-        "meta": {
-            "widthFactor": 1.1,
-            "anchor": "top_center"
+        "name": "Floral Summer Set",
+        "image": "/assets/garments/dress2.png",
+        "category": "dress",
+        "heightMultiplier": 2.10,
+        "anchors": {
+            "left_shoulder": [
+                0.24,
+                0.08
+            ],
+            "right_shoulder": [
+                0.76,
+                0.08
+            ],
+            "left_hip": [
+                0.30,
+                0.58
+            ],
+            "right_hip": [
+                0.70,
+                0.58
+            ]
         }
     },
     {
-        "id": "dress3",
-        "name": "Evening Gown",
-        "thumbnail": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=200&h=200&fit=crop",
-        "pngUrl": "/assets/garments/dress3.png",
-        "meta": {
-            "widthFactor": 1.2,
-            "anchor": "top_center"
+        "id": "dress3_1",
+        "name": "Casual Ensemble",
+        "image": "/assets/garments/dress3-1.png",
+        "category": "dress",
+        "heightMultiplier": 2.0,
+        "anchors": {
+            "left_shoulder": [
+                0.24,
+                0.08
+            ],
+            "right_shoulder": [
+                0.76,
+                0.08
+            ],
+            "left_hip": [
+                0.30,
+                0.55
+            ],
+            "right_hip": [
+                0.70,
+                0.55
+            ]
+        }
+    },
+    {
+        "id": "tshirt_jpg",
+        "name": "Premium T-shirt (JPG)",
+        "image": "/assets/garments/dress3.jpg",
+        "category": "top",
+        "heightMultiplier": 1.25,
+        "anchors": {
+            "left_shoulder": [
+                0.24,
+                0.10
+            ],
+            "right_shoulder": [
+                0.76,
+                0.10
+            ],
+            "left_hip": [
+                0.30,
+                0.62
+            ],
+            "right_hip": [
+                0.70,
+                0.62
+            ]
         }
     }
 ]
