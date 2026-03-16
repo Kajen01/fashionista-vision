@@ -23,6 +23,8 @@ const DigitalMirror = () => {
     garmentImages,
     garmentsLoading,
     garmentsError,
+    uploadingGarment,
+    uploadGarment,
   } = useGarmentLibrary();
 
   const {
@@ -52,6 +54,14 @@ const DigitalMirror = () => {
     setParams({ ...DEFAULT_MIRROR_PARAMS });
   };
 
+  const handleUploadGarment = async (file) => {
+    const uploadedGarment = await uploadGarment(file);
+    if (uploadedGarment) {
+      didAutoSelectRef.current = true;
+      setSelectedGarment(uploadedGarment);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,_#fffaf8_0%,_#ffffff_45%,_#f8fafc_100%)] pb-12 pt-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -62,7 +72,7 @@ const DigitalMirror = () => {
               See the fit settle in real time
             </h1>
             <p className="mt-4 text-base leading-7 text-slate-500 sm:text-lg">
-              Keep the camera view in focus while you switch garments, fine-tune placement, and compare how each look sits across the shoulders and torso.
+              Every garment in the mirror is now treated as a cropped silhouette with its own garment skeleton, so the live fit aligns to shoulders, waist, and hem instead of the full image box.
             </p>
           </div>
 
@@ -103,7 +113,7 @@ const DigitalMirror = () => {
               modelReady={modelReady}
               fps={fps}
               selectedGarment={selectedGarment}
-              garmentsLoading={garmentsLoading}
+              garmentsLoading={garmentsLoading || uploadingGarment}
             />
           </div>
 
@@ -114,6 +124,8 @@ const DigitalMirror = () => {
               garmentsError={garmentsError}
               selectedGarment={selectedGarment}
               onSelectGarment={setSelectedGarment}
+              onUploadGarment={handleUploadGarment}
+              uploadingGarment={uploadingGarment}
               toggles={toggles}
               setToggles={setToggles}
               params={params}

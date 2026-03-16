@@ -4,7 +4,7 @@ import { getPoseEngine } from '../lib/pose/PoseEngine';
 import { getOcclusionPolygons } from '../lib/pose/occlusionRegions';
 import { smoothLandmarks } from '../lib/pose/poseMath';
 import { buildMirrorTransform } from '../lib/digital-mirror/buildMirrorTransform';
-import { drawMirrorSkeleton } from '../lib/digital-mirror/drawMirrorSkeleton';
+import { drawGarmentSkeleton, drawMirrorSkeleton } from '../lib/digital-mirror/drawMirrorSkeleton';
 import { Compositor } from '../lib/render/Compositor';
 import { TryOnRenderer2D } from '../lib/render/TryOnRenderer2D';
 
@@ -122,11 +122,11 @@ export function useDigitalMirror({
 
     const renderResult = (results) => {
       if (
-        isCancelled ||
-        !canvasRef.current ||
-        !videoRef.current ||
-        !rendererRef.current ||
-        !compositorRef.current
+        isCancelled
+        || !canvasRef.current
+        || !videoRef.current
+        || !rendererRef.current
+        || !compositorRef.current
       ) {
         return;
       }
@@ -162,23 +162,33 @@ export function useDigitalMirror({
         ? getOcclusionPolygons(renderLandmarks, width, height)
         : [];
 
+      let garmentTransform = null;
+      let garmentRenderable = null;
+      const activeGarment = selectedGarmentRef.current;
+
       compositorRef.current.composite(
         activeVideo,
         latestSegmentationMaskRef.current,
         (passContext) => {
-          if (!togglesRef.current.showOverlay || !selectedGarmentRef.current || !renderLandmarks) {
+          if (
+            !togglesRef.current.showOverlay
+            || !activeGarment
+            || !renderLandmarks
+          ) {
             return;
           }
 
-          const garmentImage = garmentImagesRef.current[selectedGarmentRef.current.id];
+          const garmentImage = garmentImagesRef.current[activeGarment.id];
+          const garmentAnalysis = garmentImage?.garmentAnalysis || activeGarment.analysis;
 
-          if (!garmentImage) {
+          if (!garmentImage || !garmentAnalysis?.keypoints) {
             return;
           }
 
           const transform = buildMirrorTransform({
             landmarks: renderLandmarks,
-            garment: selectedGarmentRef.current,
+            garment: activeGarment,
+            garmentImage,
             canvasWidth: width,
             canvasHeight: height,
             params: paramsRef.current,
@@ -187,6 +197,9 @@ export function useDigitalMirror({
           if (!transform) {
             return;
           }
+
+          garmentRenderable = garmentImage;
+          garmentTransform = transform;
 
           const renderer = rendererRef.current;
           const originalContext = renderer.ctx;
@@ -206,6 +219,15 @@ export function useDigitalMirror({
           canvasHeight: height,
           bodyMode: togglesRef.current.bodyMode,
         });
+
+        if (activeGarment && garmentTransform && garmentRenderable) {
+          drawGarmentSkeleton({
+            ctx: context,
+            garment: activeGarment,
+            transform: garmentTransform,
+            garmentImage: garmentRenderable,
+          });
+        }
       }
 
       const now = performance.now();

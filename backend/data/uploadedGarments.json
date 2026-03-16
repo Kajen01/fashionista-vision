@@ -1,0 +1,30 @@
+[
+  {
+    "id": "upload-1773684937859",
+    "name": "Abstract Daisy Print Blouse Test",
+    "source": "upload",
+    "fit": "tight",
+    "thumbnail": "/uploads/trialroom/garments/raw/1773684937847-Abstract_Daisy_Print_Blouse_Test.png",
+    "pngUrl": "/uploads/trialroom/garments/raw/1773684937847-Abstract_Daisy_Print_Blouse_Test.png",
+    "previewUrl": "/uploads/trialroom/garments/raw/1773684937847-Abstract_Daisy_Print_Blouse_Test.png",
+    "processedImageUrl": "/uploads/trialroom/garments/raw/1773684937847-Abstract_Daisy_Print_Blouse_Test.png",
+    "analysis": null,
+    "analysisStatus": "client-fallback",
+    "analysisError": "ML Service Error: {\"detail\":\"Not Found\"}",
+    "createdAt": "2026-03-16T18:15:37.965Z"
+  },
+  {
+    "id": "upload-1773684920213",
+    "name": "Brooklyn Nets Baseball Tee Test",
+    "source": "upload",
+    "fit": "tight",
+    "thumbnail": "/uploads/trialroom/garments/raw/1773684920205-Brooklyn_Nets_Baseball_Tee_Test.png",
+    "pngUrl": "/uploads/trialroom/garments/raw/1773684920205-Brooklyn_Nets_Baseball_Tee_Test.png",
+    "previewUrl": "/uploads/trialroom/garments/raw/1773684920205-Brooklyn_Nets_Baseball_Tee_Test.png",
+    "processedImageUrl": "/uploads/trialroom/garments/raw/1773684920205-Brooklyn_Nets_Baseball_Tee_Test.png",
+    "analysis": null,
+    "analysisStatus": "client-fallback",
+    "analysisError": "ML Service Error: {\"detail\":\"Not Found\"}",
+    "createdAt": "2026-03-16T18:15:20.311Z"
+  }
+]

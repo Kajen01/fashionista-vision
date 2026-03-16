@@ -8,6 +8,8 @@ const MirrorSidebar = ({
   garmentsError,
   selectedGarment,
   onSelectGarment,
+  onUploadGarment,
+  uploadingGarment,
   toggles,
   setToggles,
   params,
@@ -31,6 +33,8 @@ const MirrorSidebar = ({
           garmentsError={garmentsError}
           selectedGarment={selectedGarment}
           onSelectGarment={onSelectGarment}
+          onUploadGarment={onUploadGarment}
+          uploadingGarment={uploadingGarment}
         />
       </div>
     </aside>
