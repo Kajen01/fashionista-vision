@@ -1,5 +1,16 @@
 [
     {
+        "id": "dress3_1",
+        "name": "Casual Ensemble",
+        "image": "/assets/garments/dress3-1.png",
+        "scale": 1.2,
+        "offset": {
+            "x": 0,
+            "y": 0.12
+        },
+        "fit": "relaxed"
+    },
+    {
         "id": "dress1",
         "name": "Silk Evening Dress",
         "image": "/assets/garments/dress1.png",
@@ -18,17 +29,6 @@
         "offset": {
             "x": 0,
             "y": 0.2
-        },
-        "fit": "relaxed"
-    },
-    {
-        "id": "dress3_1",
-        "name": "Casual Ensemble",
-        "image": "/assets/garments/dress3-1.png",
-        "scale": 1.2,
-        "offset": {
-            "x": 0,
-            "y": 0.12
         },
         "fit": "relaxed"
     },

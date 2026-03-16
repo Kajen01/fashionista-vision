@@ -11,6 +11,7 @@ import TryOn from './pages/TryOn';
 import TrialRoom from './pages/TrialRoom';
 import About from './pages/About';
 import LiveTryOn from './pages/LiveTryOn';
+import DigitalMirror from './pages/DigitalMirror';
 import CartSidebar from './components/common/CartSidebar'
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/try-on" element={<TryOn />} />
                 <Route path="/trial-room" element={<TrialRoom />} />
                 <Route path="/live-tryon" element={<LiveTryOn />} />
+                <Route path="/digital-mirror" element={<DigitalMirror />} />
                 <Route path="/about" element={<About />} />
               </Routes>
             </Elements>

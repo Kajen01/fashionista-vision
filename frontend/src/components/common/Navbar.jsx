@@ -14,6 +14,7 @@ const Navbar = () => {
     { path: '/try-on', label: 'Try-On', page: 'try-on' },
     { path: '/trial-room', label: 'TrialRoom', page: 'trial-room' },
     { path: '/live-tryon', label: 'Live Try-On', page: 'live-tryon' },
+    { path: '/digital-mirror', label: 'Digital Mirror', page: 'digital-mirror' },
     { path: '/about', label: 'About', page: 'about' },
   ];
 
@@ -29,7 +30,6 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
               {navItems.map((item) => (
@@ -47,7 +47,6 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Cart and Mobile Menu */}
           <div className="flex items-center space-x-4">
             <button
               onClick={toggleCart}
@@ -61,7 +60,6 @@ const Navbar = () => {
               )}
             </button>
 
-            {/* Mobile menu button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="md:hidden p-2 text-gray-600 hover:text-rose-600"
@@ -72,7 +70,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
       {isMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-100">
           <div className="px-2 pt-2 pb-3 space-y-1">
