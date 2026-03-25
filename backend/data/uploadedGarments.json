@@ -1,0 +1,495 @@
+[
+  {
+    "id": "upload-1774421297248",
+    "name": "Pngegg (3)",
+    "source": "upload",
+    "fit": "tight",
+    "thumbnail": "/uploads/trialroom/garments/processed/upload-1774421297248.png",
+    "pngUrl": "/uploads/trialroom/garments/processed/upload-1774421297248.png",
+    "previewUrl": "/uploads/trialroom/garments/processed/upload-1774421297248.png",
+    "processedImageUrl": "/uploads/trialroom/garments/processed/upload-1774421297248.png",
+    "analysis": {
+      "garmentType": "top",
+      "sourceSize": {
+        "width": 1131,
+        "height": 1600
+      },
+      "cropBox": {
+        "x": 0,
+        "y": 702,
+        "width": 1131,
+        "height": 898
+      },
+      "keypoints": {
+        "leftShoulder": {
+          "x": 0.369,
+          "y": 0.1226,
+          "confidence": 0.1093
+        },
+        "rightShoulder": {
+          "x": 0.6407,
+          "y": 0.1226,
+          "confidence": 0.1093
+        },
+        "leftWaist": {
+          "x": 0.0496,
+          "y": 0.5596,
+          "confidence": 1
+        },
+        "rightWaist": {
+          "x": 0.9504,
+          "y": 0.5596,
+          "confidence": 1
+        },
+        "hemLeft": {
+          "x": 0,
+          "y": 0.9599,
+          "confidence": 1
+        },
+        "hemRight": {
+          "x": 1,
+          "y": 0.9599,
+          "confidence": 1
+        },
+        "hemCenter": {
+          "x": 0.5,
+          "y": 0.9599,
+          "confidence": 1
+        }
+      },
+      "skeletonSegments": [
+        [
+          "leftShoulder",
+          "rightShoulder"
+        ],
+        [
+          "leftShoulder",
+          "leftWaist"
+        ],
+        [
+          "rightShoulder",
+          "rightWaist"
+        ],
+        [
+          "leftWaist",
+          "hemLeft"
+        ],
+        [
+          "rightWaist",
+          "hemRight"
+        ],
+        [
+          "hemLeft",
+          "hemCenter"
+        ],
+        [
+          "hemCenter",
+          "hemRight"
+        ]
+      ]
+    },
+    "analysisStatus": "ml",
+    "analysisError": null,
+    "createdAt": "2026-03-25T06:48:17.781Z"
+  },
+  {
+    "id": "upload-1774421275737",
+    "name": "Pngegg (2)",
+    "source": "upload",
+    "fit": "tight",
+    "thumbnail": "/uploads/trialroom/garments/processed/upload-1774421275737.png",
+    "pngUrl": "/uploads/trialroom/garments/processed/upload-1774421275737.png",
+    "previewUrl": "/uploads/trialroom/garments/processed/upload-1774421275737.png",
+    "processedImageUrl": "/uploads/trialroom/garments/processed/upload-1774421275737.png",
+    "analysis": {
+      "garmentType": "top",
+      "sourceSize": {
+        "width": 500,
+        "height": 600
+      },
+      "cropBox": {
+        "x": 20,
+        "y": 0,
+        "width": 469,
+        "height": 579
+      },
+      "keypoints": {
+        "leftShoulder": {
+          "x": 0.1859,
+          "y": 0.1194,
+          "confidence": 1
+        },
+        "rightShoulder": {
+          "x": 0.8077,
+          "y": 0.1194,
+          "confidence": 1
+        },
+        "leftWaist": {
+          "x": 0.2607,
+          "y": 0.5588,
+          "confidence": 1
+        },
+        "rightWaist": {
+          "x": 0.7479,
+          "y": 0.5588,
+          "confidence": 1
+        },
+        "hemLeft": {
+          "x": 0.4487,
+          "y": 0.9446,
+          "confidence": 0.311
+        },
+        "hemRight": {
+          "x": 0.5556,
+          "y": 0.9446,
+          "confidence": 0.311
+        },
+        "hemCenter": {
+          "x": 0.5021,
+          "y": 0.9446,
+          "confidence": 0.311
+        }
+      },
+      "skeletonSegments": [
+        [
+          "leftShoulder",
+          "rightShoulder"
+        ],
+        [
+          "leftShoulder",
+          "leftWaist"
+        ],
+        [
+          "rightShoulder",
+          "rightWaist"
+        ],
+        [
+          "leftWaist",
+          "hemLeft"
+        ],
+        [
+          "rightWaist",
+          "hemRight"
+        ],
+        [
+          "hemLeft",
+          "hemCenter"
+        ],
+        [
+          "hemCenter",
+          "hemRight"
+        ]
+      ]
+    },
+    "analysisStatus": "ml",
+    "analysisError": null,
+    "createdAt": "2026-03-25T06:47:55.875Z"
+  },
+  {
+    "id": "upload-1774421235371",
+    "name": "Pngegg (1)",
+    "source": "upload",
+    "fit": "tight",
+    "thumbnail": "/uploads/trialroom/garments/processed/upload-1774421235371.png",
+    "pngUrl": "/uploads/trialroom/garments/processed/upload-1774421235371.png",
+    "previewUrl": "/uploads/trialroom/garments/processed/upload-1774421235371.png",
+    "processedImageUrl": "/uploads/trialroom/garments/processed/upload-1774421235371.png",
+    "analysis": {
+      "garmentType": "top",
+      "sourceSize": {
+        "width": 510,
+        "height": 600
+      },
+      "cropBox": {
+        "x": 3,
+        "y": 0,
+        "width": 506,
+        "height": 600
+      },
+      "keypoints": {
+        "leftShoulder": {
+          "x": 0.2396,
+          "y": 0.1185,
+          "confidence": 0.8957
+        },
+        "rightShoulder": {
+          "x": 0.7525,
+          "y": 0.1185,
+          "confidence": 0.8957
+        },
+        "leftWaist": {
+          "x": 0.1327,
+          "y": 0.5593,
+          "confidence": 1
+        },
+        "rightWaist": {
+          "x": 0.8653,
+          "y": 0.5593,
+          "confidence": 1
+        },
+        "hemLeft": {
+          "x": 0.2356,
+          "y": 0.9599,
+          "confidence": 1
+        },
+        "hemRight": {
+          "x": 0.7743,
+          "y": 0.9599,
+          "confidence": 1
+        },
+        "hemCenter": {
+          "x": 0.505,
+          "y": 0.9599,
+          "confidence": 1
+        }
+      },
+      "skeletonSegments": [
+        [
+          "leftShoulder",
+          "rightShoulder"
+        ],
+        [
+          "leftShoulder",
+          "leftWaist"
+        ],
+        [
+          "rightShoulder",
+          "rightWaist"
+        ],
+        [
+          "leftWaist",
+          "hemLeft"
+        ],
+        [
+          "rightWaist",
+          "hemRight"
+        ],
+        [
+          "hemLeft",
+          "hemCenter"
+        ],
+        [
+          "hemCenter",
+          "hemRight"
+        ]
+      ]
+    },
+    "analysisStatus": "ml",
+    "analysisError": null,
+    "createdAt": "2026-03-25T06:47:15.557Z"
+  },
+  {
+    "id": "upload-1774421149843",
+    "name": "Pngegg",
+    "source": "upload",
+    "fit": "relaxed",
+    "thumbnail": "/uploads/trialroom/garments/processed/upload-1774421149843.png",
+    "pngUrl": "/uploads/trialroom/garments/processed/upload-1774421149843.png",
+    "previewUrl": "/uploads/trialroom/garments/processed/upload-1774421149843.png",
+    "processedImageUrl": "/uploads/trialroom/garments/processed/upload-1774421149843.png",
+    "analysis": {
+      "garmentType": "dress",
+      "sourceSize": {
+        "width": 900,
+        "height": 1057
+      },
+      "cropBox": {
+        "x": 173,
+        "y": 0,
+        "width": 555,
+        "height": 1057
+      },
+      "keypoints": {
+        "leftShoulder": {
+          "x": 0.2617,
+          "y": 0.1193,
+          "confidence": 0.7377
+        },
+        "rightShoulder": {
+          "x": 0.7762,
+          "y": 0.1193,
+          "confidence": 0.7377
+        },
+        "leftWaist": {
+          "x": 0.269,
+          "y": 0.4299,
+          "confidence": 1
+        },
+        "rightWaist": {
+          "x": 0.7581,
+          "y": 0.4299,
+          "confidence": 1
+        },
+        "hemLeft": {
+          "x": 0.8014,
+          "y": 0.9593,
+          "confidence": 0.1753
+        },
+        "hemRight": {
+          "x": 0.861,
+          "y": 0.9593,
+          "confidence": 0.1753
+        },
+        "hemCenter": {
+          "x": 0.8303,
+          "y": 0.9593,
+          "confidence": 0.1753
+        }
+      },
+      "skeletonSegments": [
+        [
+          "leftShoulder",
+          "rightShoulder"
+        ],
+        [
+          "leftShoulder",
+          "leftWaist"
+        ],
+        [
+          "rightShoulder",
+          "rightWaist"
+        ],
+        [
+          "leftWaist",
+          "hemLeft"
+        ],
+        [
+          "rightWaist",
+          "hemRight"
+        ],
+        [
+          "hemLeft",
+          "hemCenter"
+        ],
+        [
+          "hemCenter",
+          "hemRight"
+        ]
+      ]
+    },
+    "analysisStatus": "ml",
+    "analysisError": null,
+    "createdAt": "2026-03-25T06:45:50.210Z"
+  },
+  {
+    "id": "upload-1774421092642",
+    "name": "Pngegg (4)",
+    "source": "upload",
+    "fit": "tight",
+    "thumbnail": "/uploads/trialroom/garments/processed/upload-1774421092642.png",
+    "pngUrl": "/uploads/trialroom/garments/processed/upload-1774421092642.png",
+    "previewUrl": "/uploads/trialroom/garments/processed/upload-1774421092642.png",
+    "processedImageUrl": "/uploads/trialroom/garments/processed/upload-1774421092642.png",
+    "analysis": {
+      "garmentType": "top",
+      "sourceSize": {
+        "width": 798,
+        "height": 991
+      },
+      "cropBox": {
+        "x": 0,
+        "y": 0,
+        "width": 798,
+        "height": 991
+      },
+      "keypoints": {
+        "leftShoulder": {
+          "x": 0.2208,
+          "y": 0.1192,
+          "confidence": 1
+        },
+        "rightShoulder": {
+          "x": 0.8118,
+          "y": 0.1192,
+          "confidence": 1
+        },
+        "leftWaist": {
+          "x": 0.0652,
+          "y": 0.5596,
+          "confidence": 1
+        },
+        "rightWaist": {
+          "x": 0.9297,
+          "y": 0.5596,
+          "confidence": 1
+        },
+        "hemLeft": {
+          "x": 0.1468,
+          "y": 0.9596,
+          "confidence": 1
+        },
+        "hemRight": {
+          "x": 0.7804,
+          "y": 0.9596,
+          "confidence": 1
+        },
+        "hemCenter": {
+          "x": 0.463,
+          "y": 0.9596,
+          "confidence": 1
+        }
+      },
+      "skeletonSegments": [
+        [
+          "leftShoulder",
+          "rightShoulder"
+        ],
+        [
+          "leftShoulder",
+          "leftWaist"
+        ],
+        [
+          "rightShoulder",
+          "rightWaist"
+        ],
+        [
+          "leftWaist",
+          "hemLeft"
+        ],
+        [
+          "rightWaist",
+          "hemRight"
+        ],
+        [
+          "hemLeft",
+          "hemCenter"
+        ],
+        [
+          "hemCenter",
+          "hemRight"
+        ]
+      ]
+    },
+    "analysisStatus": "ml",
+    "analysisError": null,
+    "createdAt": "2026-03-25T06:44:53.396Z"
+  },
+  {
+    "id": "upload-1773684937859",
+    "name": "Abstract Daisy Print Blouse Test",
+    "source": "upload",
+    "fit": "tight",
+    "thumbnail": "/uploads/trialroom/garments/raw/1773684937847-Abstract_Daisy_Print_Blouse_Test.png",
+    "pngUrl": "/uploads/trialroom/garments/raw/1773684937847-Abstract_Daisy_Print_Blouse_Test.png",
+    "previewUrl": "/uploads/trialroom/garments/raw/1773684937847-Abstract_Daisy_Print_Blouse_Test.png",
+    "processedImageUrl": "/uploads/trialroom/garments/raw/1773684937847-Abstract_Daisy_Print_Blouse_Test.png",
+    "analysis": null,
+    "analysisStatus": "client-fallback",
+    "analysisError": "ML Service Error: {\"detail\":\"Not Found\"}",
+    "createdAt": "2026-03-16T18:15:37.965Z"
+  },
+  {
+    "id": "upload-1773684920213",
+    "name": "Brooklyn Nets Baseball Tee Test",
+    "source": "upload",
+    "fit": "tight",
+    "thumbnail": "/uploads/trialroom/garments/raw/1773684920205-Brooklyn_Nets_Baseball_Tee_Test.png",
+    "pngUrl": "/uploads/trialroom/garments/raw/1773684920205-Brooklyn_Nets_Baseball_Tee_Test.png",
+    "previewUrl": "/uploads/trialroom/garments/raw/1773684920205-Brooklyn_Nets_Baseball_Tee_Test.png",
+    "processedImageUrl": "/uploads/trialroom/garments/raw/1773684920205-Brooklyn_Nets_Baseball_Tee_Test.png",
+    "analysis": null,
+    "analysisStatus": "client-fallback",
+    "analysisError": "ML Service Error: {\"detail\":\"Not Found\"}",
+    "createdAt": "2026-03-16T18:15:20.311Z"
+  }
+]

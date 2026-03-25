@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from "axios";
+import { buildBackendUrl } from '../utils/runtimeConfig';
 
 export const ProductsContext = createContext();
 
@@ -11,6 +12,23 @@ export const ProductsProvider = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchTermMongodb, setSearchTermMongodb] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+
+  const normalizeMongoProduct = (product) => ({
+    ...product,
+    id: product.id || product._id,
+    availableSizes: Array.isArray(product.availableSizes) && product.availableSizes.length > 0
+      ? product.availableSizes
+      : ["Free Size", "XS", "S", "M", "L", "XL"],
+    availableColors: Array.isArray(product.availableColors) && product.availableColors.length > 0
+      ? product.availableColors
+      : ["Black", "White", "Navy", "Beige"],
+    image: product.image?.url
+      ? {
+        ...product.image,
+        url: buildBackendUrl(product.image.url),
+      }
+      : product.image,
+  });
 
   useEffect(() => {
     // Initialize with sample products
@@ -91,8 +109,13 @@ export const ProductsProvider = ({ children }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/products");
-        setMongodbProducts(res.data);
+        const res = await axios.get(buildBackendUrl('/api/products'));
+        const normalizedProducts = Array.isArray(res.data)
+          ? res.data.map(normalizeMongoProduct)
+          : [];
+
+        setMongodbProducts(normalizedProducts);
+        setFilteredProductsMongodb(normalizedProducts);
       } catch (err) {
         console.error("Error fetching products:", err);
       }
@@ -128,7 +151,7 @@ export const ProductsProvider = ({ children }) => {
     }
 
     setFilteredProductsMongodb(filtered);
-  }, [searchTermMongodb]);
+  }, [mongodbProducts, searchTermMongodb]);
 
   const filterByCategory = (category) => {
     setSelectedCategory(category);
@@ -139,6 +162,7 @@ export const ProductsProvider = ({ children }) => {
   };
 
   const filterBySearchMongodb = (term) => {
+    setSearchTermMongodb(term);
     const lowerTerm = term.toLowerCase();
 
     const filtered = mongodbProducts.filter(product =>

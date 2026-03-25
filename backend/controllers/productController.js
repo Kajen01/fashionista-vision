@@ -4,7 +4,7 @@ import path from "path";
 // Create a new product (with optional image upload)
 export const createProduct = async (req, res) => {
   try {
-    const { name, description, price, discount, availableSizes, availableColors } = req.body;
+    const { name, description, price, discount, availableSizes, availableColors, gender } = req.body;
 
     // Only one image
     let image = null;
@@ -22,6 +22,7 @@ export const createProduct = async (req, res) => {
       discount,
       availableSizes,
       availableColors,
+      gender,
       image,
       createdBy: req.user._id
     });
@@ -65,6 +66,7 @@ export const updateProduct = async (req, res) => {
     product.discount = req.body.discount || product.discount;
     product.availableSizes = req.body.availableSizes || product.availableSizes;
     product.availableColors = req.body.availableColors || product.availableColors;
+    product.gender = req.body.gender || product.gender;
 
     // Replace image if uploaded
     if (req.file) {

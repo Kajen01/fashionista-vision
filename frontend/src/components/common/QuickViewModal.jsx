@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { useCart } from "../../context/CartContext";
+import { resolveProductImageUrl } from "../../utils/runtimeConfig";
 
 const defaultSizes = ["Free Size", "XS", "S", "M", "L", "XL"];
 const defaultColors  = ["Black", "White", "Navy", "Beige"];
@@ -81,7 +82,7 @@ const QuickViewModal = ({ product, isOpen, onClose }) => {
               <div className="p-6 grid md:grid-cols-2 gap-6 md:gap-8">
                 <div className="flex justify-center">
                   <img
-                    src={product.image?.url ? `http://localhost:5000${product.image.url}` : product.image}
+                    src={resolveProductImageUrl(product)}
                     alt={product.name}
                     className="w-full max-w-sm rounded-lg object-cover shadow-md"
                   />

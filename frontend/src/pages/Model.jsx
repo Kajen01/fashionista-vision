@@ -5,6 +5,8 @@ import { Upload, Camera, CheckCircle } from 'lucide-react';
 import ProcessingSection from '../components/model/ProcessingSection';
 import ResultsSection from '../components/model/ResultsSection';
 import { useProductsModel } from "../context/ProductsContext";
+import { buildMlApiUrl } from '../utils/runtimeConfig';
+import { recommendProducts } from '../utils/recommendationEngine';
 
 const Model = () => {
   const [uploadedImage, setUploadedImage] = useState(null);
@@ -15,7 +17,9 @@ const Model = () => {
     highlyRecommendedProducts: [],
     otherRecommendedProducts: []
   });
-  const { filterBySearchMongodb } = useProductsModel();
+  const [matchSummary, setMatchSummary] = useState(null);
+  const [apiError, setApiError] = useState('');
+  const { mongodbProducts } = useProductsModel();
   const [predictedLabel, setPredictedLabel] = useState("");
   const [confidence, setConfidence] = useState(null);
   const [multiAttrs, setMultiAttrs] = useState({});
@@ -23,64 +27,58 @@ const Model = () => {
   const predictFromAPI = async (imageFile) => {
     setIsProcessing(true);
     setShowResults(false);
+    setApiError('');
+    setRecommendedProducts({
+      highlyRecommendedProducts: [],
+      otherRecommendedProducts: [],
+    });
+    setMatchSummary(null);
+    setPredictedLabel('');
+    setConfidence(null);
+    setMultiAttrs({});
 
     try {
       const formData = new FormData();
       formData.append('file', imageFile);
 
-      const response = await fetch('http://127.0.0.1:8000/predict_multi', {
+      const response = await fetch(buildMlApiUrl('/predict_multi'), {
         method: 'POST',
         body: formData,
       });
 
-      let rawProducts = [];
-
       if (response.ok) {
         const data = await response.json();
-        console.log('Prediction Result (JSON):', data);
+        const singleModels = Array.isArray(data.single_models) ? data.single_models : [];
 
-        // Pick best single model prediction
-        if (data.single_models && Array.isArray(data.single_models)) {
-          const bestModel = data.single_models.reduce((prev, curr) =>
+        if (singleModels.length > 0) {
+          const bestModel = singleModels.reduce((prev, curr) =>
             curr.confidence > prev.confidence ? curr : prev
           );
-
-          console.log("BEST MODEL SELECTED:", bestModel);
 
           const cleanedName = bestModel.predicted_class.replace(/_/g, " ");
           setPredictedLabel(cleanedName);
           setConfidence(bestModel.confidence);
-
-          rawProducts = filterBySearchMongodb(cleanedName);
+        } else {
+          throw new Error('Prediction API returned no single-model predictions.');
         }
 
-        // setRecommendedProducts based on the multi model predictions
-        if (data.multi_model) {
-          console.log("MULTI MODEL ATTRIBUTES:", data.multi_model);
-          setMultiAttrs(data.multi_model)
+        const bestModel = singleModels.reduce((prev, curr) =>
+          curr.confidence > prev.confidence ? curr : prev
+        );
+        const cleanedName = bestModel.predicted_class.replace(/_/g, " ");
+        const nextMultiAttrs = data.multi_model || {};
+        const nextRecommendations = recommendProducts(mongodbProducts, {
+          predictedLabel: cleanedName,
+          confidence: bestModel.confidence,
+          multiAttrs: nextMultiAttrs,
+        });
 
-          const highlyRecommendedProducts = [];
-          const otherRecommendedProducts = [];
-
-          rawProducts.forEach((product) => {
-            if (
-              product.gender === data.multi_model.gender &&
-              product.availableColors?.[0] === data.multi_model.baseColour
-            ) {
-              highlyRecommendedProducts.push(product);
-            } else {
-              otherRecommendedProducts.push(product);
-            }
-          });
-
-          setRecommendedProducts({
-            highlyRecommendedProducts,
-            otherRecommendedProducts
-          });
-
-          console.log("HIGHLY RECOMMENDED PRODUCTS: ", highlyRecommendedProducts.length);
-          console.log("OTHER RECOMMENDED PRODUCTS: ", otherRecommendedProducts.length);
-        }
+        setMultiAttrs(nextMultiAttrs);
+        setRecommendedProducts({
+          highlyRecommendedProducts: nextRecommendations.highlyRecommendedProducts,
+          otherRecommendedProducts: nextRecommendations.otherRecommendedProducts,
+        });
+        setMatchSummary(nextRecommendations.summary);
 
         setShowResults(true);
       } else {
@@ -91,11 +89,14 @@ const Model = () => {
           text = '<no body>';
         }
         console.error('API Error status:', response.status, text);
-        toast.error(`API error ${response.status}`);
+        const message = `Prediction API error ${response.status}`;
+        setApiError(message);
+        toast.error(message);
       }
     } catch (error) {
       console.error('API call failed:', error);
-      toast.error('Failed to call prediction API');
+      setApiError(error.message || 'Failed to call prediction API');
+      toast.error(error.message || 'Failed to call prediction API');
     } finally {
       setIsProcessing(false);
     }
@@ -121,30 +122,22 @@ const Model = () => {
   };
 
   const clearResults = () => {
-    setRecommendedProducts([]);
-  };
-
-  const startAIAnalysis = () => {
-    if (!uploadedImage) {
-      toast.error('Please upload a photo first.');
-      return;
-    }
-
-    setIsProcessing(true);
-    setShowResults(false);
-
-    // Simulate AI processing
-    setTimeout(() => {
-      setIsProcessing(false);
-      setShowResults(true);
-      toast.success('AI analysis complete!');
-    }, 4000);
+    setRecommendedProducts({
+      highlyRecommendedProducts: [],
+      otherRecommendedProducts: [],
+    });
+    setMatchSummary(null);
   };
 
   const resetUpload = () => {
     setUploadedImage(null);
     setIsProcessing(false);
     setShowResults(false);
+    setApiError('');
+    setPredictedLabel('');
+    setConfidence(null);
+    setMultiAttrs({});
+    clearResults();
 
     // Scroll to Upload section
     setTimeout(() => {
@@ -272,12 +265,6 @@ const Model = () => {
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <button
-                    onClick={startAIAnalysis}
-                    className="bg-gray-900 text-white px-8 py-3 rounded-full hover:bg-gray-800 transition-colors duration-200 font-semibold"
-                  >
-                    Start AI Analysis
-                  </button>
-                  <button
                     onClick={resetUpload}
                     className="border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-full hover:border-gray-400 transition-colors duration-200 font-semibold"
                   >
@@ -289,6 +276,15 @@ const Model = () => {
 
             {/* Processing Section */}
             {isProcessing && <ProcessingSection />}
+
+            {apiError && !isProcessing && (
+              <div className="mx-auto mb-8 max-w-2xl rounded-2xl border border-red-200 bg-red-50 px-6 py-5 text-left">
+                <h3 className="text-lg font-semibold text-red-700">Prediction failed</h3>
+                <p className="mt-2 text-sm text-red-600">
+                  {apiError}. Make sure the backend and `predict_multi_api.py` service are running, then try another image.
+                </p>
+              </div>
+            )}
 
             {/* Prediction Summary Card */}
             {showResults && (
@@ -322,9 +318,17 @@ const Model = () => {
                     <p className="text-gray-600 text-lg">
                       <span className="font-semibold text-gray-800">Confidence:</span>{" "}
                       <span className="text-green-600 font-bold">
-                        {confidence ? (confidence * 100).toFixed(2) + "%" : "N/A"}
+                        {typeof confidence === 'number' ? (confidence * 100).toFixed(2) + "%" : "N/A"}
                       </span>
                     </p>
+
+                    {matchSummary && (
+                      <p className="mt-3 text-sm text-gray-500">
+                        {matchSummary.totalMatches > 0
+                          ? `Ranked ${matchSummary.totalMatches} catalog matches${matchSummary.usedFallback ? ' using attribute fallback' : ''}.`
+                          : 'No strong product matches were found in the current catalog.'}
+                      </p>
+                    )}
                   </div>
 
                   {/* Multi-Model Attributes */}  
@@ -363,6 +367,8 @@ const Model = () => {
                 <ResultsSection
                   highlyRecommendedProducts={recommendedProducts.highlyRecommendedProducts}
                   otherRecommendedProducts={recommendedProducts.otherRecommendedProducts}
+                  predictedLabel={predictedLabel}
+                  usedFallback={Boolean(matchSummary?.usedFallback)}
                 />
 
                 <button

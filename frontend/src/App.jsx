@@ -11,11 +11,13 @@ import TryOn from './pages/TryOn';
 import TrialRoom from './pages/TrialRoom';
 import About from './pages/About';
 import LiveTryOn from './pages/LiveTryOn';
+import DigitalMirror from './pages/DigitalMirror';
 import CartSidebar from './components/common/CartSidebar'
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import { STRIPE_PUBLISHABLE_KEY } from './utils/runtimeConfig';
 
-const stripePromise = loadStripe('pk_test_51SX0AdCMqeEsvOyIkN6pGGa5IbBJ0dfAfOoumSM6GYebBc6niHPf08X4v4atgiWYkPZEzs9M96jj3qyxihmlFViA00XI2wIV0P');
+const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
 
 function App() {
   return (
@@ -32,6 +34,7 @@ function App() {
                 <Route path="/try-on" element={<TryOn />} />
                 <Route path="/trial-room" element={<TrialRoom />} />
                 <Route path="/live-tryon" element={<LiveTryOn />} />
+                <Route path="/digital-mirror" element={<DigitalMirror />} />
                 <Route path="/about" element={<About />} />
               </Routes>
             </Elements>

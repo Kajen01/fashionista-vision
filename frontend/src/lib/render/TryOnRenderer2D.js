@@ -13,15 +13,15 @@ export class TryOnRenderer2D {
 
     drawGarment(img, transform) {
         if (!img || !transform) return;
-        const { x, y, width, rotation, yawSkew } = transform;
+        const { x, y, width, rotation, yawSkew = 0, anchor } = transform;
         const height = width * (img.height / img.width);
+        const anchorX = anchor?.x ?? 0.5;
+        const anchorY = anchor?.y ?? 0.1;
 
         const ctx = this.ctx;
         ctx.save();
         ctx.translate(x, y);
         ctx.rotate(rotation);
-
-        // Apply 3D perspective skew
         ctx.transform(1, yawSkew, 0, 1, 0, 0);
 
         ctx.shadowColor = 'rgba(0,0,0,0.3)';
@@ -29,8 +29,8 @@ export class TryOnRenderer2D {
 
         ctx.drawImage(
             img,
-            -width / 2,
-            -height * 0.1, // Anchor slightly above center to cover neck
+            -(width * anchorX),
+            -(height * anchorY),
             width,
             height
         );
@@ -54,9 +54,7 @@ export class TryOnRenderer2D {
             }
         };
 
-        // Torso connections
         connect(11, 12); connect(23, 24); connect(11, 23); connect(12, 24);
-        // Arms
         connect(11, 13); connect(13, 15); connect(12, 14); connect(14, 16);
     }
 }
