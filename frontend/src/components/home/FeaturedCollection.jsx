@@ -4,6 +4,7 @@ import { useProducts } from '../../context/ProductsContext';
 import { useCart } from '../../context/CartContext';
 import { ShoppingCart, Eye } from 'lucide-react';
 import QuickViewModal from "../common/QuickViewModal";
+import { resolveProductImageUrl } from '../../utils/runtimeConfig';
 
 const FeaturedCollection = () => {
   const { filteredProducts } = useProducts();
@@ -65,7 +66,7 @@ const FeaturedCollection = () => {
             >
               <div className="relative group">
                 <img
-                  src={product.image?.url ? `http://localhost:5000${product.image.url}` : product.image}
+                  src={resolveProductImageUrl(product)}
                   alt={product.name}
                   className="w-full h-64 object-cover"
                 />
@@ -96,7 +97,7 @@ const FeaturedCollection = () => {
                   className="w-full bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-700 transition-colors duration-200 flex items-center justify-center space-x-2"
                 >
                   <ShoppingCart className="w-4 h-4" />
-                  <span>Add to Cart</span>
+                  <span>Quick View & Add</span>
                 </button>
               </div>
             </motion.div>

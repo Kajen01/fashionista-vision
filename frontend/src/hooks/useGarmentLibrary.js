@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
 import { prepareGarmentAsset } from '../lib/digital-mirror/prepareGarmentAsset';
-
-const API_BASE = typeof window !== 'undefined' && window.location.port === '3000'
-  ? 'http://localhost:5000'
-  : '';
+import { BACKEND_BASE_URL } from '../utils/runtimeConfig';
 
 function qualifyAssetUrl(url) {
   if (!url) {
@@ -11,7 +8,7 @@ function qualifyAssetUrl(url) {
   }
 
   if (url.startsWith('/uploads')) {
-    return `${API_BASE}${url}`;
+    return `${BACKEND_BASE_URL}${url}`;
   }
 
   return url;
@@ -78,7 +75,7 @@ export function useGarmentLibrary() {
       setGarmentsError(null);
 
       try {
-        const response = await fetch(`${API_BASE}/api/trialroom/garments`);
+        const response = await fetch(`${BACKEND_BASE_URL}/api/trialroom/garments`);
 
         if (!response.ok) {
           throw new Error('Failed to fetch garment library.');
@@ -151,7 +148,7 @@ export function useGarmentLibrary() {
       const formData = new FormData();
       formData.append('garment', file);
 
-      const response = await fetch(`${API_BASE}/api/trialroom/garments/upload`, {
+      const response = await fetch(`${BACKEND_BASE_URL}/api/trialroom/garments/upload`, {
         method: 'POST',
         body: formData,
       });

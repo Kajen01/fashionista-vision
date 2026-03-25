@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Upload, Sparkles, Ruler, RefreshCw, ChevronRight, Settings, Image as ImageIcon } from 'lucide-react';
 import { toast } from 'react-hot-toast';
-
-const API_BASE = window.location.port === '3000' ? 'http://localhost:5000' : '';
+import { buildBackendUrl } from '../utils/runtimeConfig';
 
 const TrialRoom = () => {
     const [userImage, setUserImage] = useState(null);
@@ -25,7 +24,7 @@ const TrialRoom = () => {
     React.useEffect(() => {
         const fetchGarments = async () => {
             try {
-                const response = await fetch(`${API_BASE}/api/trialroom/garments`);
+                const response = await fetch(buildBackendUrl('/api/trialroom/garments'));
                 const text = await response.text();
                 try {
                     const data = JSON.parse(text);
@@ -54,7 +53,7 @@ const TrialRoom = () => {
         formData.append('image', file);
 
         try {
-            const response = await fetch(`${API_BASE}/api/trialroom/upload`, {
+            const response = await fetch(buildBackendUrl('/api/trialroom/upload'), {
                 method: 'POST',
                 body: formData,
             });
@@ -80,7 +79,7 @@ const TrialRoom = () => {
         }
         setLoading(true);
         try {
-            const response = await fetch(`${API_BASE}/api/trialroom/pose`, {
+            const response = await fetch(buildBackendUrl('/api/trialroom/pose'), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ imageId: userImageFile }),
@@ -105,7 +104,7 @@ const TrialRoom = () => {
         }
         setLoading(true);
         try {
-            const response = await fetch(`${API_BASE}/api/trialroom/tryon`, {
+            const response = await fetch(buildBackendUrl('/api/trialroom/tryon'), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -166,7 +165,7 @@ const TrialRoom = () => {
                                 >
                                     {userImage ? (
                                         <div className="relative w-full h-full p-2">
-                                            <img src={userImage?.startsWith('data:') ? userImage : `${API_BASE}${userImage}`} alt="User Preview" className="w-full h-full object-contain rounded-lg shadow-sm" />
+                    <img src={userImage?.startsWith('data:') ? userImage : buildBackendUrl(userImage)} alt="User Preview" className="w-full h-full object-contain rounded-lg shadow-sm" />
                                             <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity rounded-lg">
                                                 <RefreshCw className="text-white w-8 h-8" />
                                             </div>
@@ -264,15 +263,15 @@ const TrialRoom = () => {
                                     </div>
                                     <div className="flex-1 overflow-hidden relative bg-black/20 flex flex-col justify-center items-center p-4">
                                         {tryonUrl ? (
-                                            <img
-                                                src={tryonUrl?.startsWith('data:') ? tryonUrl : `${API_BASE}${tryonUrl}`}
-                                                alt="Try On Result"
-                                                className="max-w-full max-h-full object-contain rounded-lg shadow-lg shadow-rose-900/40"
-                                            />
+                                        <img
+                                            src={tryonUrl?.startsWith('data:') ? tryonUrl : buildBackendUrl(tryonUrl)}
+                                            alt="Try On Result"
+                                            className="max-w-full max-h-full object-contain rounded-lg shadow-lg shadow-rose-900/40"
+                                        />
                                         ) : userImage ? (
                                             <div className="relative w-full h-full flex items-center justify-center">
                                                 <img
-                                                    src={userImage?.startsWith('data:') ? userImage : `${API_BASE}${userImage}`}
+                                                    src={userImage?.startsWith('data:') ? userImage : buildBackendUrl(userImage)}
                                                     alt="Base for Alignment"
                                                     className="max-w-full max-h-full object-contain rounded-lg opacity-40 grayscale-[50%]"
                                                 />

@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { useProducts, useProductsModel } from "../../context/ProductsContext";
-import { useCart } from "../../context/CartContext";
 import { ShoppingCart, Eye } from "lucide-react";
 import QuickViewModal from "../common/QuickViewModal";
+import { resolveProductImageUrl } from "../../utils/runtimeConfig";
 
 const ResultsSection = ({
   highlyRecommendedProducts = [],
-  otherRecommendedProducts = []
+  otherRecommendedProducts = [],
+  predictedLabel = '',
+  usedFallback = false,
 }) => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,6 +42,24 @@ const ResultsSection = ({
         </p>
       </div>
 
+      {highlyRecommendedProducts.length === 0 && otherRecommendedProducts.length === 0 && (
+        <div className="mx-auto mb-8 max-w-2xl rounded-2xl border border-amber-200 bg-amber-50 px-6 py-5 text-left">
+          <h4 className="text-lg font-semibold text-amber-700">No strong catalog match yet</h4>
+          <p className="mt-2 text-sm text-amber-700">
+            The model predicted <span className="font-semibold">{predictedLabel || 'an item'}</span>, but the current MongoDB catalog does not contain a close match.
+          </p>
+        </div>
+      )}
+
+      {usedFallback && (highlyRecommendedProducts.length > 0 || otherRecommendedProducts.length > 0) && (
+        <div className="mx-auto mb-8 max-w-2xl rounded-2xl border border-blue-200 bg-blue-50 px-6 py-5 text-left">
+          <h4 className="text-lg font-semibold text-blue-700">Showing the closest alternatives</h4>
+          <p className="mt-2 text-sm text-blue-700">
+            We could not find a direct name match, so these results were ranked using color, gender, and garment-type signals.
+          </p>
+        </div>
+      )}
+
       {/* HIGHLY RECOMMENDED */}
       {highlyRecommendedProducts.length > 0 && (
         <div className="mb-10 border-4 border-green-500 rounded-xl p-6">
@@ -51,7 +70,7 @@ const ResultsSection = ({
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {highlyRecommendedProducts.map((product, index) => (
               <motion.div
-                key={product._id || index}
+                key={product.id || product._id || index}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
@@ -59,11 +78,7 @@ const ResultsSection = ({
               >
                 <div className="relative group">
                   <img
-                    src={
-                      product.image?.url
-                        ? `http://localhost:5000${product.image.url}`
-                        : product.image
-                    }
+                    src={resolveProductImageUrl(product)}
                     alt={product.name}
                     className="w-full h-48 object-cover"
                   />
@@ -94,7 +109,7 @@ const ResultsSection = ({
                     className="w-full bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-700 transition-colors duration-200 flex items-center justify-center space-x-2"
                   >
                     <ShoppingCart className="w-4 h-4" />
-                    <span>Add to Cart</span>
+                    <span>Quick View & Add</span>
                   </button>
                 </div>
               </motion.div>
@@ -113,7 +128,7 @@ const ResultsSection = ({
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {otherRecommendedProducts.map((product, index) => (
               <motion.div
-                key={product._id || index}
+                key={product.id || product._id || index}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
@@ -121,11 +136,7 @@ const ResultsSection = ({
               >
                 <div className="relative group">
                   <img
-                    src={
-                      product.image?.url
-                        ? `http://localhost:5000${product.image.url}`
-                        : product.image
-                    }
+                    src={resolveProductImageUrl(product)}
                     alt={product.name}
                     className="w-full h-48 object-cover"
                   />
@@ -156,7 +167,7 @@ const ResultsSection = ({
                     className="w-full bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-700 transition-colors duration-200 flex items-center justify-center space-x-2"
                   >
                     <ShoppingCart className="w-4 h-4" />
-                    <span>Add to Cart</span>
+                    <span>Quick View & Add</span>
                   </button>
                 </div>
               </motion.div>

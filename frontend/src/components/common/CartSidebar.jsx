@@ -5,6 +5,7 @@ import { useCart } from '../../context/CartContext';
 import { formatCurrency } from '../../utils/helpers';
 import axios from 'axios';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import { buildBackendUrl, resolveProductImageUrl } from '../../utils/runtimeConfig';
 
 const CartSidebar = () => {
   const { cartItems, isCartOpen, toggleCart, removeFromCart, updateQuantity, getCartTotal, clearCart } = useCart();
@@ -17,7 +18,7 @@ const CartSidebar = () => {
     if (!stripe || !elements) return;
 
     try {
-      const res = await axios.post('http://localhost:5000/api/checkout', {
+      const res = await axios.post(buildBackendUrl('/api/checkout'), {
         items: cartItems.map(item => ({
           id: item.id,
           name: item.name,
@@ -85,7 +86,7 @@ const CartSidebar = () => {
                     <div key={`${item.id}-${item.size}-${item.color}`} className="p-4">
                       <div className="flex items-center space-x-4">
                         <img
-                          src={item.image?.url ? `http://localhost:5000${item.image.url}` : item.image}
+                          src={resolveProductImageUrl(item)}
                           alt={item.name}
                           className="w-16 h-16 object-cover rounded"
                         />
