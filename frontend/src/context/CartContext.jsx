@@ -1,19 +1,46 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
+import { useAuth } from '../hooks/useAuth';
 
 export const  CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState(() => {
-    const saved = localStorage.getItem('fashionCart');
-    return saved ? JSON.parse(saved) : [];
-  });
+  const { user, isAuthenticated, requireLogin } = useAuth();
+  const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const userId = user?.id || user?._id || '';
+
+  const getCartStorageKey = () => (userId ? `fashionCart:${userId}` : null);
 
   useEffect(() => {
-    localStorage.setItem('fashionCart', JSON.stringify(cartItems));
-  }, [cartItems]);
+    if (!isAuthenticated || !userId) {
+      setCartItems([]);
+      setIsCartOpen(false);
+      return;
+    }
+
+    const storageKey = getCartStorageKey();
+    const saved = storageKey ? localStorage.getItem(storageKey) : null;
+    setCartItems(saved ? JSON.parse(saved) : []);
+  }, [isAuthenticated, userId]);
+
+  useEffect(() => {
+    if (!isAuthenticated || !userId) {
+      return;
+    }
+
+    const storageKey = getCartStorageKey();
+
+    if (storageKey) {
+      localStorage.setItem(storageKey, JSON.stringify(cartItems));
+    }
+  }, [cartItems, isAuthenticated, userId]);
 
   const addToCart = (product, size = 'M', color = 'Original') => {
+    if (!requireLogin('add items to cart')) {
+      return false;
+    }
+
     const existingItem = cartItems.find(
       item => item.id === product.id && item.size === size && item.color === color
     );
@@ -27,6 +54,9 @@ export const CartProvider = ({ children }) => {
     } else {
       setCartItems([...cartItems, { ...product, quantity: 1, size, color }]);
     }
+
+    toast.success(`${product.name} added to cart.`);
+    return true;
   };
 
   const removeFromCart = (productId, size, color) => {
@@ -49,11 +79,27 @@ export const CartProvider = ({ children }) => {
   };
 
   const toggleCart = () => {
-    setIsCartOpen(!isCartOpen);
+    if (isCartOpen) {
+      setIsCartOpen(false);
+      return true;
+    }
+
+    if (!requireLogin('view your cart')) {
+      setIsCartOpen(false);
+      return false;
+    }
+
+    setIsCartOpen(true);
+    return true;
   };
 
   const clearCart = () => {
     setCartItems([]);
+    const storageKey = getCartStorageKey();
+
+    if (storageKey) {
+      localStorage.removeItem(storageKey);
+    }
   };
 
   const getCartTotal = () => {

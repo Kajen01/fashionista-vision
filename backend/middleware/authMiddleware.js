@@ -22,6 +22,10 @@ export const protect = async (req, res, next) => {
       // Get user without password
       req.user = await User.findById(decoded.id).select("-password");
 
+      if (!req.user) {
+        return res.status(401).json({ message: "Not authorized, user not found" });
+      }
+
       next();
     } catch (error) {
       return res.status(401).json({ message: "Not authorized, token failed" });
@@ -30,13 +34,5 @@ export const protect = async (req, res, next) => {
 
   if (!token) {
     return res.status(401).json({ message: "Not authorized, no token" });
-  }
-};
-
-export const admin = (req, res, next) => {
-  if (req.user && req.user.isAdmin) {
-    next();
-  } else {
-    return res.status(403).json({ message: "Admin access denied" });
   }
 };

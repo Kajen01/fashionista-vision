@@ -1,3 +1,7 @@
 __pycache__
 .venv
 *.pyc
+node_modules
+frontend/build
+.env
+.env.*
