@@ -5,6 +5,7 @@ import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import { ProductsProvider } from './context/ProductsContext';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import AdminRoute from './components/auth/AdminRoute';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import Home from './pages/Home';
@@ -19,6 +20,11 @@ import Register from './pages/Register';
 import VerifyEmail from './pages/VerifyEmail';
 import Profile from './pages/Profile';
 import CartSidebar from './components/common/CartSidebar'
+import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminUsers from './pages/admin/AdminUsers';
+import AdminUserEdit from './pages/admin/AdminUserEdit';
+import AdminProducts from './pages/admin/AdminProducts';
+import AdminProductForm from './pages/admin/AdminProductForm';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { STRIPE_PUBLISHABLE_KEY } from './utils/runtimeConfig';
@@ -41,6 +47,54 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/verify-email" element={<VerifyEmail />} />
+                  <Route
+                    path="/admin"
+                    element={(
+                      <AdminRoute>
+                        <AdminDashboard />
+                      </AdminRoute>
+                    )}
+                  />
+                  <Route
+                    path="/admin/users"
+                    element={(
+                      <AdminRoute>
+                        <AdminUsers />
+                      </AdminRoute>
+                    )}
+                  />
+                  <Route
+                    path="/admin/users/:id/edit"
+                    element={(
+                      <AdminRoute>
+                        <AdminUserEdit />
+                      </AdminRoute>
+                    )}
+                  />
+                  <Route
+                    path="/admin/products"
+                    element={(
+                      <AdminRoute>
+                        <AdminProducts />
+                      </AdminRoute>
+                    )}
+                  />
+                  <Route
+                    path="/admin/products/new"
+                    element={(
+                      <AdminRoute>
+                        <AdminProductForm />
+                      </AdminRoute>
+                    )}
+                  />
+                  <Route
+                    path="/admin/products/:id/edit"
+                    element={(
+                      <AdminRoute>
+                        <AdminProductForm />
+                      </AdminRoute>
+                    )}
+                  />
                   <Route
                     path="/profile"
                     element={(

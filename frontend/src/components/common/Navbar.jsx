@@ -28,9 +28,13 @@ const Navbar = () => {
     { path: '/profile', label: 'Profile', page: 'profile' },
   ];
 
+  const adminNavItems = isAdmin
+    ? [{ path: '/admin', label: 'Admin Dashboard', page: 'admin' }]
+    : [];
+
   // Order: Home > Model > Digital Mirror > About > (Profile if logged in)
   const navItems = isAuthenticated
-    ? [homeItem, ...guardedNavItems, aboutItem, ...protectedNavItems]
+    ? [homeItem, ...guardedNavItems, aboutItem, ...protectedNavItems, ...adminNavItems]
     : [homeItem, ...guardedNavItems, aboutItem];
 
   // For guarded items: navigate to login if not authenticated
@@ -95,7 +99,7 @@ const Navbar = () => {
             {isAuthenticated && (
               <div className="hidden items-center space-x-3 md:flex">
                 <span className="text-sm font-medium text-slate-500">
-                  {user?.name}{isAdmin ? ' (admin)' : ''}
+                  {user?.name}
                 </span>
                 <button
                   onClick={() => logout()}
