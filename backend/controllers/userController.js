@@ -5,8 +5,13 @@ import User from "../models/userModel.js";
 // @access  Admin
 export const getUsers = async (req, res) => {
   try {
-    const users = await User.find({isAdmin: false}).select("-password");
-    res.json(users);
+    const users = await User.find().select("-password");
+    const nonAdminUsers = users.filter((user) => {
+      const role = user.role || (user.isAdmin ? 'admin' : 'user');
+      return role !== 'admin';
+    });
+
+    res.json(nonAdminUsers);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -36,13 +41,18 @@ export const updateUser = async (req, res) => {
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
       if (req.body.password) user.password = req.body.password; // hashed by pre-save
-      user.isAdmin = req.body.isAdmin !== undefined ? req.body.isAdmin : user.isAdmin;
+      if (req.body.role) {
+        user.role = req.body.role;
+      } else if (req.body.isAdmin !== undefined) {
+        user.role = req.body.isAdmin ? 'admin' : 'user';
+      }
 
       const updatedUser = await user.save();
       res.json({
         _id: updatedUser._id,
         name: updatedUser.name,
         email: updatedUser.email,
+        role: updatedUser.role,
         isAdmin: updatedUser.isAdmin
       });
     } else {

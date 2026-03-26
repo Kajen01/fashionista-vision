@@ -14,6 +14,7 @@ import connectDB from "./config/db.js"
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const frontendOrigin = process.env.FRONTEND_BASE_URL || "http://localhost:3000";
 
 // Middleware
 app.use(express.json());
@@ -23,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Enable CORS (replace with your React frontend URL)
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: frontendOrigin,
   credentials: true
 }));
 

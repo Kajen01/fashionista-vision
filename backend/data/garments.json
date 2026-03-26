@@ -1,133 +1,721 @@
 [
   {
-    "id": "dress1",
-    "name": "Silk Evening Dress",
-    "source": "catalog",
-    "fit": "relaxed",
-    "thumbnail": "/assets/garments/dress1.png",
-    "pngUrl": "/assets/garments/dress1.png",
-    "previewUrl": "/assets/garments/dress1.png",
-    "processedImageUrl": "/assets/garments/dress1.png",
-    "analysis": {
-      "garmentType": "dress",
-      "sourceSize": { "width": 640, "height": 640 },
-      "cropBox": { "x": 64, "y": 42, "width": 512, "height": 556 },
-      "keypoints": {
-        "leftShoulder": { "x": 0.18, "y": 0.11, "confidence": 0.96 },
-        "rightShoulder": { "x": 0.82, "y": 0.11, "confidence": 0.96 },
-        "leftWaist": { "x": 0.30, "y": 0.43, "confidence": 0.94 },
-        "rightWaist": { "x": 0.70, "y": 0.43, "confidence": 0.94 },
-        "hemLeft": { "x": 0.24, "y": 0.96, "confidence": 0.92 },
-        "hemRight": { "x": 0.76, "y": 0.96, "confidence": 0.92 },
-        "hemCenter": { "x": 0.50, "y": 0.98, "confidence": 0.92 }
-      },
-      "skeletonSegments": [
-        ["leftShoulder", "rightShoulder"],
-        ["leftShoulder", "leftWaist"],
-        ["rightShoulder", "rightWaist"],
-        ["leftWaist", "hemLeft"],
-        ["rightWaist", "hemRight"],
-        ["hemLeft", "hemCenter"],
-        ["hemCenter", "hemRight"]
-      ]
-    }
-  },
-  {
-    "id": "dress2",
-    "name": "Floral Summer Set",
-    "source": "catalog",
-    "fit": "relaxed",
-    "thumbnail": "/assets/garments/dress2.png",
-    "pngUrl": "/assets/garments/dress2.png",
-    "previewUrl": "/assets/garments/dress2.png",
-    "processedImageUrl": "/assets/garments/dress2.png",
-    "analysis": {
-      "garmentType": "dress",
-      "sourceSize": { "width": 768, "height": 768 },
-      "cropBox": { "x": 88, "y": 36, "width": 600, "height": 682 },
-      "keypoints": {
-        "leftShoulder": { "x": 0.16, "y": 0.09, "confidence": 0.95 },
-        "rightShoulder": { "x": 0.84, "y": 0.09, "confidence": 0.95 },
-        "leftWaist": { "x": 0.29, "y": 0.41, "confidence": 0.93 },
-        "rightWaist": { "x": 0.71, "y": 0.41, "confidence": 0.93 },
-        "hemLeft": { "x": 0.23, "y": 0.96, "confidence": 0.91 },
-        "hemRight": { "x": 0.77, "y": 0.96, "confidence": 0.91 },
-        "hemCenter": { "x": 0.50, "y": 0.98, "confidence": 0.91 }
-      },
-      "skeletonSegments": [
-        ["leftShoulder", "rightShoulder"],
-        ["leftShoulder", "leftWaist"],
-        ["rightShoulder", "rightWaist"],
-        ["leftWaist", "hemLeft"],
-        ["rightWaist", "hemRight"],
-        ["hemLeft", "hemCenter"],
-        ["hemCenter", "hemRight"]
-      ]
-    }
-  },
-  {
-    "id": "dress3_1",
-    "name": "Casual Ensemble",
-    "source": "catalog",
-    "fit": "relaxed",
-    "thumbnail": "/assets/garments/dress3-1.png",
-    "pngUrl": "/assets/garments/dress3-1.png",
-    "previewUrl": "/assets/garments/dress3-1.png",
-    "processedImageUrl": "/assets/garments/dress3-1.png",
-    "analysis": {
-      "garmentType": "dress",
-      "sourceSize": { "width": 640, "height": 640 },
-      "cropBox": { "x": 72, "y": 38, "width": 500, "height": 564 },
-      "keypoints": {
-        "leftShoulder": { "x": 0.17, "y": 0.10, "confidence": 0.95 },
-        "rightShoulder": { "x": 0.83, "y": 0.10, "confidence": 0.95 },
-        "leftWaist": { "x": 0.29, "y": 0.42, "confidence": 0.93 },
-        "rightWaist": { "x": 0.71, "y": 0.42, "confidence": 0.93 },
-        "hemLeft": { "x": 0.24, "y": 0.96, "confidence": 0.91 },
-        "hemRight": { "x": 0.76, "y": 0.96, "confidence": 0.91 },
-        "hemCenter": { "x": 0.50, "y": 0.98, "confidence": 0.91 }
-      },
-      "skeletonSegments": [
-        ["leftShoulder", "rightShoulder"],
-        ["leftShoulder", "leftWaist"],
-        ["rightShoulder", "rightWaist"],
-        ["leftWaist", "hemLeft"],
-        ["rightWaist", "hemRight"],
-        ["hemLeft", "hemCenter"],
-        ["hemCenter", "hemRight"]
-      ]
-    }
-  },
-  {
-    "id": "tshirt_jpg",
-    "name": "Premium T-shirt",
+    "id": "dress_1",
+    "name": "Minimalist T-Shirt",
     "source": "catalog",
     "fit": "tight",
-    "thumbnail": "/assets/garments/dress3.jpg",
-    "pngUrl": "/assets/garments/dress3.jpg",
-    "previewUrl": "/assets/garments/dress3.jpg",
-    "processedImageUrl": "/assets/garments/dress3.jpg",
+    "thumbnail": "/assets/garments/dress_1.png",
+    "pngUrl": "/assets/garments/dress_1.png",
+    "previewUrl": "/assets/garments/dress_1.png",
+    "processedImageUrl": "/assets/garments/dress_1.png",
     "analysis": {
       "garmentType": "top",
-      "sourceSize": { "width": 640, "height": 640 },
-      "cropBox": { "x": 78, "y": 46, "width": 484, "height": 520 },
+      "sourceSize": {
+        "width": 500,
+        "height": 600
+      },
+      "cropBox": {
+        "x": 50,
+        "y": 30,
+        "width": 400,
+        "height": 540
+      },
       "keypoints": {
-        "leftShoulder": { "x": 0.18, "y": 0.10, "confidence": 0.97 },
-        "rightShoulder": { "x": 0.82, "y": 0.10, "confidence": 0.97 },
-        "leftWaist": { "x": 0.31, "y": 0.56, "confidence": 0.94 },
-        "rightWaist": { "x": 0.69, "y": 0.56, "confidence": 0.94 },
-        "hemLeft": { "x": 0.28, "y": 0.93, "confidence": 0.92 },
-        "hemRight": { "x": 0.72, "y": 0.93, "confidence": 0.92 },
-        "hemCenter": { "x": 0.50, "y": 0.95, "confidence": 0.92 }
+        "leftShoulder": {
+          "x": 0.2,
+          "y": 0.1,
+          "confidence": 0.95
+        },
+        "rightShoulder": {
+          "x": 0.8,
+          "y": 0.1,
+          "confidence": 0.95
+        },
+        "leftWaist": {
+          "x": 0.3,
+          "y": 0.5,
+          "confidence": 0.93
+        },
+        "rightWaist": {
+          "x": 0.7,
+          "y": 0.5,
+          "confidence": 0.93
+        },
+        "hemLeft": {
+          "x": 0.25,
+          "y": 0.95,
+          "confidence": 0.91
+        },
+        "hemRight": {
+          "x": 0.75,
+          "y": 0.95,
+          "confidence": 0.91
+        },
+        "hemCenter": {
+          "x": 0.5,
+          "y": 0.98,
+          "confidence": 0.91
+        }
       },
       "skeletonSegments": [
-        ["leftShoulder", "rightShoulder"],
-        ["leftShoulder", "leftWaist"],
-        ["rightShoulder", "rightWaist"],
-        ["leftWaist", "hemLeft"],
-        ["rightWaist", "hemRight"],
-        ["hemLeft", "hemCenter"],
-        ["hemCenter", "hemRight"]
+        [
+          "leftShoulder",
+          "rightShoulder"
+        ],
+        [
+          "leftShoulder",
+          "leftWaist"
+        ],
+        [
+          "rightShoulder",
+          "rightWaist"
+        ],
+        [
+          "leftWaist",
+          "hemLeft"
+        ],
+        [
+          "rightWaist",
+          "hemRight"
+        ],
+        [
+          "hemLeft",
+          "hemCenter"
+        ],
+        [
+          "hemCenter",
+          "hemRight"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "dress_2",
+    "name": "Summer Blue Dress",
+    "source": "catalog",
+    "fit": "tight",
+    "thumbnail": "/assets/garments/dress_2.png",
+    "pngUrl": "/assets/garments/dress_2.png",
+    "previewUrl": "/assets/garments/dress_2.png",
+    "processedImageUrl": "/assets/garments/dress_2.png",
+    "analysis": {
+      "garmentType": "dress",
+      "sourceSize": {
+        "width": 798,
+        "height": 991
+      },
+      "cropBox": {
+        "x": 80,
+        "y": 50,
+        "width": 638,
+        "height": 892
+      },
+      "keypoints": {
+        "leftShoulder": {
+          "x": 0.2,
+          "y": 0.1,
+          "confidence": 0.95
+        },
+        "rightShoulder": {
+          "x": 0.8,
+          "y": 0.1,
+          "confidence": 0.95
+        },
+        "leftWaist": {
+          "x": 0.3,
+          "y": 0.5,
+          "confidence": 0.93
+        },
+        "rightWaist": {
+          "x": 0.7,
+          "y": 0.5,
+          "confidence": 0.93
+        },
+        "hemLeft": {
+          "x": 0.25,
+          "y": 0.95,
+          "confidence": 0.91
+        },
+        "hemRight": {
+          "x": 0.75,
+          "y": 0.95,
+          "confidence": 0.91
+        },
+        "hemCenter": {
+          "x": 0.5,
+          "y": 0.98,
+          "confidence": 0.91
+        }
+      },
+      "skeletonSegments": [
+        [
+          "leftShoulder",
+          "rightShoulder"
+        ],
+        [
+          "leftShoulder",
+          "leftWaist"
+        ],
+        [
+          "rightShoulder",
+          "rightWaist"
+        ],
+        [
+          "leftWaist",
+          "hemLeft"
+        ],
+        [
+          "rightWaist",
+          "hemRight"
+        ],
+        [
+          "hemLeft",
+          "hemCenter"
+        ],
+        [
+          "hemCenter",
+          "hemRight"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "dress_3",
+    "name": "Classic Denim Top",
+    "source": "catalog",
+    "fit": "tight",
+    "thumbnail": "/assets/garments/dress_3.jpg",
+    "pngUrl": "/assets/garments/dress_3.jpg",
+    "previewUrl": "/assets/garments/dress_3.jpg",
+    "processedImageUrl": "/assets/garments/dress_3.jpg",
+    "analysis": {
+      "garmentType": "top",
+      "sourceSize": {
+        "width": 240,
+        "height": 300
+      },
+      "cropBox": {
+        "x": 24,
+        "y": 15,
+        "width": 192,
+        "height": 270
+      },
+      "keypoints": {
+        "leftShoulder": {
+          "x": 0.2,
+          "y": 0.1,
+          "confidence": 0.95
+        },
+        "rightShoulder": {
+          "x": 0.8,
+          "y": 0.1,
+          "confidence": 0.95
+        },
+        "leftWaist": {
+          "x": 0.3,
+          "y": 0.5,
+          "confidence": 0.93
+        },
+        "rightWaist": {
+          "x": 0.7,
+          "y": 0.5,
+          "confidence": 0.93
+        },
+        "hemLeft": {
+          "x": 0.25,
+          "y": 0.95,
+          "confidence": 0.91
+        },
+        "hemRight": {
+          "x": 0.75,
+          "y": 0.95,
+          "confidence": 0.91
+        },
+        "hemCenter": {
+          "x": 0.5,
+          "y": 0.98,
+          "confidence": 0.91
+        }
+      },
+      "skeletonSegments": [
+        [
+          "leftShoulder",
+          "rightShoulder"
+        ],
+        [
+          "leftShoulder",
+          "leftWaist"
+        ],
+        [
+          "rightShoulder",
+          "rightWaist"
+        ],
+        [
+          "leftWaist",
+          "hemLeft"
+        ],
+        [
+          "rightWaist",
+          "hemRight"
+        ],
+        [
+          "hemLeft",
+          "hemCenter"
+        ],
+        [
+          "hemCenter",
+          "hemRight"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "dress_4",
+    "name": "Elegant Wrap Dress",
+    "source": "catalog",
+    "fit": "relaxed",
+    "thumbnail": "/assets/garments/dress_4.png",
+    "pngUrl": "/assets/garments/dress_4.png",
+    "previewUrl": "/assets/garments/dress_4.png",
+    "processedImageUrl": "/assets/garments/dress_4.png",
+    "analysis": {
+      "garmentType": "dress",
+      "sourceSize": {
+        "width": 1131,
+        "height": 1600
+      },
+      "cropBox": {
+        "x": 113,
+        "y": 80,
+        "width": 905,
+        "height": 1440
+      },
+      "keypoints": {
+        "leftShoulder": {
+          "x": 0.2,
+          "y": 0.1,
+          "confidence": 0.95
+        },
+        "rightShoulder": {
+          "x": 0.8,
+          "y": 0.1,
+          "confidence": 0.95
+        },
+        "leftWaist": {
+          "x": 0.3,
+          "y": 0.5,
+          "confidence": 0.93
+        },
+        "rightWaist": {
+          "x": 0.7,
+          "y": 0.5,
+          "confidence": 0.93
+        },
+        "hemLeft": {
+          "x": 0.25,
+          "y": 0.95,
+          "confidence": 0.91
+        },
+        "hemRight": {
+          "x": 0.75,
+          "y": 0.95,
+          "confidence": 0.91
+        },
+        "hemCenter": {
+          "x": 0.5,
+          "y": 0.98,
+          "confidence": 0.91
+        }
+      },
+      "skeletonSegments": [
+        [
+          "leftShoulder",
+          "rightShoulder"
+        ],
+        [
+          "leftShoulder",
+          "leftWaist"
+        ],
+        [
+          "rightShoulder",
+          "rightWaist"
+        ],
+        [
+          "leftWaist",
+          "hemLeft"
+        ],
+        [
+          "rightWaist",
+          "hemRight"
+        ],
+        [
+          "hemLeft",
+          "hemCenter"
+        ],
+        [
+          "hemCenter",
+          "hemRight"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "dress_5",
+    "name": "Red Evening Gown",
+    "source": "catalog",
+    "fit": "tight",
+    "thumbnail": "/assets/garments/dress_5.png",
+    "pngUrl": "/assets/garments/dress_5.png",
+    "previewUrl": "/assets/garments/dress_5.png",
+    "processedImageUrl": "/assets/garments/dress_5.png",
+    "analysis": {
+      "garmentType": "dress",
+      "sourceSize": {
+        "width": 510,
+        "height": 600
+      },
+      "cropBox": {
+        "x": 51,
+        "y": 30,
+        "width": 408,
+        "height": 540
+      },
+      "keypoints": {
+        "leftShoulder": {
+          "x": 0.2,
+          "y": 0.1,
+          "confidence": 0.95
+        },
+        "rightShoulder": {
+          "x": 0.8,
+          "y": 0.1,
+          "confidence": 0.95
+        },
+        "leftWaist": {
+          "x": 0.3,
+          "y": 0.5,
+          "confidence": 0.93
+        },
+        "rightWaist": {
+          "x": 0.7,
+          "y": 0.5,
+          "confidence": 0.93
+        },
+        "hemLeft": {
+          "x": 0.25,
+          "y": 0.95,
+          "confidence": 0.91
+        },
+        "hemRight": {
+          "x": 0.75,
+          "y": 0.95,
+          "confidence": 0.91
+        },
+        "hemCenter": {
+          "x": 0.5,
+          "y": 0.98,
+          "confidence": 0.91
+        }
+      },
+      "skeletonSegments": [
+        [
+          "leftShoulder",
+          "rightShoulder"
+        ],
+        [
+          "leftShoulder",
+          "leftWaist"
+        ],
+        [
+          "rightShoulder",
+          "rightWaist"
+        ],
+        [
+          "leftWaist",
+          "hemLeft"
+        ],
+        [
+          "rightWaist",
+          "hemRight"
+        ],
+        [
+          "hemLeft",
+          "hemCenter"
+        ],
+        [
+          "hemCenter",
+          "hemRight"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "dress_6",
+    "name": "Casual Button-Down",
+    "source": "catalog",
+    "fit": "tight",
+    "thumbnail": "/assets/garments/dress_6.png",
+    "pngUrl": "/assets/garments/dress_6.png",
+    "previewUrl": "/assets/garments/dress_6.png",
+    "processedImageUrl": "/assets/garments/dress_6.png",
+    "analysis": {
+      "garmentType": "top",
+      "sourceSize": {
+        "width": 900,
+        "height": 1057
+      },
+      "cropBox": {
+        "x": 90,
+        "y": 53,
+        "width": 720,
+        "height": 951
+      },
+      "keypoints": {
+        "leftShoulder": {
+          "x": 0.2,
+          "y": 0.1,
+          "confidence": 0.95
+        },
+        "rightShoulder": {
+          "x": 0.8,
+          "y": 0.1,
+          "confidence": 0.95
+        },
+        "leftWaist": {
+          "x": 0.3,
+          "y": 0.5,
+          "confidence": 0.93
+        },
+        "rightWaist": {
+          "x": 0.7,
+          "y": 0.5,
+          "confidence": 0.93
+        },
+        "hemLeft": {
+          "x": 0.25,
+          "y": 0.95,
+          "confidence": 0.91
+        },
+        "hemRight": {
+          "x": 0.75,
+          "y": 0.95,
+          "confidence": 0.91
+        },
+        "hemCenter": {
+          "x": 0.5,
+          "y": 0.98,
+          "confidence": 0.91
+        }
+      },
+      "skeletonSegments": [
+        [
+          "leftShoulder",
+          "rightShoulder"
+        ],
+        [
+          "leftShoulder",
+          "leftWaist"
+        ],
+        [
+          "rightShoulder",
+          "rightWaist"
+        ],
+        [
+          "leftWaist",
+          "hemLeft"
+        ],
+        [
+          "rightWaist",
+          "hemRight"
+        ],
+        [
+          "hemLeft",
+          "hemCenter"
+        ],
+        [
+          "hemCenter",
+          "hemRight"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "dress_7",
+    "name": "Autumn Cardigan",
+    "source": "catalog",
+    "fit": "tight",
+    "thumbnail": "/assets/garments/dress_7.png",
+    "pngUrl": "/assets/garments/dress_7.png",
+    "previewUrl": "/assets/garments/dress_7.png",
+    "processedImageUrl": "/assets/garments/dress_7.png",
+    "analysis": {
+      "garmentType": "top",
+      "sourceSize": {
+        "width": 4096,
+        "height": 4096
+      },
+      "cropBox": {
+        "x": 410,
+        "y": 205,
+        "width": 3277,
+        "height": 3686
+      },
+      "keypoints": {
+        "leftShoulder": {
+          "x": 0.2,
+          "y": 0.1,
+          "confidence": 0.95
+        },
+        "rightShoulder": {
+          "x": 0.8,
+          "y": 0.1,
+          "confidence": 0.95
+        },
+        "leftWaist": {
+          "x": 0.3,
+          "y": 0.5,
+          "confidence": 0.93
+        },
+        "rightWaist": {
+          "x": 0.7,
+          "y": 0.5,
+          "confidence": 0.93
+        },
+        "hemLeft": {
+          "x": 0.25,
+          "y": 0.95,
+          "confidence": 0.91
+        },
+        "hemRight": {
+          "x": 0.75,
+          "y": 0.95,
+          "confidence": 0.91
+        },
+        "hemCenter": {
+          "x": 0.5,
+          "y": 0.98,
+          "confidence": 0.91
+        }
+      },
+      "skeletonSegments": [
+        [
+          "leftShoulder",
+          "rightShoulder"
+        ],
+        [
+          "leftShoulder",
+          "leftWaist"
+        ],
+        [
+          "rightShoulder",
+          "rightWaist"
+        ],
+        [
+          "leftWaist",
+          "hemLeft"
+        ],
+        [
+          "rightWaist",
+          "hemRight"
+        ],
+        [
+          "hemLeft",
+          "hemCenter"
+        ],
+        [
+          "hemCenter",
+          "hemRight"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "dress_8",
+    "name": "Chic Cocktail Dress",
+    "source": "catalog",
+    "fit": "tight",
+    "thumbnail": "/assets/garments/dress_8.png",
+    "pngUrl": "/assets/garments/dress_8.png",
+    "previewUrl": "/assets/garments/dress_8.png",
+    "processedImageUrl": "/assets/garments/dress_8.png",
+    "analysis": {
+      "garmentType": "dress",
+      "sourceSize": {
+        "width": 2500,
+        "height": 2500
+      },
+      "cropBox": {
+        "x": 250,
+        "y": 125,
+        "width": 2000,
+        "height": 2250
+      },
+      "keypoints": {
+        "leftShoulder": {
+          "x": 0.2,
+          "y": 0.1,
+          "confidence": 0.95
+        },
+        "rightShoulder": {
+          "x": 0.8,
+          "y": 0.1,
+          "confidence": 0.95
+        },
+        "leftWaist": {
+          "x": 0.3,
+          "y": 0.5,
+          "confidence": 0.93
+        },
+        "rightWaist": {
+          "x": 0.7,
+          "y": 0.5,
+          "confidence": 0.93
+        },
+        "hemLeft": {
+          "x": 0.25,
+          "y": 0.95,
+          "confidence": 0.91
+        },
+        "hemRight": {
+          "x": 0.75,
+          "y": 0.95,
+          "confidence": 0.91
+        },
+        "hemCenter": {
+          "x": 0.5,
+          "y": 0.98,
+          "confidence": 0.91
+        }
+      },
+      "skeletonSegments": [
+        [
+          "leftShoulder",
+          "rightShoulder"
+        ],
+        [
+          "leftShoulder",
+          "leftWaist"
+        ],
+        [
+          "rightShoulder",
+          "rightWaist"
+        ],
+        [
+          "leftWaist",
+          "hemLeft"
+        ],
+        [
+          "rightWaist",
+          "hemRight"
+        ],
+        [
+          "hemLeft",
+          "hemCenter"
+        ],
+        [
+          "hemCenter",
+          "hemRight"
+        ]
       ]
     }
   }

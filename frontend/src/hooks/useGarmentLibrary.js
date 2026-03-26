@@ -66,6 +66,7 @@ export function useGarmentLibrary() {
   const [garmentsLoading, setGarmentsLoading] = useState(true);
   const [garmentsError, setGarmentsError] = useState(null);
   const [uploadingGarment, setUploadingGarment] = useState(false);
+  const [deletingGarmentId, setDeletingGarmentId] = useState(null);
 
   useEffect(() => {
     let isCancelled = false;
@@ -177,6 +178,37 @@ export function useGarmentLibrary() {
     }
   };
 
+  const deleteGarment = async (id) => {
+    setDeletingGarmentId(id);
+    setGarmentsError(null);
+
+    try {
+      const response = await fetch(`${BACKEND_BASE_URL}/api/trialroom/garments/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.message || 'Failed to delete garment.');
+      }
+
+      setGarments((current) => current.filter((g) => g.id !== id));
+      
+      setGarmentImages((current) => {
+        const next = { ...current };
+        delete next[id];
+        return next;
+      });
+      
+      return true;
+    } catch (error) {
+      setGarmentsError(error.message || 'Failed to delete garment.');
+      throw error;
+    } finally {
+      setDeletingGarmentId(null);
+    }
+  };
+
   return {
     garments,
     garmentImages,
@@ -184,6 +216,8 @@ export function useGarmentLibrary() {
     garmentsError,
     uploadingGarment,
     uploadGarment,
+    deleteGarment,
+    deletingGarmentId,
   };
 }
 

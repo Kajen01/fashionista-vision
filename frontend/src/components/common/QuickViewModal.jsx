@@ -26,8 +26,11 @@ const QuickViewModal = ({ product, isOpen, onClose }) => {
 
   const handleAddToCart = () => {
     if (!selectedSize || !selectedColor) return;
-    addToCart(product, selectedSize, selectedColor);
-    onClose();
+    const added = addToCart(product, selectedSize, selectedColor);
+
+    if (added) {
+      onClose();
+    }
   };
 
   // Ensure we have a portal root (document.body fallback)

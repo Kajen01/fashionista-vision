@@ -6,9 +6,12 @@ import { formatCurrency } from '../../utils/helpers';
 import axios from 'axios';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { buildBackendUrl, resolveProductImageUrl } from '../../utils/runtimeConfig';
+import { useAuth } from '../../hooks/useAuth';
+import { toast } from 'react-hot-toast';
 
 const CartSidebar = () => {
   const { cartItems, isCartOpen, toggleCart, removeFromCart, updateQuantity, getCartTotal, clearCart } = useCart();
+  const { token, requireLogin } = useAuth();
 
   const stripe = useStripe();
   const elements = useElements();
@@ -16,6 +19,7 @@ const CartSidebar = () => {
   const handleCheckout = async (e) => {
     e.preventDefault();
     if (!stripe || !elements) return;
+    if (!requireLogin('checkout')) return;
 
     try {
       const res = await axios.post(buildBackendUrl('/api/checkout'), {
@@ -25,6 +29,10 @@ const CartSidebar = () => {
           price: item.price * 100,
           quantity: item.quantity
         }))
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       const clientSecret = res.data.clientSecret;
@@ -36,13 +44,14 @@ const CartSidebar = () => {
       });
 
       if (result.error) {
-        alert(result.error.message);
+        toast.error(result.error.message);
       } else if (result.paymentIntent.status === 'succeeded') {
-        alert('Payment successful!');
+        toast.success('Payment successful!');
         clearCart()
       }
     } catch (err) {
       console.error('Error during checkout:', err);
+      toast.error(err.response?.data?.message || 'Error during checkout.');
     }
   };
 
