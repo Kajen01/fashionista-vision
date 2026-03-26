@@ -70,7 +70,7 @@ const AdminDashboard = () => {
   return (
     <AdminLayout
       title="Dashboard"
-      description="This admin area manages the current MongoDB-backed products and every user account already available in the project."
+      description="This admin area manages the current MongoDB-backed products, user accounts, and order tracking already available in the project."
       actions={(
         <>
           <Link
@@ -78,6 +78,12 @@ const AdminDashboard = () => {
             className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-rose-200 hover:text-rose-600"
           >
             Manage Users
+          </Link>
+          <Link
+            to="/admin/orders"
+            className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-rose-200 hover:text-rose-600"
+          >
+            Manage Orders
           </Link>
           <Link
             to="/admin/products"
@@ -162,7 +168,7 @@ const AdminDashboard = () => {
                       />
                       <div className="min-w-0 flex-1">
                         <p className="truncate font-semibold text-slate-900">{product.name}</p>
-                        <p className="text-sm text-slate-500">{product.gender} • LKR {product.price}</p>
+                        <p className="text-sm text-slate-500">{product.gender} | LKR {product.price}</p>
                       </div>
                       <p className="text-sm text-slate-500">{formatDate(product.createdAt)}</p>
                     </div>

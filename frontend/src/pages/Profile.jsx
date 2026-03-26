@@ -4,6 +4,7 @@ import { ShieldCheck } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { productReviewApi } from '../utils/productReviewApi';
 import { featureRatingApi } from '../utils/featureRatingApi';
+import { orderApi } from '../utils/orderApi';
 import { resolveProductImageUrl } from '../utils/runtimeConfig';
 import { calculateReviewOverall, getProductRatingSummary } from '../utils/ratingHelpers';
 import ProductStarRating from '../components/ratings/ProductStarRating';
@@ -19,6 +20,63 @@ const initialFeatureRatings = {
     myRating: null,
   },
 };
+
+function formatDate(value) {
+  if (!value) {
+    return 'N/A';
+  }
+
+  return new Date(value).toLocaleString();
+}
+
+function formatCurrency(amount = 0, currency = 'usd') {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: String(currency || 'usd').toUpperCase(),
+  }).format((Number(amount) || 0) / 100);
+}
+
+function formatStatusLabel(value = '') {
+  const normalized = String(value || '').trim();
+  if (!normalized) {
+    return 'N/A';
+  }
+
+  if (normalized === 'placed') {
+    return 'Order Status';
+  }
+
+  return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+}
+
+function getOrderItemCount(order) {
+  return (order.items || []).reduce((sum, item) => sum + (Number(item.quantity) || 0), 0);
+}
+
+function getTrackingNumber(order) {
+  const rawValue = order.trackingNumber || order.id || order._id || '';
+  const trackingNumber = String(rawValue)
+    .replace(/[^a-zA-Z0-9]/g, '')
+    .slice(-12)
+    .toUpperCase();
+
+  return trackingNumber || 'Not assigned yet';
+}
+
+function getOrderStatusClasses(status) {
+  switch (status) {
+    case 'delivered':
+      return 'border-emerald-200 bg-emerald-50 text-emerald-700';
+    case 'shipped':
+      return 'border-sky-200 bg-sky-50 text-sky-700';
+    case 'processing':
+      return 'border-amber-200 bg-amber-50 text-amber-700';
+    case 'cancelled':
+      return 'border-red-200 bg-red-50 text-red-700';
+    default:
+      return 'border-slate-200 bg-slate-50 text-slate-700';
+  }
+}
 
 const Profile = () => {
   const {
@@ -41,7 +99,8 @@ const Profile = () => {
   const [savingPassword, setSavingPassword] = useState(false);
   const [myProductReviews, setMyProductReviews] = useState([]);
   const [featureRatings, setFeatureRatings] = useState(initialFeatureRatings);
-  const [loadingFeedback, setLoadingFeedback] = useState(true);
+  const [myOrders, setMyOrders] = useState([]);
+  const [loadingActivity, setLoadingActivity] = useState(true);
 
   useEffect(() => {
     if (user) {
@@ -53,33 +112,47 @@ const Profile = () => {
   }, [user]);
 
   useEffect(() => {
-    const loadFeedback = async () => {
+    const loadProfileActivity = async () => {
       if (!token) {
-        setLoadingFeedback(false);
+        setLoadingActivity(false);
         return;
       }
 
-      setLoadingFeedback(true);
+      setLoadingActivity(true);
 
-      try {
-        const [productRatingsResponse, featureRatingsResponse] = await Promise.all([
-          productReviewApi.getMyReviews(token),
-          featureRatingApi.getMyRatings(token),
-        ]);
+      const [productRatingsResult, featureRatingsResult, ordersResult] = await Promise.allSettled([
+        productReviewApi.getMyReviews(token),
+        featureRatingApi.getMyRatings(token),
+        orderApi.getMyOrders(token),
+      ]);
 
-        setMyProductReviews(Array.isArray(productRatingsResponse.reviews) ? productRatingsResponse.reviews : []);
-        setFeatureRatings({
-          model: featureRatingsResponse.model || initialFeatureRatings.model,
-          digitalMirror: featureRatingsResponse.digitalMirror || initialFeatureRatings.digitalMirror,
-        });
-      } catch (error) {
-        toast.error(error.message);
-      } finally {
-        setLoadingFeedback(false);
+      if (productRatingsResult.status === 'fulfilled') {
+        setMyProductReviews(
+          Array.isArray(productRatingsResult.value.reviews) ? productRatingsResult.value.reviews : []
+        );
+      } else {
+        toast.error(productRatingsResult.reason?.message || 'Unable to load dress ratings.');
       }
+
+      if (featureRatingsResult.status === 'fulfilled') {
+        setFeatureRatings({
+          model: featureRatingsResult.value.model || initialFeatureRatings.model,
+          digitalMirror: featureRatingsResult.value.digitalMirror || initialFeatureRatings.digitalMirror,
+        });
+      } else {
+        toast.error(featureRatingsResult.reason?.message || 'Unable to load feature ratings.');
+      }
+
+      if (ordersResult.status === 'fulfilled') {
+        setMyOrders(Array.isArray(ordersResult.value.orders) ? ordersResult.value.orders : []);
+      } else {
+        toast.error(ordersResult.reason?.message || 'Unable to load your orders.');
+      }
+
+      setLoadingActivity(false);
     };
 
-    loadFeedback();
+    loadProfileActivity();
   }, [token]);
 
   const handleProfileChange = (event) => {
@@ -166,7 +239,7 @@ const Profile = () => {
           <p className="text-xs font-semibold uppercase tracking-[0.35em] text-rose-500">Account Center</p>
           <h1 className="mt-3 font-display text-4xl font-bold text-slate-900">Profile</h1>
           <p className="mt-3 max-w-2xl text-base text-slate-500">
-            Manage your account, track your dress feedback, and rate both the Model and Digital Mirror experiences here.
+            Manage your account, review your placed orders, track dress feedback, and rate both the Model and Digital Mirror experiences here.
           </p>
 
           <div className="mt-5 flex flex-wrap gap-3">
@@ -284,6 +357,122 @@ const Profile = () => {
         </div>
 
         <div className="mt-6 grid gap-6 xl:grid-cols-2">
+          <section className="rounded-[2rem] border border-white/80 bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.08)] xl:col-span-2">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h2 className="text-2xl font-semibold text-slate-900">My Orders</h2>
+                <p className="mt-2 text-sm text-slate-500">
+                  All placed orders stay inside your profile. Tracking details are updated by admin when the shipment moves forward.
+                </p>
+              </div>
+              <div className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700">
+                Total orders: {myOrders.length}
+              </div>
+            </div>
+
+            {loadingActivity ? (
+              <p className="mt-6 text-sm font-medium text-slate-600">Loading your account activity...</p>
+            ) : myOrders.length === 0 ? (
+              <div className="mt-6 rounded-2xl border border-dashed border-slate-200 px-5 py-8 text-sm text-slate-500">
+                You do not have any placed orders yet. Once checkout succeeds, your order will appear here automatically.
+              </div>
+            ) : (
+              <div className="mt-6 space-y-5">
+                {myOrders.map((order) => {
+                  const orderId = order.id || order._id;
+
+                  return (
+                    <div
+                      key={orderId}
+                      className="rounded-[1.5rem] border border-slate-100 bg-slate-50 p-5"
+                    >
+                      <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+                        <div>
+                          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-rose-500">
+                            Order #{String(orderId).slice(-8).toUpperCase()}
+                          </p>
+                          <p className="mt-2 text-sm text-slate-500">Placed: {formatDate(order.placedAt || order.createdAt)}</p>
+                        </div>
+
+                        <div className="flex flex-wrap gap-3">
+                          <span className={`rounded-full border px-4 py-2 text-sm font-medium ${getOrderStatusClasses(order.orderStatus)}`}>
+                            {formatStatusLabel(order.orderStatus)}
+                          </span>
+                          <span className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700">
+                            Payment: {formatStatusLabel(order.paymentStatus)}
+                          </span>
+                          <span className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700">
+                            Total: {formatCurrency(order.totalAmount, order.currency)}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                        <div className="rounded-2xl border border-slate-100 bg-white px-4 py-3">
+                          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Tracking</p>
+                          <p className="mt-2 text-sm font-medium text-slate-700">{getTrackingNumber(order)}</p>
+                        </div>
+                        <div className="rounded-2xl border border-slate-100 bg-white px-4 py-3">
+                          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Items</p>
+                          <p className="mt-2 text-sm font-medium text-slate-700">{getOrderItemCount(order)}</p>
+                        </div>
+                        <div className="rounded-2xl border border-slate-100 bg-white px-4 py-3">
+                          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Shipped</p>
+                          <p className="mt-2 text-sm font-medium text-slate-700">{formatDate(order.shippedAt)}</p>
+                        </div>
+                        <div className="rounded-2xl border border-slate-100 bg-white px-4 py-3">
+                          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Delivered</p>
+                          <p className="mt-2 text-sm font-medium text-slate-700">{formatDate(order.deliveredAt)}</p>
+                        </div>
+                      </div>
+
+                      <div className="mt-5 space-y-3">
+                        {order.items?.map((item, index) => (
+                          <div
+                            key={`${orderId}-${item.name}-${index}`}
+                            className="grid gap-4 rounded-[1.5rem] border border-slate-100 bg-white p-4 lg:grid-cols-[84px_minmax(0,1fr)_180px]"
+                          >
+                            <div className="h-20 w-20 overflow-hidden rounded-2xl bg-slate-50">
+                              {item.image?.url || item.image ? (
+                                <img
+                                  src={resolveProductImageUrl({ image: item.image })}
+                                  alt={item.name}
+                                  className="h-full w-full object-cover"
+                                />
+                              ) : (
+                                <div className="flex h-full items-center justify-center text-xs text-slate-400">
+                                  No image
+                                </div>
+                              )}
+                            </div>
+
+                            <div className="min-w-0">
+                              <p className="text-base font-semibold text-slate-900">{item.name}</p>
+                              <div className="mt-2 flex flex-wrap gap-2 text-sm text-slate-600">
+                                <span className="rounded-full bg-slate-50 px-3 py-1">Qty: {item.quantity}</span>
+                                <span className="rounded-full bg-slate-50 px-3 py-1">Size: {item.size || 'N/A'}</span>
+                                <span className="rounded-full bg-slate-50 px-3 py-1">Color: {item.color || 'N/A'}</span>
+                              </div>
+                            </div>
+
+                            <div className="text-left lg:text-right">
+                              <p className="text-sm text-slate-500">Unit Price</p>
+                              <p className="text-base font-semibold text-slate-900">{formatCurrency(item.price, order.currency)}</p>
+                              <p className="mt-2 text-sm text-slate-500">Line Total</p>
+                              <p className="text-base font-semibold text-rose-600">
+                                {formatCurrency(item.price * item.quantity, order.currency)}
+                              </p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </section>
+
           <section
             id="my-dress-ratings"
             className="rounded-[2rem] border border-white/80 bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.08)] xl:col-span-2"
@@ -300,8 +489,8 @@ const Profile = () => {
               </div>
             </div>
 
-            {loadingFeedback ? (
-              <p className="mt-6 text-sm font-medium text-slate-600">Loading your feedback...</p>
+            {loadingActivity ? (
+              <p className="mt-6 text-sm font-medium text-slate-600">Loading your account activity...</p>
             ) : myProductReviews.length === 0 ? (
               <div className="mt-6 rounded-2xl border border-dashed border-slate-200 px-5 py-8 text-sm text-slate-500">
                 You have not rated any MongoDB-backed dresses yet. Open a recommended dress card and submit a review there.
