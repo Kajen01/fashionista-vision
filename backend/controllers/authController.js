@@ -90,7 +90,7 @@ export const registerUser = async (req, res) => {
 // LOGIN
 export const loginUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, loginAs } = req.body;
     const normalizedEmail = normalizeEmail(email);
 
     const user = await User.findOne({ email: normalizedEmail });
@@ -103,6 +103,20 @@ export const loginUser = async (req, res) => {
       return res.status(403).json({
         message: 'Please verify your email before logging in.',
         code: 'EMAIL_NOT_VERIFIED',
+      });
+    }
+
+    const resolvedRole = user.role || (user.isAdmin ? 'admin' : 'user');
+
+    if (loginAs === 'admin' && resolvedRole !== 'admin') {
+      return res.status(403).json({
+        message: 'This account is not authorized for admin login.',
+      });
+    }
+
+    if (loginAs === 'user' && resolvedRole !== 'user') {
+      return res.status(403).json({
+        message: 'This account is not authorized for user login.',
       });
     }
 

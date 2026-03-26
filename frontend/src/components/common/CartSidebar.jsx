@@ -23,12 +23,16 @@ const CartSidebar = () => {
 
     try {
       const res = await axios.post(buildBackendUrl('/api/checkout'), {
-        items: cartItems.map(item => ({
-          id: item.id,
-          name: item.name,
-          price: item.price * 100,
-          quantity: item.quantity
-        }))
+        items: cartItems.map(item => {
+          const discount = item.discount || 0;
+          const finalPrice = discount > 0 ? item.price * (1 - discount / 100) : item.price;
+          return {
+            id: item.id,
+            name: item.name,
+            price: Math.round(finalPrice * 100),
+            quantity: item.quantity
+          };
+        })
       }, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -104,7 +108,16 @@ const CartSidebar = () => {
                           <p className="text-xs text-gray-500">
                             Size: {item.size} | Color: {item.color}
                           </p>
-                          <p className="text-rose-600 font-bold">LKR {item.price}</p>
+                          {(item.discount || 0) > 0 ? (
+                            <div className="flex items-center gap-2 mt-0.5">
+                              <p className="text-rose-600 font-bold">
+                                LKR {(item.price * (1 - item.discount / 100)).toFixed(2)}
+                              </p>
+                              <p className="text-xs text-gray-400 line-through">LKR {item.price}</p>
+                            </div>
+                          ) : (
+                            <p className="text-rose-600 font-bold mt-0.5">LKR {item.price}</p>
+                          )}
                         </div>
                         <div className="flex items-center space-x-2">
                           <button

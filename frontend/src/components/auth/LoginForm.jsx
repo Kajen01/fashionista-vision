@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { validateEmail, validatePassword } from '../../utils/validators';
 
-const LoginForm = ({ onSubmit, isSubmitting }) => {
+const LoginForm = ({ onSubmit, isSubmitting, loginMode, onLoginModeChange }) => {
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -30,11 +30,36 @@ const LoginForm = ({ onSubmit, isSubmitting }) => {
     }
 
     setError('');
-    await onSubmit(form);
+    await onSubmit({
+      ...form,
+      loginAs: loginMode,
+    });
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
+      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-1">
+        <div className="grid grid-cols-2 gap-1">
+          {[
+            { value: 'user', label: 'User Login' },
+            { value: 'admin', label: 'Admin Login' },
+          ].map((option) => (
+            <button
+              key={option.value}
+              type="button"
+              onClick={() => onLoginModeChange(option.value)}
+              className={`rounded-2xl px-4 py-3 text-sm font-semibold transition ${
+                loginMode === option.value
+                  ? 'bg-white text-slate-900 shadow-sm'
+                  : 'text-slate-500 hover:text-slate-700'
+              }`}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div>
         <label htmlFor="login-email" className="mb-2 block text-sm font-semibold text-slate-700">
           Email
@@ -78,7 +103,7 @@ const LoginForm = ({ onSubmit, isSubmitting }) => {
         disabled={isSubmitting}
         className="w-full rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {isSubmitting ? 'Signing in...' : 'Sign In'}
+        {isSubmitting ? 'Signing in...' : loginMode === 'admin' ? 'Sign In as Admin' : 'Sign In'}
       </button>
     </form>
   );

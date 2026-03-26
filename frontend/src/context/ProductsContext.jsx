@@ -1,8 +1,25 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import axios from "axios";
 import { buildBackendUrl } from '../utils/runtimeConfig';
 
 export const ProductsContext = createContext();
+
+const normalizeMongoProduct = (product) => ({
+  ...product,
+  id: product.id || product._id,
+  availableSizes: Array.isArray(product.availableSizes) && product.availableSizes.length > 0
+    ? product.availableSizes
+    : ["Free Size", "XS", "S", "M", "L", "XL"],
+  availableColors: Array.isArray(product.availableColors) && product.availableColors.length > 0
+    ? product.availableColors
+    : ["Black", "White", "Navy", "Beige"],
+  image: product.image?.url
+    ? {
+      ...product.image,
+      url: buildBackendUrl(product.image.url),
+    }
+    : product.image,
+});
 
 export const ProductsProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
@@ -12,23 +29,6 @@ export const ProductsProvider = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchTermMongodb, setSearchTermMongodb] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-
-  const normalizeMongoProduct = (product) => ({
-    ...product,
-    id: product.id || product._id,
-    availableSizes: Array.isArray(product.availableSizes) && product.availableSizes.length > 0
-      ? product.availableSizes
-      : ["Free Size", "XS", "S", "M", "L", "XL"],
-    availableColors: Array.isArray(product.availableColors) && product.availableColors.length > 0
-      ? product.availableColors
-      : ["Black", "White", "Navy", "Beige"],
-    image: product.image?.url
-      ? {
-        ...product.image,
-        url: buildBackendUrl(product.image.url),
-      }
-      : product.image,
-  });
 
   useEffect(() => {
     // Initialize with sample products
@@ -105,23 +105,27 @@ export const ProductsProvider = ({ children }) => {
     setFilteredProducts(enhancedProducts);
   }, []);
   
+  const refreshMongoProducts = useCallback(async () => {
+    try {
+      const res = await axios.get(buildBackendUrl('/api/products'));
+      const normalizedProducts = Array.isArray(res.data)
+        ? res.data.map(normalizeMongoProduct)
+        : [];
+
+      setMongodbProducts(normalizedProducts);
+      setFilteredProductsMongodb(normalizedProducts);
+      return normalizedProducts;
+    } catch (err) {
+      console.error("Error fetching products:", err);
+      setMongodbProducts([]);
+      setFilteredProductsMongodb([]);
+      throw err;
+    }
+  }, []);
+
   // Get from MongoDB
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await axios.get(buildBackendUrl('/api/products'));
-        const normalizedProducts = Array.isArray(res.data)
-          ? res.data.map(normalizeMongoProduct)
-          : [];
-
-        setMongodbProducts(normalizedProducts);
-        setFilteredProductsMongodb(normalizedProducts);
-      } catch (err) {
-        console.error("Error fetching products:", err);
-      }
-    };
-
-    fetchProducts();
+    refreshMongoProducts().catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -198,7 +202,8 @@ export const ProductsProvider = ({ children }) => {
     filterBySearchMongodb,
     getProductsByCategory,
     getRandomProducts,
-    getRandomProductsModel
+    getRandomProductsModel,
+    refreshMongoProducts
   };
 
   return <ProductsContext.Provider value={value}>{children}</ProductsContext.Provider>;
@@ -222,7 +227,14 @@ export const useProducts = () => {
 };
 
 export const useProductsModel = () => {
-  const { mongodbProducts, filteredProductsMongodb, searchTermMongodb, getRandomProductsModel, filterBySearchMongodb } = useContext(ProductsContext);
+  const {
+    mongodbProducts,
+    filteredProductsMongodb,
+    searchTermMongodb,
+    getRandomProductsModel,
+    filterBySearchMongodb,
+    refreshMongoProducts,
+  } = useContext(ProductsContext);
   if (!mongodbProducts) {
     throw new Error('useProducts must be used within a ProductsProvider');
   }
@@ -231,6 +243,7 @@ export const useProductsModel = () => {
     filteredProductsMongodb,
     searchTermMongodb,
     getRandomProductsModel,
-    filterBySearchMongodb
+    filterBySearchMongodb,
+    refreshMongoProducts
   };
 };

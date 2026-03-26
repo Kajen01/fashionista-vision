@@ -3,6 +3,7 @@ import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
 import { protect } from "../middleware/authMiddleware.js";
+import { requireAdmin } from "../middleware/roleMiddleware.js";
 import {
   createProduct,
   getProducts,
@@ -37,9 +38,9 @@ const upload = multer({ storage, fileFilter });
 // Product routes
 router.get("/", getProducts);
 router.get("/:id", getProductById);
-router.post("/", protect, upload.single("image"), createProduct);
-router.put("/:id", protect, upload.single("image"), updateProduct);
-router.delete("/:id", protect, deleteProduct);
+router.post("/", protect, requireAdmin, upload.single("image"), createProduct);
+router.put("/:id", protect, requireAdmin, upload.single("image"), updateProduct);
+router.delete("/:id", protect, requireAdmin, deleteProduct);
 
 // Upload images (multiple)
 // router.post("/:id/images", protect, upload.array("images", 6), uploadImages);

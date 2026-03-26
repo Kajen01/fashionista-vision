@@ -1,17 +1,20 @@
 import User from "../models/userModel.js";
 
+function normalizeEmail(email = "") {
+  return email.trim().toLowerCase();
+}
+
+function isSameUser(left, right) {
+  return String(left) === String(right);
+}
+
 // @desc    Get all users (admin)
 // @route   GET /api/users
 // @access  Admin
 export const getUsers = async (req, res) => {
   try {
-    const users = await User.find().select("-password");
-    const nonAdminUsers = users.filter((user) => {
-      const role = user.role || (user.isAdmin ? 'admin' : 'user');
-      return role !== 'admin';
-    });
-
-    res.json(nonAdminUsers);
+    const users = await User.find().sort({ createdAt: -1 });
+    res.json(users.map((user) => user.toSafeObject()));
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -22,9 +25,13 @@ export const getUsers = async (req, res) => {
 // @access  Admin
 export const getUserById = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id).select("-password");
-    if (user) res.json(user);
-    else res.status(404).json({ message: "User not found" });
+    const user = await User.findById(req.params.id);
+
+    if (user) {
+      res.json(user.toSafeObject());
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -37,27 +44,58 @@ export const updateUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
 
-    if (user) {
-      user.name = req.body.name || user.name;
-      user.email = req.body.email || user.email;
-      if (req.body.password) user.password = req.body.password; // hashed by pre-save
-      if (req.body.role) {
-        user.role = req.body.role;
-      } else if (req.body.isAdmin !== undefined) {
-        user.role = req.body.isAdmin ? 'admin' : 'user';
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const nextName = typeof req.body.name === "string" ? req.body.name.trim() : undefined;
+    const nextEmail = typeof req.body.email === "string" ? normalizeEmail(req.body.email) : undefined;
+    const nextRole = req.body.role;
+    const nextIsVerified = req.body.isVerified;
+
+    if (nextName !== undefined) {
+      if (!nextName) {
+        return res.status(400).json({ message: "Name is required." });
       }
 
-      const updatedUser = await user.save();
-      res.json({
-        _id: updatedUser._id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-        role: updatedUser.role,
-        isAdmin: updatedUser.isAdmin
-      });
-    } else {
-      res.status(404).json({ message: "User not found" });
+      user.name = nextName;
     }
+
+    if (nextEmail !== undefined) {
+      if (!nextEmail) {
+        return res.status(400).json({ message: "Email is required." });
+      }
+
+      const duplicateUser = await User.findOne({
+        email: nextEmail,
+        _id: { $ne: user._id },
+      });
+
+      if (duplicateUser) {
+        return res.status(400).json({ message: "Email is already in use." });
+      }
+
+      user.email = nextEmail;
+    }
+
+    if (nextRole !== undefined) {
+      if (!["user", "admin"].includes(nextRole)) {
+        return res.status(400).json({ message: "Role must be either user or admin." });
+      }
+
+      if (isSameUser(req.user._id, user._id) && nextRole !== "admin") {
+        return res.status(400).json({ message: "You cannot remove your own admin access." });
+      }
+
+      user.role = nextRole;
+    }
+
+    if (nextIsVerified !== undefined) {
+      user.isVerified = Boolean(nextIsVerified);
+    }
+
+    const updatedUser = await user.save();
+    res.json(updatedUser.toSafeObject());
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -69,12 +107,17 @@ export const updateUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    if (user) {
-      await user.deleteOne();
-      res.json({ message: "User removed" });
-    } else {
-      res.status(404).json({ message: "User not found" });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
+
+    if (isSameUser(req.user._id, user._id)) {
+      return res.status(400).json({ message: "You cannot delete your own admin account." });
+    }
+
+    await user.deleteOne();
+    res.json({ message: "User removed" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
