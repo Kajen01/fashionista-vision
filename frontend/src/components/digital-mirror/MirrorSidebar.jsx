@@ -10,6 +10,8 @@ const MirrorSidebar = ({
   onSelectGarment,
   onUploadGarment,
   uploadingGarment,
+  onDeleteGarment,
+  deletingGarmentId,
   toggles,
   setToggles,
   params,
@@ -35,6 +37,8 @@ const MirrorSidebar = ({
           onSelectGarment={onSelectGarment}
           onUploadGarment={onUploadGarment}
           uploadingGarment={uploadingGarment}
+          onDeleteGarment={onDeleteGarment}
+          deletingGarmentId={deletingGarmentId}
         />
       </div>
     </aside>

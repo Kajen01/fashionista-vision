@@ -321,6 +321,46 @@ router.post('/garments/upload', garmentUpload.single('garment'), async (req, res
   }
 });
 
+router.delete('/garments/:id', (req, res) => {
+  try {
+    const garmentId = req.params.id;
+    if (!garmentId.startsWith('upload-')) {
+      return res.status(403).json({ message: 'Only uploaded garments can be deleted.' });
+    }
+
+    const currentGarments = readUploadedGarments();
+    const garmentIndex = currentGarments.findIndex((g) => g.id === garmentId);
+
+    if (garmentIndex === -1) {
+      return res.status(404).json({ message: 'Garment not found.' });
+    }
+
+    const [garment] = currentGarments.splice(garmentIndex, 1);
+
+    // Delete associated files
+    const attemptUnlink = (url) => {
+      if (url && url.startsWith('/uploads/')) {
+        const fullPath = path.join(__dirname, '..', url.replace(/^\/uploads\//, 'uploads/'));
+        if (fs.existsSync(fullPath)) {
+          fs.unlinkSync(fullPath);
+        }
+      }
+    };
+
+    attemptUnlink(garment.pngUrl || garment.thumbnail || garment.previewUrl);
+    
+    if (garment.processedImageUrl && garment.processedImageUrl !== (garment.pngUrl || garment.thumbnail || garment.previewUrl)) {
+      attemptUnlink(garment.processedImageUrl);
+    }
+
+    writeJsonArray(UPLOADED_GARMENTS_PATH, currentGarments);
+    res.json({ message: 'Garment deleted successfully.' });
+  } catch (error) {
+    console.error('Garment deletion failed:', error);
+    res.status(500).json({ message: error.message || 'Failed to delete garment.' });
+  }
+});
+
 router.post('/upload', upload.single('image'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: 'No file uploaded' });

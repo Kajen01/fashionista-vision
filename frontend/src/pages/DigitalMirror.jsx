@@ -25,6 +25,8 @@ const DigitalMirror = () => {
     garmentsError,
     uploadingGarment,
     uploadGarment,
+    deleteGarment,
+    deletingGarmentId,
   } = useGarmentLibrary();
 
   const {
@@ -64,7 +66,7 @@ const DigitalMirror = () => {
 
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,_#fffaf8_0%,_#ffffff_45%,_#f8fafc_100%)] pb-12 pt-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto w-[95vw] px-4">
         <header className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.35em] text-rose-500">Live Styling Studio</p>
@@ -126,6 +128,8 @@ const DigitalMirror = () => {
               onSelectGarment={setSelectedGarment}
               onUploadGarment={handleUploadGarment}
               uploadingGarment={uploadingGarment}
+              onDeleteGarment={deleteGarment}
+              deletingGarmentId={deletingGarmentId}
               toggles={toggles}
               setToggles={setToggles}
               params={params}
