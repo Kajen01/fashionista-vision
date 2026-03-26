@@ -25,6 +25,7 @@ import AdminUsers from './pages/admin/AdminUsers';
 import AdminUserEdit from './pages/admin/AdminUserEdit';
 import AdminProducts from './pages/admin/AdminProducts';
 import AdminProductForm from './pages/admin/AdminProductForm';
+import AdminOrders from './pages/admin/AdminOrders';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { STRIPE_PUBLISHABLE_KEY } from './utils/runtimeConfig';
@@ -92,6 +93,14 @@ function App() {
                     element={(
                       <AdminRoute>
                         <AdminProductForm />
+                      </AdminRoute>
+                    )}
+                  />
+                  <Route
+                    path="/admin/orders"
+                    element={(
+                      <AdminRoute>
+                        <AdminOrders />
                       </AdminRoute>
                     )}
                   />

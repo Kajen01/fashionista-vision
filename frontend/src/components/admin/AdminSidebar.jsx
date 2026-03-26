@@ -4,6 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 const sidebarItems = [
   { path: '/admin', label: 'Dashboard' },
   { path: '/admin/users', label: 'Users' },
+  { path: '/admin/orders', label: 'Orders' },
   { path: '/admin/products', label: 'Products' },
 ];
 
@@ -14,7 +15,7 @@ const AdminSidebar = () => {
         <p className="text-xs font-semibold uppercase tracking-[0.35em] text-rose-500">Admin Panel</p>
         <h2 className="mt-3 text-2xl font-semibold text-slate-900">Control Center</h2>
         <p className="mt-2 text-sm text-slate-500">
-          Manage users and the MongoDB product collection from one protected space.
+          Manage users, orders, and the MongoDB product collection from one protected space.
         </p>
       </div>
 

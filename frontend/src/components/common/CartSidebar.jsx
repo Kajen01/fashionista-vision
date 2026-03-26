@@ -8,6 +8,33 @@ import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { buildBackendUrl, resolveProductImageUrl } from '../../utils/runtimeConfig';
 import { useAuth } from '../../hooks/useAuth';
 import { toast } from 'react-hot-toast';
+import { orderApi } from '../../utils/orderApi';
+
+function getChargedUnitPrice(item) {
+  const discount = item.discount || 0;
+  const finalPrice = discount > 0 ? item.price * (1 - discount / 100) : item.price;
+  return Math.round(finalPrice * 100);
+}
+
+function buildOrderPayload(cartItems, paymentIntentId) {
+  return {
+    paymentIntentId,
+    items: cartItems.map((item) => ({
+      id: item.id,
+      name: item.name,
+      price: getChargedUnitPrice(item),
+      quantity: item.quantity,
+      size: item.size || null,
+      color: item.color || null,
+      image: item.image || null,
+    })),
+    totalAmount: cartItems.reduce(
+      (sum, item) => sum + (getChargedUnitPrice(item) * item.quantity),
+      0
+    ),
+    currency: 'usd',
+  };
+}
 
 const CartSidebar = () => {
   const { cartItems, isCartOpen, toggleCart, removeFromCart, updateQuantity, getCartTotal, clearCart } = useCart();
@@ -24,12 +51,10 @@ const CartSidebar = () => {
     try {
       const res = await axios.post(buildBackendUrl('/api/checkout'), {
         items: cartItems.map(item => {
-          const discount = item.discount || 0;
-          const finalPrice = discount > 0 ? item.price * (1 - discount / 100) : item.price;
           return {
             id: item.id,
             name: item.name,
-            price: Math.round(finalPrice * 100),
+            price: getChargedUnitPrice(item),
             quantity: item.quantity
           };
         })
@@ -50,8 +75,17 @@ const CartSidebar = () => {
       if (result.error) {
         toast.error(result.error.message);
       } else if (result.paymentIntent.status === 'succeeded') {
-        toast.success('Payment successful!');
-        clearCart()
+        try {
+          await orderApi.createOrder(
+            buildOrderPayload(cartItems, result.paymentIntent.id),
+            token
+          );
+          toast.success('Payment successful! Your order is now available in your profile.');
+          clearCart();
+        } catch (orderError) {
+          console.error('Payment succeeded but order creation failed:', orderError);
+          toast.error(`Payment succeeded, but saving the order failed. Please keep this payment id: ${result.paymentIntent.id}`);
+        }
       }
     } catch (err) {
       console.error('Error during checkout:', err);
