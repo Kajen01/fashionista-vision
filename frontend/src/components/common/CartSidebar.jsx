@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Plus, Minus, ShoppingCart } from 'lucide-react';
+import { X, Plus, Minus, ShoppingCart, CheckSquare, Square } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { formatCurrency } from '../../utils/helpers';
 import axios from 'axios';
@@ -37,7 +37,18 @@ function buildOrderPayload(cartItems, paymentIntentId) {
 }
 
 const CartSidebar = () => {
-  const { cartItems, isCartOpen, toggleCart, removeFromCart, updateQuantity, getCartTotal, clearCart } = useCart();
+  const {
+    cartItems,
+    isCartOpen,
+    toggleCart,
+    removeFromCart,
+    updateQuantity,
+    toggleItemSelection,
+    getSelectedCartItems,
+    getSelectedCartTotal,
+    removeSelectedCartItems,
+    hasSelectedItems,
+  } = useCart();
   const { token, requireLogin } = useAuth();
 
   const stripe = useStripe();
@@ -48,9 +59,16 @@ const CartSidebar = () => {
     if (!stripe || !elements) return;
     if (!requireLogin('checkout')) return;
 
+    const selectedItems = getSelectedCartItems();
+
+    if (selectedItems.length === 0) {
+      toast.error('Select at least one item to checkout.');
+      return;
+    }
+
     try {
       const res = await axios.post(buildBackendUrl('/api/checkout'), {
-        items: cartItems.map(item => {
+        items: selectedItems.map(item => {
           return {
             id: item.id,
             name: item.name,
@@ -77,11 +95,11 @@ const CartSidebar = () => {
       } else if (result.paymentIntent.status === 'succeeded') {
         try {
           await orderApi.createOrder(
-            buildOrderPayload(cartItems, result.paymentIntent.id),
+            buildOrderPayload(selectedItems, result.paymentIntent.id),
             token
           );
           toast.success('Payment successful! Your order is now available in your profile.');
-          clearCart();
+          removeSelectedCartItems();
         } catch (orderError) {
           console.error('Payment succeeded but order creation failed:', orderError);
           toast.error(`Payment succeeded, but saving the order failed. Please keep this payment id: ${result.paymentIntent.id}`);
@@ -112,7 +130,7 @@ const CartSidebar = () => {
             className="fixed right-0 top-0 h-full w-96 bg-white shadow-2xl z-50 flex flex-col"
           >
             <div className="flex items-center justify-between p-6 border-b">
-              <h3 className="text-lg font-semibold text-gray-900">Shopping Cart</h3>
+              <h3 className="text-base font-semibold text-gray-900">Shopping Cart</h3>
               <button
                 onClick={toggleCart}
                 className="text-gray-500 hover:text-gray-700"
@@ -123,34 +141,49 @@ const CartSidebar = () => {
 
             <div className="flex-1 overflow-y-auto">
               {cartItems.length === 0 ? (
-                <div className="flex flex-col items-center justify-center h-full text-gray-500">
+                <div className="flex flex-col items-center justify-center h-full text-sm text-gray-500">
                   <ShoppingCart className="w-16 h-16 mb-4" />
                   <p>Your cart is empty</p>
                 </div>
               ) : (
                 <div className="divide-y">
                   {cartItems.map((item) => (
-                    <div key={`${item.id}-${item.size}-${item.color}`} className="p-4">
-                      <div className="flex items-center space-x-4">
+                    <div
+                      key={`${item.id}-${item.size}-${item.color}`}
+                      className={`p-4 transition-opacity ${item.isSelected ? 'opacity-100' : 'opacity-70'}`}
+                    >
+                      <div className="flex items-center space-x-3">
+                        <button
+                          onClick={() => toggleItemSelection(item.id, item.size, item.color)}
+                          className="text-slate-500 transition hover:text-rose-600"
+                          aria-label={item.isSelected ? 'Untick item from checkout' : 'Tick item for checkout'}
+                          title={item.isSelected ? 'Included in checkout' : 'Excluded from checkout'}
+                        >
+                          {item.isSelected ? (
+                            <CheckSquare className="h-5 w-5 text-rose-600" />
+                          ) : (
+                            <Square className="h-5 w-5" />
+                          )}
+                        </button>
                         <img
                           src={resolveProductImageUrl(item)}
                           alt={item.name}
                           className="w-16 h-16 object-cover rounded"
                         />
                         <div className="flex-1">
-                          <h4 className="font-medium text-sm">{item.name}</h4>
-                          <p className="text-xs text-gray-500">
+                          <h4 className="text-[13px] font-medium">{item.name}</h4>
+                          <p className="text-[11px] text-gray-500">
                             Size: {item.size} | Color: {item.color}
                           </p>
                           {(item.discount || 0) > 0 ? (
                             <div className="flex items-center gap-2 mt-0.5">
-                              <p className="text-rose-600 font-bold">
+                              <p className="text-sm font-bold text-rose-600">
                                 LKR {(item.price * (1 - item.discount / 100)).toFixed(2)}
                               </p>
-                              <p className="text-xs text-gray-400 line-through">LKR {item.price}</p>
+                              <p className="text-[11px] text-gray-400 line-through">LKR {item.price}</p>
                             </div>
                           ) : (
-                            <p className="text-rose-600 font-bold mt-0.5">LKR {item.price}</p>
+                            <p className="mt-0.5 text-sm font-bold text-rose-600">LKR {item.price}</p>
                           )}
                         </div>
                         <div className="flex items-center space-x-2">
@@ -160,7 +193,7 @@ const CartSidebar = () => {
                           >
                             <Minus className="w-4 h-4" />
                           </button>
-                          <span className="w-8 text-center">{item.quantity}</span>
+                          <span className="w-8 text-center text-sm">{item.quantity}</span>
                           <button
                             onClick={() => updateQuantity(item.id, item.size, item.color, item.quantity + 1)}
                             className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50"
@@ -184,9 +217,9 @@ const CartSidebar = () => {
             {cartItems.length > 0 && (
               <div className="p-6 border-t">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-lg font-semibold">Total:</span>
-                  <span className="text-xl font-bold text-rose-600">
-                    {formatCurrency(getCartTotal())}
+                  <span className="text-base font-semibold">Selected Total:</span>
+                  <span className="text-lg font-bold text-rose-600">
+                    {formatCurrency(getSelectedCartTotal())}
                   </span>
                 </div>
                 <div className="my-4">
@@ -194,7 +227,7 @@ const CartSidebar = () => {
                     options={{
                       style: {
                         base: {
-                          fontSize: '16px',
+                          fontSize: '14px',
                           color: '#424770',
                           '::placeholder': { color: '#aab7c4' },
                         },
@@ -206,7 +239,11 @@ const CartSidebar = () => {
 
                 <button
                   onClick={handleCheckout}
-                  className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition-colors duration-200 font-semibold">
+                  className={`w-full rounded-lg py-3 text-sm font-semibold text-white transition-colors duration-200 ${
+                    hasSelectedItems()
+                      ? 'bg-gray-900 hover:bg-gray-800'
+                      : 'bg-gray-400 hover:bg-gray-400'
+                  }`}>
                   Checkout
                 </button>
               </div>

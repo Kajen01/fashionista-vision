@@ -42,7 +42,25 @@ function formatStatusLabel(value = '') {
     return 'N/A';
   }
 
+  if (normalized === 'placed') {
+    return 'Order Status';
+  }
+
   return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+}
+
+function getOrderItemCount(order) {
+  return (order.items || []).reduce((sum, item) => sum + (Number(item.quantity) || 0), 0);
+}
+
+function getTrackingNumber(order) {
+  const rawValue = order.trackingNumber || order.id || order._id || '';
+  const trackingNumber = String(rawValue)
+    .replace(/[^a-zA-Z0-9]/g, '')
+    .slice(-12)
+    .toUpperCase();
+
+  return trackingNumber || 'Not assigned yet';
 }
 
 function getOrderStatusClasses(status) {
@@ -392,11 +410,11 @@ const Profile = () => {
                       <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                         <div className="rounded-2xl border border-slate-100 bg-white px-4 py-3">
                           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Tracking</p>
-                          <p className="mt-2 text-sm font-medium text-slate-700">{order.trackingNumber || 'Not assigned yet'}</p>
+                          <p className="mt-2 text-sm font-medium text-slate-700">{getTrackingNumber(order)}</p>
                         </div>
                         <div className="rounded-2xl border border-slate-100 bg-white px-4 py-3">
                           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Items</p>
-                          <p className="mt-2 text-sm font-medium text-slate-700">{order.items?.length || 0}</p>
+                          <p className="mt-2 text-sm font-medium text-slate-700">{getOrderItemCount(order)}</p>
                         </div>
                         <div className="rounded-2xl border border-slate-100 bg-white px-4 py-3">
                           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Shipped</p>

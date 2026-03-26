@@ -28,7 +28,23 @@ function formatStatusLabel(value = '') {
     return 'N/A';
   }
 
+  if (normalized === 'placed') {
+    return 'Order Status';
+  }
+
   return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+}
+
+function getOrderItemCount(order) {
+  return (order.items || []).reduce((sum, item) => sum + (Number(item.quantity) || 0), 0);
+}
+
+function getTrackingNumber(order) {
+  const rawValue = order.trackingNumber || order.id || order._id || '';
+  return String(rawValue)
+    .replace(/[^a-zA-Z0-9]/g, '')
+    .slice(-12)
+    .toUpperCase();
 }
 
 function getOrderStatusClasses(status) {
@@ -53,6 +69,7 @@ const AdminOrders = () => {
   const [filterStatus, setFilterStatus] = useState('all');
   const [loading, setLoading] = useState(true);
   const [savingOrderId, setSavingOrderId] = useState('');
+  const [deletingOrderId, setDeletingOrderId] = useState('');
 
   useEffect(() => {
     const loadOrders = async () => {
@@ -67,8 +84,8 @@ const AdminOrders = () => {
           nextOrders.reduce((accumulator, order) => {
             const orderId = order.id || order._id;
             accumulator[orderId] = {
-              orderStatus: order.orderStatus || 'placed',
-              trackingNumber: order.trackingNumber || '',
+              orderStatus: order.orderStatus || 'processing',
+              trackingNumber: getTrackingNumber(order),
             };
             return accumulator;
           }, {})
@@ -103,6 +120,30 @@ const AdminOrders = () => {
     }));
   };
 
+  const handleDelete = async (orderId) => {
+    const shouldDelete = window.confirm('Delete this order permanently from the admin panel?');
+    if (!shouldDelete) {
+      return;
+    }
+
+    setDeletingOrderId(orderId);
+
+    try {
+      const response = await orderApi.deleteOrder(orderId, token);
+      setOrders((current) => current.filter((order) => (order.id || order._id) !== orderId));
+      setDrafts((current) => {
+        const nextDrafts = { ...current };
+        delete nextDrafts[orderId];
+        return nextDrafts;
+      });
+      toast.success(response.message || 'Order deleted successfully.');
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setDeletingOrderId('');
+    }
+  };
+
   const handleSave = async (orderId) => {
     const draft = drafts[orderId];
     if (!draft) {
@@ -129,8 +170,8 @@ const AdminOrders = () => {
       setDrafts((current) => ({
         ...current,
         [orderId]: {
-          orderStatus: nextOrder.orderStatus || 'placed',
-          trackingNumber: nextOrder.trackingNumber || '',
+          orderStatus: nextOrder.orderStatus || 'processing',
+          trackingNumber: getTrackingNumber(nextOrder),
         },
       }));
       toast.success(response.message || 'Order updated successfully.');
@@ -175,8 +216,8 @@ const AdminOrders = () => {
           filteredOrders.map((order) => {
             const orderId = order.id || order._id;
             const draft = drafts[orderId] || {
-              orderStatus: order.orderStatus || 'placed',
-              trackingNumber: order.trackingNumber || '',
+              orderStatus: order.orderStatus || 'processing',
+              trackingNumber: getTrackingNumber(order),
             };
 
             return (
@@ -212,11 +253,11 @@ const AdminOrders = () => {
                 <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                   <div className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3">
                     <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Tracking</p>
-                    <p className="mt-2 text-sm font-medium text-slate-700">{order.trackingNumber || 'Not assigned yet'}</p>
+                    <p className="mt-2 text-sm font-medium text-slate-700">{getTrackingNumber(order)}</p>
                   </div>
                   <div className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3">
                     <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Items</p>
-                    <p className="mt-2 text-sm font-medium text-slate-700">{order.items?.length || 0}</p>
+                    <p className="mt-2 text-sm font-medium text-slate-700">{getOrderItemCount(order)}</p>
                   </div>
                   <div className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3">
                     <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Shipped</p>
@@ -256,18 +297,26 @@ const AdminOrders = () => {
                       type="text"
                       value={draft.trackingNumber}
                       onChange={(event) => handleDraftChange(orderId, 'trackingNumber', event.target.value)}
-                      placeholder="Add or update tracking"
+                      placeholder="12-character tracking"
+                      maxLength={12}
                       className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-rose-400 focus:ring-4 focus:ring-rose-100"
                     />
                   </div>
 
-                  <div className="flex items-end">
+                  <div className="flex items-end gap-3">
                     <button
                       onClick={() => handleSave(orderId)}
-                      disabled={savingOrderId === orderId}
+                      disabled={savingOrderId === orderId || deletingOrderId === orderId}
                       className="rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {savingOrderId === orderId ? 'Saving...' : 'Save Order'}
+                    </button>
+                    <button
+                      onClick={() => handleDelete(orderId)}
+                      disabled={savingOrderId === orderId || deletingOrderId === orderId}
+                      className="rounded-full border border-red-200 bg-red-50 px-5 py-3 text-sm font-semibold text-red-600 transition hover:bg-red-100 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {deletingOrderId === orderId ? 'Deleting...' : 'Delete Order'}
                     </button>
                   </div>
                 </div>

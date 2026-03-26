@@ -4,6 +4,13 @@ import { useAuth } from '../hooks/useAuth';
 
 export const  CartContext = createContext();
 
+function normalizeCartItem(item = {}) {
+  return {
+    ...item,
+    isSelected: item.isSelected !== false,
+  };
+}
+
 export const CartProvider = ({ children }) => {
   const { user, isAuthenticated, requireLogin } = useAuth();
   const [cartItems, setCartItems] = useState([]);
@@ -21,7 +28,8 @@ export const CartProvider = ({ children }) => {
 
     const storageKey = getCartStorageKey();
     const saved = storageKey ? localStorage.getItem(storageKey) : null;
-    setCartItems(saved ? JSON.parse(saved) : []);
+    const parsedItems = saved ? JSON.parse(saved) : [];
+    setCartItems(Array.isArray(parsedItems) ? parsedItems.map(normalizeCartItem) : []);
   }, [isAuthenticated, userId]);
 
   useEffect(() => {
@@ -41,27 +49,29 @@ export const CartProvider = ({ children }) => {
       return false;
     }
 
-    const existingItem = cartItems.find(
-      item => item.id === product.id && item.size === size && item.color === color
-    );
+    setCartItems((current) => {
+      const existingItem = current.find(
+        (item) => item.id === product.id && item.size === size && item.color === color
+      );
 
-    if (existingItem) {
-      setCartItems(cartItems.map(item =>
-        item.id === product.id && item.size === size && item.color === color
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      ));
-    } else {
-      setCartItems([...cartItems, { ...product, quantity: 1, size, color }]);
-    }
+      if (existingItem) {
+        return current.map((item) =>
+          item.id === product.id && item.size === size && item.color === color
+            ? { ...item, quantity: item.quantity + 1, isSelected: true }
+            : item
+        );
+      }
+
+      return [...current, { ...product, quantity: 1, size, color, isSelected: true }];
+    });
 
     toast.success(`${product.name} added to cart.`);
     return true;
   };
 
   const removeFromCart = (productId, size, color) => {
-    setCartItems(cartItems.filter(
-      item => !(item.id === productId && item.size === size && item.color === color)
+    setCartItems((current) => current.filter(
+      (item) => !(item.id === productId && item.size === size && item.color === color)
     ));
   };
 
@@ -71,9 +81,17 @@ export const CartProvider = ({ children }) => {
       return;
     }
 
-    setCartItems(cartItems.map(item =>
+    setCartItems((current) => current.map((item) =>
       item.id === productId && item.size === size && item.color === color
         ? { ...item, quantity }
+        : item
+    ));
+  };
+
+  const toggleItemSelection = (productId, size, color) => {
+    setCartItems((current) => current.map((item) =>
+      item.id === productId && item.size === size && item.color === color
+        ? { ...item, isSelected: !item.isSelected }
         : item
     ));
   };
@@ -110,6 +128,30 @@ export const CartProvider = ({ children }) => {
     }, 0);
   };
 
+  const getSelectedCartItems = () => {
+    return cartItems.filter((item) => item.isSelected);
+  };
+
+  const getSelectedCartTotal = () => {
+    return cartItems.reduce((total, item) => {
+      if (!item.isSelected) {
+        return total;
+      }
+
+      const discount = item.discount || 0;
+      const finalPrice = discount > 0 ? item.price * (1 - discount / 100) : item.price;
+      return total + (finalPrice * item.quantity);
+    }, 0);
+  };
+
+  const removeSelectedCartItems = () => {
+    setCartItems((current) => current.filter((item) => !item.isSelected));
+  };
+
+  const hasSelectedItems = () => {
+    return cartItems.some((item) => item.isSelected);
+  };
+
   const value = {
     cartItems,
     isCartOpen,
@@ -119,6 +161,11 @@ export const CartProvider = ({ children }) => {
     toggleCart,
     clearCart,
     getCartTotal,
+    toggleItemSelection,
+    getSelectedCartItems,
+    getSelectedCartTotal,
+    removeSelectedCartItems,
+    hasSelectedItems,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

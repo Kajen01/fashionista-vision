@@ -15,6 +15,31 @@ function normalizeString(value = "") {
   return trimmed || null;
 }
 
+function buildTrackingNumber(source) {
+  return String(source || "")
+    .replace(/[^a-zA-Z0-9]/g, "")
+    .slice(-12)
+    .toUpperCase();
+}
+
+function normalizeTrackingNumber(value) {
+  const normalized = normalizeString(value);
+
+  if (!normalized) {
+    return null;
+  }
+
+  const trackingNumber = buildTrackingNumber(normalized);
+
+  if (trackingNumber.length !== 12) {
+    const error = new Error("Tracking number must be exactly 12 characters.");
+    error.statusCode = 400;
+    throw error;
+  }
+
+  return trackingNumber;
+}
+
 function isAdmin(user) {
   return (user?.role || (user?.isAdmin ? "admin" : "user")) === "admin";
 }
@@ -176,7 +201,7 @@ export const createOrderFromSuccessfulPayment = async (req, res) => {
 
     const items = rawItems.map(normalizeOrderItem);
 
-    const order = await Order.create({
+    const order = new Order({
       user: req.user._id,
       items,
       totalAmount,
@@ -184,8 +209,10 @@ export const createOrderFromSuccessfulPayment = async (req, res) => {
       paymentMethod: "stripe",
       paymentIntentId,
       paymentStatus: "paid",
-      orderStatus: "placed",
+      orderStatus: "processing",
     });
+    order.trackingNumber = buildTrackingNumber(order._id);
+    await order.save();
 
     const populatedOrder = await Order.findById(order._id).populate("user", "name email");
 
@@ -289,7 +316,9 @@ export const updateOrderStatus = async (req, res) => {
     }
 
     if (nextTrackingNumber !== undefined) {
-      order.trackingNumber = nextTrackingNumber;
+      order.trackingNumber = nextTrackingNumber === null
+        ? buildTrackingNumber(order._id)
+        : normalizeTrackingNumber(nextTrackingNumber);
     }
 
     const updatedOrder = await order.save();
@@ -298,6 +327,19 @@ export const updateOrderStatus = async (req, res) => {
     res.json({
       message: "Order updated successfully.",
       order: mapOrder(populatedOrder || updatedOrder),
+    });
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
+  }
+};
+
+export const deleteOrder = async (req, res) => {
+  try {
+    const order = await loadOrderOrThrow(req.params.id);
+    await order.deleteOne();
+
+    res.json({
+      message: "Order deleted successfully.",
     });
   } catch (error) {
     res.status(error.statusCode || 500).json({ message: error.message });

@@ -59,7 +59,7 @@ const orderSchema = new mongoose.Schema(
     orderStatus: {
       type: String,
       enum: ["placed", "processing", "shipped", "delivered", "cancelled"],
-      default: "placed",
+      default: "processing",
     },
     trackingNumber: { type: String, default: null },
     placedAt: { type: Date, default: Date.now },

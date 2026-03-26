@@ -3,6 +3,7 @@ import { protect } from "../middleware/authMiddleware.js";
 import { requireAdmin } from "../middleware/roleMiddleware.js";
 import {
   createOrderFromSuccessfulPayment,
+  deleteOrder,
   getAllOrders,
   getMyOrders,
   getOrderById,
@@ -16,5 +17,6 @@ router.get("/my", protect, getMyOrders);
 router.get("/", protect, requireAdmin, getAllOrders);
 router.get("/:id", protect, getOrderById);
 router.put("/:id/status", protect, requireAdmin, updateOrderStatus);
+router.delete("/:id", protect, requireAdmin, deleteOrder);
 
 export default router;

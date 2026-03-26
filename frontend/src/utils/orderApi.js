@@ -46,4 +46,7 @@ export const orderApi = {
   updateOrderStatus(id, payload, token) {
     return request(orderClient.put(`/${id}/status`, payload, withAuth(token)));
   },
+  deleteOrder(id, token) {
+    return request(orderClient.delete(`/${id}`, withAuth(token)));
+  },
 };
