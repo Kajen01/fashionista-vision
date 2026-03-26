@@ -5,6 +5,7 @@ import { useCart } from '../../context/CartContext';
 import { ShoppingCart, Eye } from 'lucide-react';
 import QuickViewModal from "../common/QuickViewModal";
 import { resolveProductImageUrl } from '../../utils/runtimeConfig';
+import ProductStarRating from '../ratings/ProductStarRating';
 
 const FeaturedCollection = () => {
   const { filteredProducts } = useProducts();
@@ -82,6 +83,7 @@ const FeaturedCollection = () => {
               </div>
               <div className="p-4">
                 <h3 className="font-semibold text-gray-800 mb-2">{product.name}</h3>
+                <ProductStarRating product={product} className="mb-3" />
                 <p className="text-gray-600 text-sm mb-3">{product.description}</p>
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-2">

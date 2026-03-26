@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import MirrorSidebar from '../components/digital-mirror/MirrorSidebar';
 import MirrorStage from '../components/digital-mirror/MirrorStage';
 import { RefreshCw } from 'lucide-react';
@@ -136,6 +137,24 @@ const DigitalMirror = () => {
               setParams={setParams}
               onReset={handleReset}
             />
+          </div>
+        </div>
+
+        <div className="mt-12 rounded-[2rem] border border-cyan-100 bg-cyan-50 px-6 py-5 shadow-sm">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-600">Experience Feedback</p>
+          <div className="mt-3 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-3xl">
+              <h2 className="text-2xl font-semibold text-slate-900">Rate the Digital Mirror in your profile</h2>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                We added a dedicated Digital Mirror rating card in your profile so you can score realism, usefulness, and overall satisfaction after using the live try-on flow.
+              </p>
+            </div>
+            <Link
+              to="/profile#digital-mirror-feature-rating"
+              className="inline-flex rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+            >
+              Open Digital Mirror Rating
+            </Link>
           </div>
         </div>
       </div>

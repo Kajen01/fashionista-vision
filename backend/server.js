@@ -8,6 +8,8 @@ dotenv.config();
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
+import productReviewRoutes from "./routes/productReviewRoutes.js";
+import featureRatingRoutes from "./routes/featureRatingRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import trialRoomRoutes from "./routes/trialRoomRoutes.js";
 import connectDB from "./config/db.js"
@@ -45,6 +47,8 @@ app.use("/uploads/trialroom", express.static(path.join(__dirname, "uploads/trial
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/product-reviews", productReviewRoutes);
+app.use("/api/feature-ratings", featureRatingRoutes);
 app.use("/api/checkout", paymentRoutes);
 app.use("/api/trialroom", trialRoomRoutes);
 
