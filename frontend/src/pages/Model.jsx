@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { toast } from 'react-hot-toast';
 import { Upload, Camera, CheckCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import ProcessingSection from '../components/model/ProcessingSection';
 import ResultsSection from '../components/model/ResultsSection';
 import { useProductsModel } from "../context/ProductsContext";
@@ -370,6 +371,24 @@ const Model = () => {
                   predictedLabel={predictedLabel}
                   usedFallback={Boolean(matchSummary?.usedFallback)}
                 />
+
+                <div className="mt-6 w-full max-w-3xl rounded-2xl border border-rose-100 bg-rose-50 px-6 py-5 text-left">
+                  <p className="text-sm font-semibold uppercase tracking-[0.25em] text-rose-500">
+                    Feedback Loop
+                  </p>
+                  <h3 className="mt-2 text-xl font-semibold text-slate-900">
+                    Rate how helpful the Model felt
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                    Your profile now includes a dedicated Model feature rating card, so you can score this experience and help improve future recommendations.
+                  </p>
+                  <Link
+                    to="/profile#model-feature-rating"
+                    className="mt-4 inline-flex rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+                  >
+                    Open Model Rating in Profile
+                  </Link>
+                </div>
 
                 <button
                   onClick={resetUpload}

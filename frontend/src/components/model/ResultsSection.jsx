@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { ShoppingCart, Eye } from "lucide-react";
 import QuickViewModal from "../common/QuickViewModal";
 import { resolveProductImageUrl } from "../../utils/runtimeConfig";
+import ProductStarRating from "../ratings/ProductStarRating";
+import { getProductRatingSummary } from "../../utils/ratingHelpers";
 
 const ResultsSection = ({
   highlyRecommendedProducts = [],
@@ -25,6 +27,39 @@ const ResultsSection = ({
 
   const calculateFinalPrice = (price, discount) => {
     return Math.round(price - (price * discount) / 100);
+  };
+
+  const renderReviewBreakdown = (product) => {
+    const summary = getProductRatingSummary(product);
+
+    if (summary.reviewCount > 0) {
+      return (
+        <p className="mb-3 text-xs text-slate-500">
+          Style Match: {summary.styleMatchRatingAvg.toFixed(1)} | Quality: {summary.qualityRatingAvg.toFixed(1)}
+        </p>
+      );
+    }
+
+    return null;
+  };
+
+  const renderRecommendationReasons = (product) => {
+    if (!product.recommendationReasons?.length) {
+      return null;
+    }
+
+    return (
+      <div className="mb-3 flex flex-wrap gap-2">
+        {product.recommendationReasons.slice(0, 2).map((reason) => (
+          <span
+            key={`${product.id || product._id}-${reason}`}
+            className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-medium text-slate-600"
+          >
+            {reason}
+          </span>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -55,12 +90,11 @@ const ResultsSection = ({
         <div className="mx-auto mb-8 max-w-2xl rounded-2xl border border-blue-200 bg-blue-50 px-6 py-5 text-left">
           <h4 className="text-lg font-semibold text-blue-700">Showing the closest alternatives</h4>
           <p className="mt-2 text-sm text-blue-700">
-            We could not find a direct name match, so these results were ranked using color, gender, and garment-type signals.
+            We could not find a direct name match, so these results were ranked using color, gender, garment-type signals, and real review data when available.
           </p>
         </div>
       )}
 
-      {/* HIGHLY RECOMMENDED */}
       {highlyRecommendedProducts.length > 0 && (
         <div className="mb-10 border-4 border-green-500 rounded-xl p-6">
           <h3 className="text-2xl font-bold text-green-700 mb-6 text-center">
@@ -96,6 +130,9 @@ const ResultsSection = ({
                   <h4 className="font-semibold text-gray-800 mb-2">
                     {product.name}
                   </h4>
+                  <ProductStarRating product={product} className="mb-3" />
+                  {renderReviewBreakdown(product)}
+                  {renderRecommendationReasons(product)}
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-lg font-bold text-rose-600">
                       LKR {calculateFinalPrice(product.price, product.discount)}
@@ -118,7 +155,6 @@ const ResultsSection = ({
         </div>
       )}
 
-      {/* OTHER RECOMMENDED */}
       {otherRecommendedProducts.length > 0 && (
         <div className="border-4 border-blue-500 rounded-xl p-6">
           <h3 className="text-2xl font-bold text-blue-700 mb-6 text-center">
@@ -154,6 +190,9 @@ const ResultsSection = ({
                   <h4 className="font-semibold text-gray-800 mb-2">
                     {product.name}
                   </h4>
+                  <ProductStarRating product={product} className="mb-3" />
+                  {renderReviewBreakdown(product)}
+                  {renderRecommendationReasons(product)}
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-lg font-bold text-rose-600">
                       LKR {calculateFinalPrice(product.price, product.discount)}
@@ -176,7 +215,6 @@ const ResultsSection = ({
         </div>
       )}
 
-      {/* Quick View Modal */}
       <QuickViewModal
         product={selectedProduct}
         isOpen={isModalOpen}

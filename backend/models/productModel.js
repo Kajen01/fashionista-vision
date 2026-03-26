@@ -34,6 +34,30 @@ const productSchema = new mongoose.Schema(
 
     gender: { type: String, enum: ["Girls", "Boys", "Men", "Women", "Unisex"], required: true },
 
+    styleMatchRatingAvg: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+
+    qualityRatingAvg: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+
+    overallRatingAvg: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+
+    reviewCount: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

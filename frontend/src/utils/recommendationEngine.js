@@ -78,13 +78,11 @@ function scoreProduct(product, prediction) {
 
   if (predictedLabel && productName === normalizeText(predictedLabel)) {
     score += 120;
-    reasons.push('exact label match');
   }
 
   const sharedNameTokens = getSharedTokens(labelTokens, nameTokens);
   if (sharedNameTokens.length > 0) {
     score += sharedNameTokens.length * 20;
-    reasons.push(`shared style tokens: ${sharedNameTokens.join(', ')}`);
   }
 
   const sharedDescriptionTokens = getSharedTokens(labelTokens, descriptionTokens);
